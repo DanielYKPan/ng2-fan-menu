@@ -1,1 +1,18 @@
-<h1>Menu Container</h1>
+<div class="menu-container"
+     [ngStyle]="menuContainerStyle">
+    <button class="menu-btn"
+            [ngStyle]="{
+                width: menuOptions.MenuConfig.buttonWidth + 'px',
+                height: menuOptions.MenuConfig.buttonWidth + 'px'}"
+            (click)="toggleMenu()">
+        <span [@menuScaleInOut]="menuOptions.MenuConfig.defaultOpen.toString()"
+              (@menuScaleInOut.done)="animationDone($event)">
+            Menu
+        </span>
+        <span class="btn-cross"
+              [@crossScaleInOut]="menuOptions.MenuConfig.defaultOpen.toString()"
+              (@crossScaleInOut.done)="animationDone($event)">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABNklEQVRYR72X4RHCMAhGPzZwEx1BJ9cN1E3cAI+a3MWWJECT+qderu17IgFCzPzE73Mjok/6PvXCzCcAd4EQM78AnAHIdbpEAb8AeIuA2DyOkFjDAVxJwnCEhAon+iwCsyVq8CUHymybEYkWfCMwOhI9uCowSsICrwrslbDCmwJRCQ+8K+CV8MJNAlaJCNws0JOIwl0CNYlUR6SxLLV9Ka+OpvZXiCwtUClW8lgI7o5ApWzLsvuX53e5I1D8FTnsshRu5W4BJeFEIDxPuAS0bE+hDM8TZoHWVtvTRU0Cln0elegKWOCV3WFKzKaABx6VqApE4BEJVWAP3CuxERgB90hoQ2m4sWi9pLc71mP5ULglEuXBZAq8J5GPZlPhTYl0Og73c8sMUd6zzol8OpZ7XJOMF1yRwBcvdFd8lXEKegAAAABJRU5ErkJggg==">
+        </span>
+    </button>
+</div>
