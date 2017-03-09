@@ -10,6 +10,13 @@ export interface IMenuConfig {
     positionClass?: 'topLeft'| 'topRight'| 'bottomLeft' | 'bottomRight',
 }
 
+export interface IMenuWing {
+    title: string,
+    color: string,
+    titleColor: string,
+    icon?: {color: string, name: string, size: number}
+}
+
 @Injectable()
 export class MenuOptions {
 

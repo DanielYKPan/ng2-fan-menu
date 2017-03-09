@@ -3,7 +3,7 @@
  */
 
 import { Component, OnInit, Input, trigger, state, style, transition, animate, HostListener } from '@angular/core';
-import { MenuOptions, IMenuConfig } from './menu-options.service';
+import { MenuOptions, IMenuConfig, IMenuWing } from './menu-options.service';
 
 // webpack1_
 declare let require: any;
@@ -46,6 +46,8 @@ export class MenuContainerComponent implements OnInit {
 
     // The space between the menu and the boundaries of the page window
     @Input() private gutter: Object;
+
+    @Input() private wings: IMenuWing[];
 
     private menuContainerStyle = {
         'width.px': this.menuOptions.MenuConfig.buttonWidth,
