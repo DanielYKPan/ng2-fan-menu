@@ -2,7 +2,7 @@
  * menu-container.component
  */
 
-import { Component, OnInit, Input, trigger, state, style, transition, animate } from '@angular/core';
+import { Component, OnInit, Input, trigger, state, style, transition, animate, HostListener } from '@angular/core';
 import { MenuOptions, IMenuConfig } from './menu-options.service';
 
 // webpack1_
@@ -55,8 +55,10 @@ export class MenuContainerComponent implements OnInit {
         'transition': 'none',
     };
 
-    // a flag to indicate if button text animation finished
-    private allowTransition: boolean = true;
+    private allowTransition: boolean = true; // a flag to indicate if button text animation finished
+    private dragStart: boolean = false; // A flag to indicate the drag move begins
+    private drag: boolean = false; // A flag to indicate if it is a drag move
+    private startEvent: MouseEvent;
 
     constructor( public menuOptions: MenuOptions ) {
     }
@@ -71,9 +73,53 @@ export class MenuContainerComponent implements OnInit {
     }
 
     public toggleMenu() {
-        if (this.allowTransition) {
+        if (this.drag) {
+
+            let centreX = window.innerWidth / 2 -
+                this.menuOptions.MenuConfig.buttonWidth / 2;
+            let centreY = window.innerHeight / 2 -
+                this.menuOptions.MenuConfig.buttonWidth / 2;
+
+            if (this.menuContainerStyle['top.px'] > centreY &&
+                this.menuContainerStyle['left.px'] < centreX) {
+                this.menuOptions.MenuConfig.positionClass = 'bottomLeft';
+            } else if (this.menuContainerStyle['top.px'] < centreY &&
+                this.menuContainerStyle['left.px'] < centreX) {
+                this.menuOptions.MenuConfig.positionClass = 'topLeft';
+            } else if (this.menuContainerStyle['top.px'] < centreY &&
+                this.menuContainerStyle['left.px'] > centreX) {
+                this.menuOptions.MenuConfig.positionClass = 'topRight';
+            } else if (this.menuContainerStyle['top.px'] > centreY &&
+                this.menuContainerStyle['left.px'] > centreX) {
+                this.menuOptions.MenuConfig.positionClass = 'bottomRight';
+            }
+            this.calculateMenuContainerPosition();
+            this.drag = false;
+        } else if (!this.drag && this.allowTransition) {
             this.menuOptions.toggleMenuState();
             this.allowTransition = false;
+        }
+    }
+
+    public onMouseDown( event: MouseEvent ): void {
+        this.dragStart = true;
+        this.startEvent = event;
+        this.menuContainerStyle['transition'] = 'none';
+    }
+
+    public onMouseUp( event: MouseEvent ): void {
+        this.dragStart = false;
+        this.menuContainerStyle['transition'] = 'all 900ms cubic-bezier(0.680, -0.550, 0.265, 1.550)';
+    }
+
+    @HostListener('document:mousemove', ['$event'])
+    public onMouseMove( event: MouseEvent ): void {
+        if (this.dragStart) {
+            this.drag = true;
+            let y = event.clientY - this.startEvent.offsetY;
+            let x = event.clientX - this.startEvent.offsetX;
+            this.menuContainerStyle['top.px'] = y;
+            this.menuContainerStyle['left.px'] = x;
         }
     }
 

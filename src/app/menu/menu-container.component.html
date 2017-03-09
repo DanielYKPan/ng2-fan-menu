@@ -4,7 +4,9 @@
             [ngStyle]="{
                 width: menuOptions.MenuConfig.buttonWidth + 'px',
                 height: menuOptions.MenuConfig.buttonWidth + 'px'}"
-            (click)="toggleMenu()">
+            (click)="toggleMenu()"
+            (mousedown)="onMouseDown($event)"
+            (mouseup)="onMouseUp($event)">
         <span [@menuScaleInOut]="menuOptions.MenuConfig.defaultOpen.toString()"
               (@menuScaleInOut.done)="animationDone($event)">
             Menu
