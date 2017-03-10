@@ -49,6 +49,8 @@ export class MenuContainerComponent implements OnInit {
 
     @Input() private wings: IMenuWing[];
 
+    @Input() private startAngles: Object; // the first wing starting angle
+
     private menuContainerStyle = {
         'width.px': this.menuOptions.MenuConfig.buttonWidth,
         'height.px': this.menuOptions.MenuConfig.buttonWidth,
@@ -61,13 +63,17 @@ export class MenuContainerComponent implements OnInit {
     private dragStart: boolean = false; // A flag to indicate the drag move begins
     private drag: boolean = false; // A flag to indicate if it is a drag move
     private startEvent: MouseEvent;
-    private svgPath: any;
+    private svgPath: string;
+    private menuState: boolean; // A flag to indicate if the menu is open
+    private positionClass: string; // menu's position
 
     constructor( public menuOptions: MenuOptions ) {
     }
 
     public ngOnInit() {
-        this.menuOptions.setMenuOptions(this.options, this.gutter);
+        this.menuOptions.setMenuOptions(this.options, this.gutter, this.startAngles);
+        this.menuState = this.menuOptions.MenuConfig.defaultOpen;
+        this.positionClass = this.menuOptions.MenuConfig.defaultPosition;
         this.calculateSvgPath();
         this.calculateMenuContainerPosition();
     }
@@ -86,21 +92,21 @@ export class MenuContainerComponent implements OnInit {
 
             if (this.menuContainerStyle['top.px'] > centreY &&
                 this.menuContainerStyle['left.px'] < centreX) {
-                this.menuOptions.MenuConfig.positionClass = 'bottomLeft';
+                this.positionClass = 'bottomLeft';
             } else if (this.menuContainerStyle['top.px'] < centreY &&
                 this.menuContainerStyle['left.px'] < centreX) {
-                this.menuOptions.MenuConfig.positionClass = 'topLeft';
+                this.positionClass = 'topLeft';
             } else if (this.menuContainerStyle['top.px'] < centreY &&
                 this.menuContainerStyle['left.px'] > centreX) {
-                this.menuOptions.MenuConfig.positionClass = 'topRight';
+                this.positionClass = 'topRight';
             } else if (this.menuContainerStyle['top.px'] > centreY &&
                 this.menuContainerStyle['left.px'] > centreX) {
-                this.menuOptions.MenuConfig.positionClass = 'bottomRight';
+                this.positionClass = 'bottomRight';
             }
             this.calculateMenuContainerPosition();
             this.drag = false;
         } else if (!this.drag && this.allowTransition) {
-            this.menuOptions.toggleMenuState();
+            this.menuState = !this.menuState;
             this.allowTransition = false;
         }
     }
@@ -128,24 +134,24 @@ export class MenuContainerComponent implements OnInit {
     }
 
     private calculateMenuContainerPosition() {
-        if (this.menuOptions.MenuConfig.positionClass === 'topLeft') {
+        if (this.positionClass === 'topLeft') {
 
             this.menuContainerStyle['top.px'] = this.menuOptions.Gutter.top;
             this.menuContainerStyle['left.px'] = this.menuOptions.Gutter.left;
 
-        } else if (this.menuOptions.MenuConfig.positionClass === 'topRight') {
+        } else if (this.positionClass === 'topRight') {
 
             this.menuContainerStyle['top.px'] = this.menuOptions.Gutter.top;
             this.menuContainerStyle['left.px'] = window.innerWidth - this.menuOptions.MenuConfig.buttonWidth -
                 this.menuOptions.Gutter.right;
 
-        } else if (this.menuOptions.MenuConfig.positionClass === 'bottomLeft') {
+        } else if (this.positionClass === 'bottomLeft') {
 
             this.menuContainerStyle['top.px'] = window.innerHeight - this.menuOptions.MenuConfig.buttonWidth -
                 this.menuOptions.Gutter.bottom;
             this.menuContainerStyle['left.px'] = this.menuOptions.Gutter.left;
 
-        } else if (this.menuOptions.MenuConfig.positionClass === 'bottomRight') {
+        } else if (this.positionClass === 'bottomRight') {
 
             this.menuContainerStyle['top.px'] = window.innerHeight - this.menuOptions.MenuConfig.buttonWidth
                 - this.menuOptions.Gutter.bottom;

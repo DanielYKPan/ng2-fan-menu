@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export interface IMenuConfig {
     buttonWidth?: number,
     defaultOpen?: boolean,
-    positionClass?: 'topLeft'| 'topRight'| 'bottomLeft' | 'bottomRight',
+    defaultPosition?: 'topLeft'| 'topRight'| 'bottomLeft' | 'bottomRight',
     radius?: number,
     angle?: number,
     offset?: number,
@@ -26,7 +26,7 @@ export class MenuOptions {
     private menuConfig: IMenuConfig = {
         buttonWidth: 60,
         defaultOpen: true,
-        positionClass: 'topLeft',
+        defaultPosition: 'topLeft',
         radius: 180, // The radius of the menu wings from the center of the button.
         angle: 30, // The angle at which each wing will open
         offset: 25, // The gap between the menu button and the menu item wings.
@@ -47,15 +47,25 @@ export class MenuOptions {
         return this.gutter
     }
 
+    // the first wing starting angle
+    private startAngles: {topLeft?: number, topRight?: number, bottomRight?: number, bottomLeft?: number} = {
+        topLeft: 0,
+        topRight: 90,
+        bottomRight: 180,
+        bottomLeft: 270
+    };
+
+    get StartAngles(): {topLeft?: number, topRight?: number, bottomRight?: number, bottomLeft?: number} {
+        return this.startAngles;
+    }
+
     constructor() {
     }
 
-    public setMenuOptions( menuConfig: IMenuConfig, gutter: Object ): void {
+    public setMenuOptions( menuConfig: IMenuConfig, gutter: Object, startAngles: Object ): void {
         this.menuConfig = Object.assign(this.menuConfig, menuConfig);
         this.gutter = Object.assign(this.gutter, gutter);
+        this.startAngles = Object.assign(this.startAngles, startAngles);
     }
 
-    public toggleMenuState(): void {
-        this.menuConfig.defaultOpen = !this.menuConfig.defaultOpen;
-    }
 }

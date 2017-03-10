@@ -1,0 +1,10 @@
+<div class="wing wing-{{index}}"
+     [ngStyle]="{transform: 'rotate(' + rotateDeg + 'deg) '+ 'scale(' + scaleSize +')' }">
+    <svg class="wing-svg" width="100%" height="100%">
+        <path style="pointer-events:auto;"
+              (mouseover)="onMouseOver()"
+              (mouseout)="onMouseOut()"
+              [attr.fill]="wing.color"
+              [attr.d]="svgPath"></path>
+    </svg>
+</div>
