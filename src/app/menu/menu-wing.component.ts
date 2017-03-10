@@ -23,17 +23,21 @@ export class MenuWingComponent implements OnInit, OnChanges, OnDestroy {
     @Input() svgPath: string;
     @Input() menuState: boolean;
     @Input() position: string;
-    @Input() private textRotate: number;
-    @Input() private textAnchor: string;
+    @Input() textRotate: number;
+    @Input() textAnchor: string;
 
     private timeOutId: number = 0;
     private scaleSize: number;
     private rotateDeg: number;
+    private iconX: number;
+    private iconY: number;
 
     constructor( private menuOptions: MenuOptions ) {
     }
 
     public ngOnInit() {
+        this.iconX = this.menuOptions.MenuConfig.radius - this.wing.icon.size - 8;
+        this.iconY = -(this.menuOptions.MenuConfig.radius / 2 + this.wing.icon.size / 2 + 5);
     }
 
     public ngOnDestroy(): void {

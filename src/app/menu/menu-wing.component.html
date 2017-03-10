@@ -16,4 +16,14 @@
               [attr.fill]="wing.titleColor">{{wing.title}}
         </text>
     </svg>
+    <i class="{{wing.icon.name}}"
+       [ngStyle]="{
+            'color': wing.icon.color,
+            'font-size': wing.icon.size + 'px',
+            'width': wing.icon.size + 'px',
+            'height': wing.icon.size + 'px',
+            'text-align': 'center',
+            'transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)',
+            'transform-origin': '50% 50%'
+       }"></i>
 </div>
