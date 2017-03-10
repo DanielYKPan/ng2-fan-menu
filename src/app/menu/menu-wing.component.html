@@ -18,6 +18,7 @@
               y="50%"
               dominant-baseline="central"
               style="text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);"
+              [ngStyle]="{'font-size': menuOptions.MenuConfig.wingFontSize + 'px'}"
               [attr.text-anchor]="textAnchor"
               [attr.transform]="'rotate('+ textRotate + ', ' + menuOptions.MenuConfig.radius/2  + ', ' + menuOptions.MenuConfig.radius/2 + ')'"
               [attr.fill]="wing.titleColor || menuOptions.MenuConfig.wingFontColor">{{wing.title}}
