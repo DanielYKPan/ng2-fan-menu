@@ -47,7 +47,7 @@ export class MenuOptions {
         offset: 25, // The gap between the menu button and the menu item wings.
         showIcons: true, // A flag that determines whether to show icon.
         onlyIcons: false, // A flag that determines whether only show all icons and hide the wing title
-        wingFontSize: 14,
+        wingFontSize: 16,
         wingFontWeight: 600,
         wingFontColor: '#ffffff',
         wingIconSize: 35,

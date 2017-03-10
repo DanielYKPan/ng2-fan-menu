@@ -20,7 +20,7 @@ var MenuOptions = (function () {
             offset: 25,
             showIcons: true,
             onlyIcons: false,
-            wingFontSize: 14,
+            wingFontSize: 16,
             wingFontWeight: 600,
             wingFontColor: '#ffffff',
             wingIconSize: 35,
