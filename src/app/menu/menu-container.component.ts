@@ -58,8 +58,6 @@ export class MenuContainerComponent implements OnInit {
     private menuListStyle: Object;
     private allowTransition: boolean = true; // a flag to indicate if button text animation finished
     private dragStart: boolean = false; // A flag to indicate the drag move begins
-    private drag: boolean = false; // A flag to indicate if it is a drag move
-    private startEvent: MouseEvent;
     private svgPath: string;
     private menuState: boolean; // A flag to indicate if the menu is open
     private positionClass: string; // menu's position
@@ -83,61 +81,57 @@ export class MenuContainerComponent implements OnInit {
     }
 
     public toggleMenu() {
-        if (this.drag) {
-
-            let centreX = window.innerWidth / 2 -
-                this.menuOptions.Button.width / 2;
-            let centreY = window.innerHeight / 2 -
-                this.menuOptions.Button.width / 2;
-
-            if (this.menuContainerStyle['top.px'] > centreY &&
-                this.menuContainerStyle['left.px'] < centreX) {
-                this.positionClass = 'bottomLeft';
-                this.textRotate = 0;
-                this.textAnchor = 'start';
-            } else if (this.menuContainerStyle['top.px'] < centreY &&
-                this.menuContainerStyle['left.px'] < centreX) {
-                this.positionClass = 'topLeft';
-                this.textRotate = 0;
-                this.textAnchor = 'start';
-            } else if (this.menuContainerStyle['top.px'] < centreY &&
-                this.menuContainerStyle['left.px'] > centreX) {
-                this.positionClass = 'topRight';
-                this.textRotate = 180;
-                this.textAnchor = 'end';
-            } else if (this.menuContainerStyle['top.px'] > centreY &&
-                this.menuContainerStyle['left.px'] > centreX) {
-                this.positionClass = 'bottomRight';
-                this.textRotate = 180;
-                this.textAnchor = 'end';
-            }
-            this.calculateMenuContainerPosition();
-            this.drag = false;
-        } else if (!this.drag && this.allowTransition) {
+        if (this.allowTransition) {
             this.menuState = !this.menuState;
             this.allowTransition = false;
         }
     }
 
-    public onMouseDown( event: MouseEvent ): void {
+    public onPanStart(): void {
         this.dragStart = true;
-        this.startEvent = event;
         this.menuContainerStyle['transition'] = 'none';
     }
 
-    public onMouseUp( event: MouseEvent ): void {
+    public onPanEnd(): void {
         this.dragStart = false;
         this.menuContainerStyle['transition'] = 'all 900ms cubic-bezier(0.680, -0.550, 0.265, 1.550)';
+
+        let centreX = window.innerWidth / 2 -
+            this.menuOptions.Button.width / 2;
+        let centreY = window.innerHeight / 2 -
+            this.menuOptions.Button.width / 2;
+
+        if (this.menuContainerStyle['top.px'] > centreY &&
+            this.menuContainerStyle['left.px'] < centreX) {
+            this.positionClass = 'bottomLeft';
+            this.textRotate = 0;
+            this.textAnchor = 'start';
+        } else if (this.menuContainerStyle['top.px'] < centreY &&
+            this.menuContainerStyle['left.px'] < centreX) {
+            this.positionClass = 'topLeft';
+            this.textRotate = 0;
+            this.textAnchor = 'start';
+        } else if (this.menuContainerStyle['top.px'] < centreY &&
+            this.menuContainerStyle['left.px'] > centreX) {
+            this.positionClass = 'topRight';
+            this.textRotate = 180;
+            this.textAnchor = 'end';
+        } else if (this.menuContainerStyle['top.px'] > centreY &&
+            this.menuContainerStyle['left.px'] > centreX) {
+            this.positionClass = 'bottomRight';
+            this.textRotate = 180;
+            this.textAnchor = 'end';
+        }
+        this.calculateMenuContainerPosition();
     }
 
-    @HostListener('document:mousemove', ['$event'])
-    public onMouseMove( event: MouseEvent ): void {
+    @HostListener('document:panmove', ['$event'])
+    public onMenuMove( event: any ): void {
         if (this.dragStart) {
-            this.drag = true;
-            let y = event.clientY - this.startEvent.offsetY;
-            let x = event.clientX - this.startEvent.offsetX;
-            this.menuContainerStyle['top.px'] = y;
-            this.menuContainerStyle['left.px'] = x;
+            let y = event.center.y;
+            let x = event.center.x;
+            this.menuContainerStyle['top.px'] = y - this.menuOptions.Button.width / 2;
+            this.menuContainerStyle['left.px'] = x - this.menuOptions.Button.width / 2;
         }
     }
 

@@ -2,9 +2,9 @@
      [ngStyle]="menuContainerStyle">
     <button class="menu-btn"
             [ngStyle]="menuBtnStyle"
-            (click)="toggleMenu()"
-            (mousedown)="onMouseDown($event)"
-            (mouseup)="onMouseUp($event)">
+            (tap)="toggleMenu()"
+            (panstart)="onPanStart()"
+            (panend)="onPanEnd()">
         <span [@menuScaleInOut]="menuState.toString()"
               (@menuScaleInOut.done)="animationDone($event)">
             Menu
