@@ -7,6 +7,10 @@ export interface IMenuConfig {
     offset?: number;
     showIcons?: boolean;
     onlyIcons?: boolean;
+    wingFontSize?: number;
+    wingFontWeight?: number;
+    wingFontColor?: string;
+    wingIconSize?: number;
 }
 export interface IMenuButton {
     width?: number;
@@ -19,11 +23,11 @@ export interface IMenuButton {
 export interface IMenuWing {
     title: string;
     color: string;
-    titleColor: string;
+    titleColor?: string;
     icon?: {
-        color: string;
         name: string;
-        size: number;
+        color?: string;
+        size?: number;
     };
 }
 export declare class MenuOptions {

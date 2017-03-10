@@ -20,16 +20,16 @@
               style="text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);"
               [attr.text-anchor]="textAnchor"
               [attr.transform]="'rotate('+ textRotate + ', ' + menuOptions.MenuConfig.radius/2  + ', ' + menuOptions.MenuConfig.radius/2 + ')'"
-              [attr.fill]="wing.titleColor">{{wing.title}}
+              [attr.fill]="wing.titleColor || menuOptions.MenuConfig.wingFontColor">{{wing.title}}
         </text>
     </svg>
     <i class="{{wing.icon.name}}"
        *ngIf="menuOptions.MenuConfig.showIcons || menuOptions.MenuConfig.onlyIcons"
        [ngStyle]="{
-            'color': wing.icon.color,
-            'font-size': wing.icon.size + 'px',
-            'width': wing.icon.size + 'px',
-            'height': wing.icon.size + 'px',
+            'color': wing.icon.color || menuOptions.MenuConfig.wingFontColor,
+            'font-size': iconSize + 'px',
+            'width': iconSize + 'px',
+            'height': iconSize + 'px',
             'transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)',
             '-webkit-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)',
             '-ms-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)',

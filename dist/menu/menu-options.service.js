@@ -20,6 +20,10 @@ var MenuOptions = (function () {
             offset: 25,
             showIcons: true,
             onlyIcons: false,
+            wingFontSize: 14,
+            wingFontWeight: 600,
+            wingFontColor: '#ffffff',
+            wingIconSize: 35,
         };
         this.gutter = {
             top: 130,

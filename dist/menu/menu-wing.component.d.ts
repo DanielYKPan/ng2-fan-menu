@@ -14,6 +14,7 @@ export declare class MenuWingComponent implements OnInit, OnChanges, OnDestroy {
     private rotateDeg;
     private iconX;
     private iconY;
+    private iconSize;
     constructor(menuOptions: MenuOptions);
     ngOnInit(): void;
     ngOnDestroy(): void;
