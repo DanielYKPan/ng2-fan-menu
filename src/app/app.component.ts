@@ -34,7 +34,9 @@ export class AppComponent implements OnInit {
         }
     ];
 
-    private options: any;
+    private options: any = {
+        font: 'Baloo Bhaina, cursive',
+    };
     private button: any;
     private gutter: any;
 
@@ -44,9 +46,10 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
         if(window.innerWidth < 450) {
             this.options = {
+                font: 'Baloo Bhaina, cursive',
                 radius: 150,
                 offset: 15,
-                wingFontSize: 9,
+                wingFontSize: 12,
                 wingIconSize: 25,
             };
 

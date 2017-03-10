@@ -29,7 +29,7 @@
     "@angular/platform-server": "2.4.6",
     "@angular/router": "3.4.6",
     "core-js": "^2.4.1",
-    "ng2-fan-menu": "^1.0.0-alpha-5",
+    "ng2-fan-menu": "^1.0.0-alpha-6",
     "rxjs": "5.0.2",
     "web-animations-js": "^2.2.2",
     "zone.js": "0.7.6"
