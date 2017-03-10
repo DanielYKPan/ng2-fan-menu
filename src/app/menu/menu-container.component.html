@@ -1,13 +1,7 @@
 <div class="menu-container"
      [ngStyle]="menuContainerStyle">
     <button class="menu-btn"
-            [ngStyle]="{
-                background: menuOptions.Button.backgroundColor,
-                color: menuOptions.Button.color,
-                width: menuOptions.Button.width + 'px',
-                height: menuOptions.Button.width + 'px',
-                'font-size': menuOptions.Button.fontSize,
-                'font-weight': menuOptions.Button.fontWeight}"
+            [ngStyle]="menuBtnStyle"
             (click)="toggleMenu()"
             (mousedown)="onMouseDown($event)"
             (mouseup)="onMouseUp($event)">
@@ -33,12 +27,7 @@
         </span>
     </button>
     <div class="menu-list"
-         [ngStyle]="{
-         width: menuOptions.MenuConfig.radius + 'px',
-         height: menuOptions.MenuConfig.radius + 'px',
-         top: -(menuOptions.MenuConfig.radius - menuOptions.Button.width)/2 + 'px',
-         left: menuOptions.Button.width/2 + 'px'
-         }">
+         [ngStyle]="menuListStyle">
         <app-menu-wing *ngFor="let wing of wings; let i = index"
                        [textAnchor]="textAnchor"
                        [textRotate]="textRotate"

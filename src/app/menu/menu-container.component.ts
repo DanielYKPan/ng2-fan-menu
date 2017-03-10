@@ -53,14 +53,9 @@ export class MenuContainerComponent implements OnInit {
 
     @Input() private startAngles: Object; // the first wing starting angle
 
-    private menuContainerStyle = {
-        'width.px': this.menuOptions.Button.width,
-        'height.px': this.menuOptions.Button.width,
-        'top.px': 0,
-        'left.px': 0,
-        'transition': 'none',
-    };
-
+    private menuContainerStyle: Object;
+    private menuBtnStyle: Object;
+    private menuListStyle: Object;
     private allowTransition: boolean = true; // a flag to indicate if button text animation finished
     private dragStart: boolean = false; // A flag to indicate the drag move begins
     private drag: boolean = false; // A flag to indicate if it is a drag move
@@ -78,6 +73,7 @@ export class MenuContainerComponent implements OnInit {
         this.menuOptions.setMenuOptions(this.options, this.button, this.gutter, this.startAngles);
         this.menuState = this.menuOptions.MenuConfig.defaultOpen;
         this.positionClass = this.menuOptions.MenuConfig.defaultPosition;
+        this.setElementsStyle();
         this.calculateSvgPath();
         this.calculateMenuContainerPosition();
     }
@@ -171,6 +167,31 @@ export class MenuContainerComponent implements OnInit {
                 - this.menuOptions.Gutter.right;
 
         }
+    }
+
+    private setElementsStyle(): void {
+        this.menuContainerStyle = {
+            'font-family': this.menuOptions.MenuConfig.font,
+            'width.px': this.menuOptions.Button.width,
+            'height.px': this.menuOptions.Button.width,
+            'top.px': 0,
+            'left.px': 0,
+            'transition': 'none',
+        };
+        this.menuBtnStyle = {
+            'width.px': this.menuOptions.Button.width,
+            'height.px': this.menuOptions.Button.width,
+            'background': this.menuOptions.Button.backgroundColor,
+            'color': this.menuOptions.Button.color,
+            'font-size': this.menuOptions.Button.fontSize,
+            'font-weight': this.menuOptions.Button.fontWeight,
+        };
+        this.menuListStyle = {
+            'top.px': -(this.menuOptions.MenuConfig.radius - this.menuOptions.Button.width) / 2,
+            'left.px': this.menuOptions.Button.width / 2,
+            'width.px': this.menuOptions.MenuConfig.radius,
+            'height.px': this.menuOptions.MenuConfig.radius,
+        };
     }
 
     private calculateSvgPath() {

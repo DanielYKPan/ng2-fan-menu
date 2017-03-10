@@ -5,6 +5,7 @@
 import { Injectable } from '@angular/core';
 
 export interface IMenuConfig {
+    font?: string,
     defaultOpen?: boolean,
     defaultPosition?: 'topLeft'| 'topRight'| 'bottomLeft' | 'bottomRight',
     radius?: number,
@@ -34,6 +35,7 @@ export interface IMenuWing {
 export class MenuOptions {
 
     private menuConfig: IMenuConfig = {
+        font: 'sans-serif',
         defaultOpen: true, // Open menu automatically on load.
         defaultPosition: 'topLeft', // The menu default position
         radius: 200, // The radius of the menu wings from the center of the button.
