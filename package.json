@@ -1,7 +1,7 @@
 {
-  "name": "ng2-fan-menu",
-  "version": "1.0.0-alpha",
-  "description": "Angular2 Fan Menu Component",
+  "name": "ng2-fan-menu-demo",
+  "version": "1.0.0",
+  "description": "Angular2 Fan Menu Component Demo",
   "keywords": [
     "Angular2",
     "rxjs",
@@ -28,9 +28,10 @@
     "@angular/platform-browser-dynamic": "2.4.6",
     "@angular/platform-server": "2.4.6",
     "@angular/router": "3.4.6",
-
     "core-js": "^2.4.1",
+    "ng2-fan-menu": "^1.0.0-alpha-2",
     "rxjs": "5.0.2",
+    "web-animations-js": "^2.2.2",
     "zone.js": "0.7.6"
   },
   "devDependencies": {

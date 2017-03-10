@@ -14,33 +14,33 @@ import '../sass/main.scss';
 
 export class AppComponent implements OnInit {
 
-    private showDatePicker: boolean = false;
-    private showTimePicker: boolean = false;
-    private momentValue: Date;
+    private wings = [
+        {
+            'title': 'iPad',
+            'color': '#ea2a29',
+            'titleColor': '#fff',
+            'icon': {'color': '#fff', 'name': 'fa fa-tablet', 'size': 35}
+        }, {
+            'title': 'iMac',
+            'color': '#f16729',
+            'titleColor': '#fff',
+            'icon': {'color': '#fff', 'name': 'fa fa-laptop', 'size': 35}
+        }, {
+            'title': 'iPhone',
+            'color': '#f89322',
+            'titleColor': '#fff',
+            'icon': {'color': '#fff', 'name': 'fa fa-mobile', 'size': 35}
+        }, {
+            'title': 'iWatch',
+            'color': '#ffcf14',
+            'titleColor': '#fff',
+            'icon': {'color': '#fff', 'name': 'fa fa-clock-o', 'size': 35}
+        }
+    ];
 
     constructor() {
     }
 
     ngOnInit(): void {
-    }
-
-    setDate(date: any): void {
-        this.momentValue = date;
-        return;
-    }
-
-    setTime(time: any): void {
-        this.momentValue = time;
-        return;
-    }
-
-    toggleDatePicker(status: boolean): void {
-        this.showDatePicker = status;
-        return;
-    }
-
-    toggleTimePicker(status: boolean): void {
-        this.showTimePicker = status;
-        return;
     }
 }
