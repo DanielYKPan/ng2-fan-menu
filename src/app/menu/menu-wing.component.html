@@ -8,6 +8,7 @@
      }">
     <svg class="wing-svg" width="100%" height="100%">
         <path style="pointer-events:auto;"
+              (click)="onClick()"
               (mouseover)="onMouseOver()"
               (mouseout)="onMouseOut()"
               [attr.fill]="wing.color"

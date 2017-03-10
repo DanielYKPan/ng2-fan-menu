@@ -2,7 +2,7 @@
  * menu-wing.component
  */
 
-import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { IMenuWing, MenuOptions } from './menu-options.service';
 
 // webpack1_
@@ -25,6 +25,7 @@ export class MenuWingComponent implements OnInit, OnChanges, OnDestroy {
     @Input() position: string;
     @Input() textRotate: number;
     @Input() textAnchor: string;
+    @Output() wingClicked = new EventEmitter<IMenuWing>();
 
     private timeOutId: number = 0;
     private scaleSize: number;
@@ -94,6 +95,10 @@ export class MenuWingComponent implements OnInit, OnChanges, OnDestroy {
 
     public onMouseOut(): void {
         this.scaleSize = 1;
+    }
+
+    public onClick(): void {
+        this.wingClicked.emit(this.wing);
     }
 
     private clearTimer(): void {

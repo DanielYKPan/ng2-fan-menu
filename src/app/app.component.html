@@ -26,4 +26,5 @@
     </section>
 </main>
 
-<app-menu-container [options]="{font: 'Baloo Bhaina, cursive'}" [wings]="wings"></app-menu-container>
+<app-menu-container [options]="{font: 'Baloo Bhaina, cursive'}"
+                    [wings]="wings" (onWingSelected)="selectWing($event)"></app-menu-container>

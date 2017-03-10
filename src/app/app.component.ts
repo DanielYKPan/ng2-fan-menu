@@ -39,4 +39,8 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
     }
+
+    public selectWing(wing: any): void {
+        console.log(wing);
+    }
 }

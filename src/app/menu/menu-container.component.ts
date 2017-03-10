@@ -2,7 +2,10 @@
  * menu-container.component
  */
 
-import { Component, OnInit, Input, trigger, state, style, transition, animate, HostListener } from '@angular/core';
+import {
+    Component, OnInit, Input, trigger, state, style, transition, animate, HostListener,
+    Output, EventEmitter
+} from '@angular/core';
 import { MenuOptions, IMenuConfig, IMenuWing, IMenuButton } from './menu-options.service';
 
 // webpack1_
@@ -53,6 +56,8 @@ export class MenuContainerComponent implements OnInit {
 
     @Input() private startAngles: Object; // the first wing starting angle
 
+    @Output() private onWingSelected = new EventEmitter<IMenuWing>();
+
     private menuContainerStyle: Object;
     private menuBtnStyle: Object;
     private menuListStyle: Object;
@@ -78,6 +83,10 @@ export class MenuContainerComponent implements OnInit {
 
     public animationDone() {
         this.allowTransition = true;
+    }
+
+    public clickWing( wing: IMenuWing ): void {
+        this.onWingSelected.emit(wing);
     }
 
     public toggleMenu() {
