@@ -26,5 +26,5 @@ import { MenuWingComponent } from './menu-wing.component';
         MenuOptions,
     ]
 })
-export class MenuModule {
+export class FanMenuModule {
 }
