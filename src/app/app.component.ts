@@ -18,23 +18,19 @@ export class AppComponent implements OnInit {
         {
             'title': 'iPad',
             'color': '#ea2a29',
-            'titleColor': '#fff',
-            'icon': {'color': '#fff', 'name': 'fa fa-tablet', 'size': 35}
+            'icon': {'name': 'fa fa-tablet'}
         }, {
             'title': 'iMac',
             'color': '#f16729',
-            'titleColor': '#fff',
-            'icon': {'color': '#fff', 'name': 'fa fa-laptop', 'size': 35}
+            'icon': {'name': 'fa fa-laptop'}
         }, {
             'title': 'iPhone',
             'color': '#f89322',
-            'titleColor': '#fff',
-            'icon': {'color': '#fff', 'name': 'fa fa-mobile', 'size': 35}
+            'icon': {'name': 'fa fa-mobile'}
         }, {
             'title': 'iWatch',
             'color': '#ffcf14',
-            'titleColor': '#fff',
-            'icon': {'color': '#fff', 'name': 'fa fa-clock-o', 'size': 35}
+            'icon': {'name': 'fa fa-clock-o'}
         }
     ];
 

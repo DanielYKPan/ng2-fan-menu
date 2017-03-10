@@ -31,17 +31,19 @@ export class MenuWingComponent implements OnInit, OnChanges, OnDestroy {
     private rotateDeg: number;
     private iconX: number;
     private iconY: number;
+    private iconSize: number;
 
     constructor( private menuOptions: MenuOptions ) {
     }
 
     public ngOnInit() {
+        this.iconSize = this.wing.icon.size || this.menuOptions.MenuConfig.wingIconSize;
         if (this.menuOptions.MenuConfig.onlyIcons) {
-            this.iconX = this.menuOptions.MenuConfig.radius - this.menuOptions.MenuConfig.radius / 2 + this.wing.icon.size / 4;
+            this.iconX = this.menuOptions.MenuConfig.radius - this.menuOptions.MenuConfig.radius / 2 + this.iconSize / 4;
         } else {
-            this.iconX = this.menuOptions.MenuConfig.radius - this.wing.icon.size - 8;
+            this.iconX = this.menuOptions.MenuConfig.radius - this.iconSize - 8;
         }
-        this.iconY = -(this.menuOptions.MenuConfig.radius / 2 + this.wing.icon.size / 2 + 5);
+        this.iconY = -(this.menuOptions.MenuConfig.radius / 2 + this.iconSize / 2 + 5);
     }
 
     public ngOnDestroy(): void {
