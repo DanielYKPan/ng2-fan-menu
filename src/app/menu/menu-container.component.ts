@@ -61,12 +61,14 @@ export class MenuContainerComponent implements OnInit {
     private dragStart: boolean = false; // A flag to indicate the drag move begins
     private drag: boolean = false; // A flag to indicate if it is a drag move
     private startEvent: MouseEvent;
+    private svgPath: any;
 
     constructor( public menuOptions: MenuOptions ) {
     }
 
     public ngOnInit() {
         this.menuOptions.setMenuOptions(this.options, this.gutter);
+        this.calculateSvgPath();
         this.calculateMenuContainerPosition();
     }
 
@@ -151,5 +153,26 @@ export class MenuContainerComponent implements OnInit {
                 - this.menuOptions.Gutter.right;
 
         }
+    }
+
+    private calculateSvgPath() {
+        let buttonWidth = this.menuOptions.MenuConfig.buttonWidth;
+        let offset = this.menuOptions.MenuConfig.offset;
+        let angle = this.menuOptions.MenuConfig.angle;
+        let radius = this.menuOptions.MenuConfig.radius;
+        let innerRadius = buttonWidth / 2 + offset;
+        let x1 = Math.floor(radius * Math.cos(Math.PI * (360 - angle / 2) / 180));
+        let y1 = Math.floor(radius / 2 + radius * Math.sin(Math.PI * (360 - angle / 2) / 180));
+        let x2 = Math.floor(radius * Math.cos(Math.PI * (angle / 2) / 180));
+        let y2 = Math.floor(radius / 2 + radius * Math.sin(Math.PI * (angle / 2) / 180));
+        let a1 = Math.floor(innerRadius * Math.cos(Math.PI * (360 - angle / 2) / 180));
+        let b1 = Math.floor(radius / 2 + innerRadius * Math.sin(Math.PI * (360 - angle / 2) / 180));
+        let a2 = Math.floor(innerRadius * Math.cos(Math.PI * (angle / 2) / 180));
+        let b2 = Math.floor(radius / 2 + 1 + innerRadius * Math.sin(Math.PI * (angle / 2) / 180));
+
+        this.svgPath = 'M' + a1 + ',' + b1 + ' L' + x1 + ',' + y1 + ' A' +
+            radius + ',' + radius + ' 0 0, 1' + ' ' + x2 + ',' + y2 +
+            ' L' + a2 + ',' + b2 + '  A' + innerRadius + ',' + innerRadius +
+            ' 1 0, 0' + ' ' + a1 + ',' + b1 + ' z';
     }
 }

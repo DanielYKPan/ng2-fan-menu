@@ -8,6 +8,9 @@ export interface IMenuConfig {
     buttonWidth?: number,
     defaultOpen?: boolean,
     positionClass?: 'topLeft'| 'topRight'| 'bottomLeft' | 'bottomRight',
+    radius?: number,
+    angle?: number,
+    offset?: number,
 }
 
 export interface IMenuWing {
@@ -23,7 +26,10 @@ export class MenuOptions {
     private menuConfig: IMenuConfig = {
         buttonWidth: 60,
         defaultOpen: true,
-        positionClass: 'topLeft'
+        positionClass: 'topLeft',
+        radius: 180, // The radius of the menu wings from the center of the button.
+        angle: 30, // The angle at which each wing will open
+        offset: 25, // The gap between the menu button and the menu item wings.
     };
 
     get MenuConfig(): IMenuConfig {
