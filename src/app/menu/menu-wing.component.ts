@@ -36,7 +36,11 @@ export class MenuWingComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     public ngOnInit() {
-        this.iconX = this.menuOptions.MenuConfig.radius - this.wing.icon.size - 8;
+        if (this.menuOptions.MenuConfig.onlyIcons) {
+            this.iconX = this.menuOptions.MenuConfig.radius - this.menuOptions.MenuConfig.radius / 2 + this.wing.icon.size / 4;
+        } else {
+            this.iconX = this.menuOptions.MenuConfig.radius - this.wing.icon.size - 8;
+        }
         this.iconY = -(this.menuOptions.MenuConfig.radius / 2 + this.wing.icon.size / 2 + 5);
     }
 

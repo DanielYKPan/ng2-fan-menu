@@ -11,6 +11,8 @@ export interface IMenuConfig {
     radius?: number,
     angle?: number,
     offset?: number,
+    showIcons?: boolean,
+    onlyIcons?: boolean,
 }
 
 export interface IMenuWing {
@@ -27,9 +29,11 @@ export class MenuOptions {
         buttonWidth: 60,
         defaultOpen: true,
         defaultPosition: 'topLeft',
-        radius: 180, // The radius of the menu wings from the center of the button.
+        radius: 200, // The radius of the menu wings from the center of the button.
         angle: 30, // The angle at which each wing will open
         offset: 25, // The gap between the menu button and the menu item wings.
+        showIcons: true, // A flag that determines whether to show icon.
+        onlyIcons: false, // A flag that determines whether only show all icons and hide the wing title
     };
 
     get MenuConfig(): IMenuConfig {

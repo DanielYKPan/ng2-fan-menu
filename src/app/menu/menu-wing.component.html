@@ -7,6 +7,7 @@
               [attr.fill]="wing.color"
               [attr.d]="svgPath"></path>
         <text class="wing-text"
+              *ngIf="!menuOptions.MenuConfig.onlyIcons"
               x="50%"
               y="50%"
               dominant-baseline="central"
@@ -17,6 +18,7 @@
         </text>
     </svg>
     <i class="{{wing.icon.name}}"
+       *ngIf="menuOptions.MenuConfig.showIcons || menuOptions.MenuConfig.onlyIcons"
        [ngStyle]="{
             'color': wing.icon.color,
             'font-size': wing.icon.size + 'px',
