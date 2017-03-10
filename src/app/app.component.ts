@@ -38,9 +38,28 @@ export class AppComponent implements OnInit {
         }
     ];
 
+    private options: any;
+    private button: any;
+    private gutter: any;
+
     constructor() {
     }
 
     ngOnInit(): void {
+        if(window.innerWidth < 450) {
+            this.options = {
+                radius: 150,
+                offset: 15,
+            };
+
+            this.button = {
+                width: 40,
+                fontSize: '10px'
+            };
+
+            this.gutter = {
+                top: 30
+            }
+        }
     }
 }
