@@ -1,5 +1,11 @@
 <div class="wing wing-{{index}}"
-     [ngStyle]="{transform: 'rotate(' + rotateDeg + 'deg) '+ 'scale(' + scaleSize +')' }">
+     [ngStyle]="{
+        'transform': 'rotate(' + rotateDeg + 'deg) '+ 'scale(' + scaleSize +')',
+        '-webkit-transform': 'rotate(' + rotateDeg + 'deg) '+ 'scale(' + scaleSize +')',
+        '-ms-transform': 'rotate(' + rotateDeg + 'deg) '+ 'scale(' + scaleSize +')',
+        '-moz-transform': 'rotate(' + rotateDeg + 'deg) '+ 'scale(' + scaleSize +')',
+        '-o-transform': 'rotate(' + rotateDeg + 'deg) '+ 'scale(' + scaleSize +')'
+     }">
     <svg class="wing-svg" width="100%" height="100%">
         <path style="pointer-events:auto;"
               (mouseover)="onMouseOver()"
@@ -24,8 +30,10 @@
             'font-size': wing.icon.size + 'px',
             'width': wing.icon.size + 'px',
             'height': wing.icon.size + 'px',
-            'text-align': 'center',
             'transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)',
-            'transform-origin': '50% 50%'
+            '-webkit-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)',
+            '-ms-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)',
+            '-moz-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)',
+            '-o-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)'
        }"></i>
 </div>

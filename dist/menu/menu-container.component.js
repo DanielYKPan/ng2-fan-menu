@@ -38,10 +38,16 @@ var MenuContainerComponent = (function () {
     MenuContainerComponent.prototype.onPanStart = function () {
         this.dragStart = true;
         this.menuContainerStyle['transition'] = 'none';
+        this.menuContainerStyle['-webkit-transition'] = 'none';
+        this.menuContainerStyle['-moz-transition'] = 'none';
+        this.menuContainerStyle['-ms-transition'] = 'none';
     };
     MenuContainerComponent.prototype.onPanEnd = function () {
         this.dragStart = false;
         this.menuContainerStyle['transition'] = 'all 900ms cubic-bezier(0.680, -0.550, 0.265, 1.550)';
+        this.menuContainerStyle['-webkit-transition'] = 'all 900ms cubic-bezier(0.680, -0.550, 0.265, 1.550)';
+        this.menuContainerStyle['-moz-transition'] = 'all 900ms cubic-bezier(0.680, -0.550, 0.265, 1.550)';
+        this.menuContainerStyle['-ms-transition'] = 'all 900ms cubic-bezier(0.680, -0.550, 0.265, 1.550)';
         var centreX = window.innerWidth / 2 -
             this.menuOptions.Button.width / 2;
         var centreY = window.innerHeight / 2 -
@@ -110,6 +116,9 @@ var MenuContainerComponent = (function () {
             'top.px': 0,
             'left.px': 0,
             'transition': 'none',
+            '-webkit-transition': 'none',
+            '-ms-transition': 'none',
+            '-moz-transition': 'none',
         };
         this.menuBtnStyle = {
             'width.px': this.menuOptions.Button.width,
