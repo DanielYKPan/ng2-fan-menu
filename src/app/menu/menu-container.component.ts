@@ -3,7 +3,7 @@
  */
 
 import { Component, OnInit, Input, trigger, state, style, transition, animate, HostListener } from '@angular/core';
-import { MenuOptions, IMenuConfig, IMenuWing } from './menu-options.service';
+import { MenuOptions, IMenuConfig, IMenuWing, IMenuButton } from './menu-options.service';
 
 // webpack1_
 declare let require: any;
@@ -44,6 +44,8 @@ export class MenuContainerComponent implements OnInit {
 
     @Input() private options: IMenuConfig;
 
+    @Input() private button: IMenuButton;
+
     // The space between the menu and the boundaries of the page window
     @Input() private gutter: Object;
 
@@ -52,8 +54,8 @@ export class MenuContainerComponent implements OnInit {
     @Input() private startAngles: Object; // the first wing starting angle
 
     private menuContainerStyle = {
-        'width.px': this.menuOptions.MenuConfig.buttonWidth,
-        'height.px': this.menuOptions.MenuConfig.buttonWidth,
+        'width.px': this.menuOptions.Button.width,
+        'height.px': this.menuOptions.Button.width,
         'top.px': 0,
         'left.px': 0,
         'transition': 'none',
@@ -73,7 +75,7 @@ export class MenuContainerComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.menuOptions.setMenuOptions(this.options, this.gutter, this.startAngles);
+        this.menuOptions.setMenuOptions(this.options, this.button, this.gutter, this.startAngles);
         this.menuState = this.menuOptions.MenuConfig.defaultOpen;
         this.positionClass = this.menuOptions.MenuConfig.defaultPosition;
         this.calculateSvgPath();
@@ -88,9 +90,9 @@ export class MenuContainerComponent implements OnInit {
         if (this.drag) {
 
             let centreX = window.innerWidth / 2 -
-                this.menuOptions.MenuConfig.buttonWidth / 2;
+                this.menuOptions.Button.width / 2;
             let centreY = window.innerHeight / 2 -
-                this.menuOptions.MenuConfig.buttonWidth / 2;
+                this.menuOptions.Button.width / 2;
 
             if (this.menuContainerStyle['top.px'] > centreY &&
                 this.menuContainerStyle['left.px'] < centreX) {
@@ -152,27 +154,27 @@ export class MenuContainerComponent implements OnInit {
         } else if (this.positionClass === 'topRight') {
 
             this.menuContainerStyle['top.px'] = this.menuOptions.Gutter.top;
-            this.menuContainerStyle['left.px'] = window.innerWidth - this.menuOptions.MenuConfig.buttonWidth -
+            this.menuContainerStyle['left.px'] = window.innerWidth - this.menuOptions.Button.width -
                 this.menuOptions.Gutter.right;
 
         } else if (this.positionClass === 'bottomLeft') {
 
-            this.menuContainerStyle['top.px'] = window.innerHeight - this.menuOptions.MenuConfig.buttonWidth -
+            this.menuContainerStyle['top.px'] = window.innerHeight - this.menuOptions.Button.width -
                 this.menuOptions.Gutter.bottom;
             this.menuContainerStyle['left.px'] = this.menuOptions.Gutter.left;
 
         } else if (this.positionClass === 'bottomRight') {
 
-            this.menuContainerStyle['top.px'] = window.innerHeight - this.menuOptions.MenuConfig.buttonWidth
+            this.menuContainerStyle['top.px'] = window.innerHeight - this.menuOptions.Button.width
                 - this.menuOptions.Gutter.bottom;
-            this.menuContainerStyle['left.px'] = window.innerWidth - this.menuOptions.MenuConfig.buttonWidth
+            this.menuContainerStyle['left.px'] = window.innerWidth - this.menuOptions.Button.width
                 - this.menuOptions.Gutter.right;
 
         }
     }
 
     private calculateSvgPath() {
-        let buttonWidth = this.menuOptions.MenuConfig.buttonWidth;
+        let buttonWidth = this.menuOptions.Button.width;
         let offset = this.menuOptions.MenuConfig.offset;
         let angle = this.menuOptions.MenuConfig.angle;
         let radius = this.menuOptions.MenuConfig.radius;

@@ -5,9 +5,6 @@
 import { Injectable } from '@angular/core';
 
 export interface IMenuConfig {
-    buttonWidth?: number,
-    buttonColor?: string,
-    buttonTextColor?: string,
     defaultOpen?: boolean,
     defaultPosition?: 'topLeft'| 'topRight'| 'bottomLeft' | 'bottomRight',
     radius?: number,
@@ -15,6 +12,15 @@ export interface IMenuConfig {
     offset?: number,
     showIcons?: boolean,
     onlyIcons?: boolean,
+}
+
+export interface IMenuButton {
+    width?: number,
+    color?: string,
+    backgroundColor?: string,
+    fontWeight?: number,
+    fontSize?: string,
+    crossImgSize?: string,
 }
 
 export interface IMenuWing {
@@ -28,11 +34,8 @@ export interface IMenuWing {
 export class MenuOptions {
 
     private menuConfig: IMenuConfig = {
-        buttonWidth: 60,
-        buttonColor: '#ff7f7f',
-        buttonTextColor: '#ffffff',
-        defaultOpen: true,
-        defaultPosition: 'topLeft',
+        defaultOpen: true, // Open menu automatically on load.
+        defaultPosition: 'topLeft', // The menu default position
         radius: 200, // The radius of the menu wings from the center of the button.
         angle: 30, // The angle at which each wing will open
         offset: 25, // The gap between the menu button and the menu item wings.
@@ -67,11 +70,26 @@ export class MenuOptions {
         return this.startAngles;
     }
 
+    /* Property buttonConfig */
+    private buttonConfig: IMenuButton = {
+        width: 60,
+        color: '#ffffff',
+        backgroundColor: '#ff7f7f',
+        fontWeight: 700,
+        fontSize: '14px',
+        crossImgSize: '50%'
+    };
+
+    get Button(): IMenuButton {
+        return this.buttonConfig;
+    }
+
     constructor() {
     }
 
-    public setMenuOptions( menuConfig: IMenuConfig, gutter: Object, startAngles: Object ): void {
+    public setMenuOptions( menuConfig: IMenuConfig, buttonConfig: IMenuButton, gutter: Object, startAngles: Object ): void {
         this.menuConfig = Object.assign(this.menuConfig, menuConfig);
+        this.buttonConfig = Object.assign(this.buttonConfig, buttonConfig);
         this.gutter = Object.assign(this.gutter, gutter);
         this.startAngles = Object.assign(this.startAngles, startAngles);
     }
