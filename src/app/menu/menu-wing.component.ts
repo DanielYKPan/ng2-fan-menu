@@ -23,6 +23,8 @@ export class MenuWingComponent implements OnInit, OnChanges, OnDestroy {
     @Input() svgPath: string;
     @Input() menuState: boolean;
     @Input() position: string;
+    @Input() private textRotate: number;
+    @Input() private textAnchor: string;
 
     private timeOutId: number = 0;
     private scaleSize: number;

@@ -66,6 +66,8 @@ export class MenuContainerComponent implements OnInit {
     private svgPath: string;
     private menuState: boolean; // A flag to indicate if the menu is open
     private positionClass: string; // menu's position
+    private textRotate: number = 0;
+    private textAnchor: string = 'start';
 
     constructor( public menuOptions: MenuOptions ) {
     }
@@ -93,15 +95,23 @@ export class MenuContainerComponent implements OnInit {
             if (this.menuContainerStyle['top.px'] > centreY &&
                 this.menuContainerStyle['left.px'] < centreX) {
                 this.positionClass = 'bottomLeft';
+                this.textRotate = 0;
+                this.textAnchor = 'start';
             } else if (this.menuContainerStyle['top.px'] < centreY &&
                 this.menuContainerStyle['left.px'] < centreX) {
                 this.positionClass = 'topLeft';
+                this.textRotate = 0;
+                this.textAnchor = 'start';
             } else if (this.menuContainerStyle['top.px'] < centreY &&
                 this.menuContainerStyle['left.px'] > centreX) {
                 this.positionClass = 'topRight';
+                this.textRotate = 180;
+                this.textAnchor = 'end';
             } else if (this.menuContainerStyle['top.px'] > centreY &&
                 this.menuContainerStyle['left.px'] > centreX) {
                 this.positionClass = 'bottomRight';
+                this.textRotate = 180;
+                this.textAnchor = 'end';
             }
             this.calculateMenuContainerPosition();
             this.drag = false;

@@ -25,6 +25,8 @@
          left: menuOptions.MenuConfig.buttonWidth/2 + 'px'
          }">
         <app-menu-wing *ngFor="let wing of wings; let i = index"
+                       [textAnchor]="textAnchor"
+                       [textRotate]="textRotate"
                        [position]="positionClass"
                        [wing]="wing"
                        [svgPath]="svgPath"
