@@ -3,14 +3,15 @@ import { MenuOptions } from './menu-options.service';
 export declare class MenuContainerComponent implements OnInit {
     menuOptions: MenuOptions;
     private options;
+    private button;
     private gutter;
     private wings;
     private startAngles;
     private menuContainerStyle;
+    private menuBtnStyle;
+    private menuListStyle;
     private allowTransition;
     private dragStart;
-    private drag;
-    private startEvent;
     private svgPath;
     private menuState;
     private positionClass;
@@ -20,9 +21,10 @@ export declare class MenuContainerComponent implements OnInit {
     ngOnInit(): void;
     animationDone(): void;
     toggleMenu(): void;
-    onMouseDown(event: MouseEvent): void;
-    onMouseUp(event: MouseEvent): void;
-    onMouseMove(event: MouseEvent): void;
+    onPanStart(): void;
+    onPanEnd(): void;
+    onMenuMove(event: any): void;
     private calculateMenuContainerPosition();
+    private setElementsStyle();
     private calculateSvgPath();
 }

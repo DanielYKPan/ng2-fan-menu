@@ -11,12 +11,13 @@ var core_1 = require("@angular/core");
 var menu_container_component_1 = require("./menu-container.component");
 var menu_options_service_1 = require("./menu-options.service");
 var menu_wing_component_1 = require("./menu-wing.component");
-var MenuModule = (function () {
-    function MenuModule() {
+require("hammerjs");
+var FanMenuModule = (function () {
+    function FanMenuModule() {
     }
-    return MenuModule;
+    return FanMenuModule;
 }());
-MenuModule = __decorate([
+FanMenuModule = __decorate([
     core_1.NgModule({
         declarations: [
             menu_container_component_1.MenuContainerComponent,
@@ -33,7 +34,7 @@ MenuModule = __decorate([
             menu_options_service_1.MenuOptions,
         ]
     })
-], MenuModule);
-exports.MenuModule = MenuModule;
+], FanMenuModule);
+exports.FanMenuModule = FanMenuModule;
 
 //# sourceMappingURL=menu.module.js.map

@@ -1,7 +1,5 @@
 export interface IMenuConfig {
-    buttonWidth?: number;
-    buttonColor?: string;
-    buttonTextColor?: string;
+    font?: string;
     defaultOpen?: boolean;
     defaultPosition?: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
     radius?: number;
@@ -9,6 +7,14 @@ export interface IMenuConfig {
     offset?: number;
     showIcons?: boolean;
     onlyIcons?: boolean;
+}
+export interface IMenuButton {
+    width?: number;
+    color?: string;
+    backgroundColor?: string;
+    fontWeight?: number;
+    fontSize?: string;
+    crossImgSize?: string;
 }
 export interface IMenuWing {
     title: string;
@@ -37,6 +43,8 @@ export declare class MenuOptions {
         bottomRight?: number;
         bottomLeft?: number;
     };
+    private buttonConfig;
+    readonly Button: IMenuButton;
     constructor();
-    setMenuOptions(menuConfig: IMenuConfig, gutter: Object, startAngles: Object): void;
+    setMenuOptions(menuConfig: IMenuConfig, buttonConfig: IMenuButton, gutter: Object, startAngles: Object): void;
 }

@@ -12,9 +12,7 @@ var core_1 = require("@angular/core");
 var MenuOptions = (function () {
     function MenuOptions() {
         this.menuConfig = {
-            buttonWidth: 60,
-            buttonColor: '#ff7f7f',
-            buttonTextColor: '#ffffff',
+            font: 'sans-serif',
             defaultOpen: true,
             defaultPosition: 'topLeft',
             radius: 200,
@@ -34,6 +32,14 @@ var MenuOptions = (function () {
             topRight: 90,
             bottomRight: 180,
             bottomLeft: 270
+        };
+        this.buttonConfig = {
+            width: 60,
+            color: '#ffffff',
+            backgroundColor: '#ff7f7f',
+            fontWeight: 700,
+            fontSize: '14px',
+            crossImgSize: '50%'
         };
     }
     Object.defineProperty(MenuOptions.prototype, "MenuConfig", {
@@ -57,8 +63,16 @@ var MenuOptions = (function () {
         enumerable: true,
         configurable: true
     });
-    MenuOptions.prototype.setMenuOptions = function (menuConfig, gutter, startAngles) {
+    Object.defineProperty(MenuOptions.prototype, "Button", {
+        get: function () {
+            return this.buttonConfig;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MenuOptions.prototype.setMenuOptions = function (menuConfig, buttonConfig, gutter, startAngles) {
         this.menuConfig = Object.assign(this.menuConfig, menuConfig);
+        this.buttonConfig = Object.assign(this.buttonConfig, buttonConfig);
         this.gutter = Object.assign(this.gutter, gutter);
         this.startAngles = Object.assign(this.startAngles, startAngles);
     };

@@ -1,2 +1,3 @@
-export declare class MenuModule {
+import 'hammerjs';
+export declare class FanMenuModule {
 }

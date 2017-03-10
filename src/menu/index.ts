@@ -2,4 +2,4 @@
  * index
  */
 
-export { MenuModule } from './menu.module';
+export { FanMenuModule } from './menu.module';

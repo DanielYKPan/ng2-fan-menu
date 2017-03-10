@@ -9,6 +9,9 @@ import { MenuContainerComponent } from './menu-container.component';
 import { MenuOptions } from './menu-options.service';
 import { MenuWingComponent } from './menu-wing.component';
 
+/* HammerJS */
+import 'hammerjs';
+
 @NgModule({
     declarations: [
         // Components / Directives/ Pipes
@@ -26,5 +29,5 @@ import { MenuWingComponent } from './menu-wing.component';
         MenuOptions,
     ]
 })
-export class MenuModule {
+export class FanMenuModule {
 }

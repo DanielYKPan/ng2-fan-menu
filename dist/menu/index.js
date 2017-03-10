@@ -1,5 +1,5 @@
 "use strict";
 var menu_module_1 = require("./menu.module");
-exports.MenuModule = menu_module_1.MenuModule;
+exports.FanMenuModule = menu_module_1.FanMenuModule;
 
 //# sourceMappingURL=index.js.map
