@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 
 export interface IMenuConfig {
     buttonWidth?: number,
+    buttonColor?: string,
+    buttonTextColor?: string,
     defaultOpen?: boolean,
     defaultPosition?: 'topLeft'| 'topRight'| 'bottomLeft' | 'bottomRight',
     radius?: number,
@@ -27,6 +29,8 @@ export class MenuOptions {
 
     private menuConfig: IMenuConfig = {
         buttonWidth: 60,
+        buttonColor: '#ff7f7f',
+        buttonTextColor: '#ffffff',
         defaultOpen: true,
         defaultPosition: 'topLeft',
         radius: 200, // The radius of the menu wings from the center of the button.
