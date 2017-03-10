@@ -1,0 +1,49 @@
+.menu-container {
+  position: fixed;
+  z-index: 99999;
+}
+
+.menu-btn {
+  box-shadow: -2px 6px 12px #8e8e8e;
+  outline: none;
+  position: absolute;
+  border: none;
+  z-index: 1000;
+  cursor: pointer;
+  border-radius: 100%;
+  background-color: #ff7f7f;
+  color: #ffffff;
+  font-size: 14px;
+
+  .img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    pointer-events: none;
+    vertical-align: middle;
+    display: block;
+  }
+
+  span {
+    display: block;
+    vertical-align: middle;
+    pointer-events: none;
+  }
+
+  .btn-cross {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+  }
+}
+
+.menu-list {
+  pointer-events: none;
+  position: absolute;
+}
