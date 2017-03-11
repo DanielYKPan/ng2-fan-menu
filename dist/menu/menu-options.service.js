@@ -20,6 +20,7 @@ var MenuOptions = (function () {
             offset: 25,
             showIcons: true,
             onlyIcons: false,
+            spinable: false,
             wingFontSize: 16,
             wingFontWeight: 600,
             wingFontColor: '#ffffff',
@@ -70,6 +71,19 @@ var MenuOptions = (function () {
     Object.defineProperty(MenuOptions.prototype, "Button", {
         get: function () {
             return this.buttonConfig;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MenuOptions.prototype, "Center", {
+        get: function () {
+            return this.center;
+        },
+        set: function (value) {
+            this.center = {
+                x: value.x + this.buttonConfig.width / 2,
+                y: value.y + this.buttonConfig.width / 2
+            };
         },
         enumerable: true,
         configurable: true

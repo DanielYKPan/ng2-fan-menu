@@ -10,9 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var menu_options_service_1 = require("./menu-options.service");
+var menu_spin_service_1 = require("./menu-spin.service");
 var MenuWingComponent = (function () {
-    function MenuWingComponent(menuOptions) {
+    function MenuWingComponent(menuOptions, spinService) {
         this.menuOptions = menuOptions;
+        this.spinService = spinService;
+        this.wingClicked = new core_1.EventEmitter();
         this.timeOutId = 0;
     }
     MenuWingComponent.prototype.ngOnInit = function () {
@@ -61,10 +64,33 @@ var MenuWingComponent = (function () {
         }
     };
     MenuWingComponent.prototype.onMouseOver = function () {
-        this.scaleSize = 1.2;
+        if (this.menuState) {
+            this.scaleSize = 1.2;
+        }
     };
     MenuWingComponent.prototype.onMouseOut = function () {
-        this.scaleSize = 1;
+        if (this.menuState) {
+            this.scaleSize = 1;
+        }
+    };
+    MenuWingComponent.prototype.onClick = function () {
+        this.wingClicked.emit(this.wing);
+    };
+    MenuWingComponent.prototype.onPanStart = function (event) {
+        if (this.menuOptions.MenuConfig.spinable) {
+            this.scaleSize = 1;
+            this.spinService.setStartPosition(event.center);
+        }
+    };
+    MenuWingComponent.prototype.onRotate = function (event) {
+        if (this.menuOptions.MenuConfig.spinable) {
+            this.spinService.setSpinDegrees(event.center);
+        }
+    };
+    MenuWingComponent.prototype.onPanEnd = function (event) {
+        if (this.menuOptions.MenuConfig.spinable) {
+            this.spinService.setLastSpinDegrees(event.center);
+        }
     };
     MenuWingComponent.prototype.clearTimer = function () {
         clearTimeout(this.timeOutId);
@@ -99,13 +125,18 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", String)
 ], MenuWingComponent.prototype, "textAnchor", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", Object)
+], MenuWingComponent.prototype, "wingClicked", void 0);
 MenuWingComponent = __decorate([
     core_1.Component({
         selector: 'app-menu-wing',
-        template: "<div class=\"wing wing-{{index}}\" [ngStyle]=\"{\n        'transform': 'rotate(' + rotateDeg + 'deg) '+ 'scale(' + scaleSize +')',\n        '-webkit-transform': 'rotate(' + rotateDeg + 'deg) '+ 'scale(' + scaleSize +')',\n        '-ms-transform': 'rotate(' + rotateDeg + 'deg) '+ 'scale(' + scaleSize +')',\n        '-moz-transform': 'rotate(' + rotateDeg + 'deg) '+ 'scale(' + scaleSize +')',\n        '-o-transform': 'rotate(' + rotateDeg + 'deg) '+ 'scale(' + scaleSize +')'\n     }\"><svg class=\"wing-svg\" width=\"100%\" height=\"100%\"><path style=\"pointer-events:auto\" (mouseover)=\"onMouseOver()\" (mouseout)=\"onMouseOut()\" [attr.fill]=\"wing.color\" [attr.d]=\"svgPath\"></path><text class=\"wing-text\" *ngIf=\"!menuOptions.MenuConfig.onlyIcons\" x=\"50%\" y=\"50%\" dominant-baseline=\"central\" style=\"text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2)\" [ngStyle]=\"{'font-size': menuOptions.MenuConfig.wingFontSize + 'px'}\" [attr.text-anchor]=\"textAnchor\" [attr.transform]=\"'rotate('+ textRotate + ', ' + menuOptions.MenuConfig.radius/2  + ', ' + menuOptions.MenuConfig.radius/2 + ')'\" [attr.fill]=\"wing.titleColor || menuOptions.MenuConfig.wingFontColor\">{{wing.title}}</text></svg> <i class=\"{{wing.icon.name}}\" *ngIf=\"menuOptions.MenuConfig.showIcons || menuOptions.MenuConfig.onlyIcons\" [ngStyle]=\"{\n            'color': wing.icon.color || menuOptions.MenuConfig.wingFontColor,\n            'font-size': iconSize + 'px',\n            'width': iconSize + 'px',\n            'height': iconSize + 'px',\n            'transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)',\n            '-webkit-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)',\n            '-ms-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)',\n            '-moz-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)',\n            '-o-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)'\n       }\"></i></div>",
-        styles: [".wing{pointer-events:none;width:100%;height:100%;position:absolute;cursor:pointer;-webkit-transform-origin:0 50%;-moz-transform-origin:0 50%;-ms-transform-origin:0 50%;transform-origin:0 50%;-webkit-transition:all .3s cubic-bezier(.68,-.55,.265,1.55);-moz-transition:all .3s cubic-bezier(.68,-.55,.265,1.55);transition:all .3s cubic-bezier(.68,-.55,.265,1.55)}.wing i{text-align:center;-webkit-transform-origin:50% 50%;-moz-transform-origin:50% 50%;-ms-transform-origin:50% 50%;transform-origin:50% 50%}"],
+        template: "<div class=\"wing wing-{{index}}\" [ngStyle]=\"{\n        'transition': spinService.TransitionStyle,\n        '-webkit-transition': spinService.TransitionStyle,\n        '-moz-transition': spinService.TransitionStyle,\n        '-ms-transition': spinService.TransitionStyle,\n        'transform': 'rotate(' + (rotateDeg + spinService.SpinDegrees) + 'deg) '+ 'scale(' + scaleSize +')',\n        '-webkit-transform': 'rotate(' + (rotateDeg + spinService.SpinDegrees) + 'deg) '+ 'scale(' + scaleSize +')',\n        '-ms-transform': 'rotate(' + (rotateDeg + spinService.SpinDegrees) + 'deg) '+ 'scale(' + scaleSize +')',\n        '-moz-transform': 'rotate(' + (rotateDeg + spinService.SpinDegrees) + 'deg) '+ 'scale(' + scaleSize +')',\n        '-o-transform': 'rotate(' + (rotateDeg + spinService.SpinDegrees) + 'deg) '+ 'scale(' + scaleSize +')'\n     }\"><svg class=\"wing-svg\" width=\"100%\" height=\"100%\"><path style=\"pointer-events:auto\" (tap)=\"onClick()\" (panstart)=\"onPanStart($event)\" (panmove)=\"onRotate($event)\" (panend)=\"onPanEnd($event)\" (mouseover)=\"onMouseOver()\" (mouseout)=\"onMouseOut()\" [attr.fill]=\"wing.color\" [attr.d]=\"svgPath\"></path><text class=\"wing-text\" *ngIf=\"!menuOptions.MenuConfig.onlyIcons\" x=\"50%\" y=\"50%\" dominant-baseline=\"central\" style=\"text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2)\" [ngStyle]=\"{'font-size': menuOptions.MenuConfig.wingFontSize + 'px'}\" [attr.text-anchor]=\"textAnchor\" [attr.transform]=\"'rotate('+ textRotate + ', ' + menuOptions.MenuConfig.radius/2  + ', ' + menuOptions.MenuConfig.radius/2 + ')'\" [attr.fill]=\"wing.titleColor || menuOptions.MenuConfig.wingFontColor\">{{wing.title}}</text></svg> <i class=\"{{wing.icon.name}}\" *ngIf=\"menuOptions.MenuConfig.showIcons || menuOptions.MenuConfig.onlyIcons\" [ngStyle]=\"{\n            'color': wing.icon.color || menuOptions.MenuConfig.wingFontColor,\n            'font-size': iconSize + 'px',\n            'width': iconSize + 'px',\n            'height': iconSize + 'px',\n            'transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ (rotateDeg + spinService.SpinDegrees) * -1 + 'deg)',\n            '-webkit-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ (rotateDeg + spinService.SpinDegrees) * -1 + 'deg)',\n            '-ms-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ (rotateDeg + spinService.SpinDegrees) * -1 + 'deg)',\n            '-moz-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ (rotateDeg + spinService.SpinDegrees) * -1 + 'deg)',\n            '-o-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ (rotateDeg + spinService.SpinDegrees) * -1 + 'deg)'\n       }\"></i></div>",
+        styles: [".wing{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;pointer-events:none;width:100%;height:100%;position:absolute;cursor:pointer;-webkit-transform-origin:0 50%;-moz-transform-origin:0 50%;-ms-transform-origin:0 50%;transform-origin:0 50%;-webkit-transition:all .3s cubic-bezier(.68,-.55,.265,1.55);-moz-transition:all .3s cubic-bezier(.68,-.55,.265,1.55);transition:all .3s cubic-bezier(.68,-.55,.265,1.55)}.wing i{text-align:center;-webkit-transform-origin:50% 50%;-moz-transform-origin:50% 50%;-ms-transform-origin:50% 50%;transform-origin:50% 50%}"],
     }),
-    __metadata("design:paramtypes", [menu_options_service_1.MenuOptions])
+    __metadata("design:paramtypes", [menu_options_service_1.MenuOptions,
+        menu_spin_service_1.SpinService])
 ], MenuWingComponent);
 exports.MenuWingComponent = MenuWingComponent;
 

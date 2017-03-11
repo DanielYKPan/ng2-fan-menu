@@ -1,13 +1,21 @@
 <div class="wing wing-{{index}}"
      [ngStyle]="{
-        'transform': 'rotate(' + rotateDeg + 'deg) '+ 'scale(' + scaleSize +')',
-        '-webkit-transform': 'rotate(' + rotateDeg + 'deg) '+ 'scale(' + scaleSize +')',
-        '-ms-transform': 'rotate(' + rotateDeg + 'deg) '+ 'scale(' + scaleSize +')',
-        '-moz-transform': 'rotate(' + rotateDeg + 'deg) '+ 'scale(' + scaleSize +')',
-        '-o-transform': 'rotate(' + rotateDeg + 'deg) '+ 'scale(' + scaleSize +')'
+        'transition': spinService.TransitionStyle,
+        '-webkit-transition': spinService.TransitionStyle,
+        '-moz-transition': spinService.TransitionStyle,
+        '-ms-transition': spinService.TransitionStyle,
+        'transform': 'rotate(' + (rotateDeg + spinService.SpinDegrees) + 'deg) '+ 'scale(' + scaleSize +')',
+        '-webkit-transform': 'rotate(' + (rotateDeg + spinService.SpinDegrees) + 'deg) '+ 'scale(' + scaleSize +')',
+        '-ms-transform': 'rotate(' + (rotateDeg + spinService.SpinDegrees) + 'deg) '+ 'scale(' + scaleSize +')',
+        '-moz-transform': 'rotate(' + (rotateDeg + spinService.SpinDegrees) + 'deg) '+ 'scale(' + scaleSize +')',
+        '-o-transform': 'rotate(' + (rotateDeg + spinService.SpinDegrees) + 'deg) '+ 'scale(' + scaleSize +')'
      }">
     <svg class="wing-svg" width="100%" height="100%">
         <path style="pointer-events:auto;"
+              (tap)="onClick()"
+              (panstart)="onPanStart($event)"
+              (panmove)="onRotate($event)"
+              (panend)="onPanEnd($event)"
               (mouseover)="onMouseOver()"
               (mouseout)="onMouseOut()"
               [attr.fill]="wing.color"
@@ -31,10 +39,10 @@
             'font-size': iconSize + 'px',
             'width': iconSize + 'px',
             'height': iconSize + 'px',
-            'transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)',
-            '-webkit-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)',
-            '-ms-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)',
-            '-moz-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)',
-            '-o-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ rotateDeg * -1 + 'deg)'
+            'transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ (rotateDeg + spinService.SpinDegrees) * -1 + 'deg)',
+            '-webkit-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ (rotateDeg + spinService.SpinDegrees) * -1 + 'deg)',
+            '-ms-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ (rotateDeg + spinService.SpinDegrees) * -1 + 'deg)',
+            '-moz-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ (rotateDeg + spinService.SpinDegrees) * -1 + 'deg)',
+            '-o-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ (rotateDeg + spinService.SpinDegrees) * -1 + 'deg)'
        }"></i>
 </div>

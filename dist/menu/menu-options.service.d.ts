@@ -7,6 +7,7 @@ export interface IMenuConfig {
     offset?: number;
     showIcons?: boolean;
     onlyIcons?: boolean;
+    spinable?: boolean;
     wingFontSize?: number;
     wingFontWeight?: number;
     wingFontColor?: string;
@@ -49,6 +50,11 @@ export declare class MenuOptions {
     };
     private buttonConfig;
     readonly Button: IMenuButton;
+    private center;
+    Center: {
+        x: number;
+        y: number;
+    };
     constructor();
     setMenuOptions(menuConfig: IMenuConfig, buttonConfig: IMenuButton, gutter: Object, startAngles: Object): void;
 }

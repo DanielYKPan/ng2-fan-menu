@@ -13,6 +13,7 @@ export interface IMenuConfig {
     offset?: number,
     showIcons?: boolean,
     onlyIcons?: boolean,
+    spinable?: boolean,
     wingFontSize?: number,
     wingFontWeight?: number,
     wingFontColor?: string,
@@ -32,7 +33,7 @@ export interface IMenuWing {
     title: string,
     color: string,
     titleColor?: string,
-    icon?: {name: string, color?: string,  size?: number}
+    icon?: {name: string, color?: string, size?: number}
 }
 
 @Injectable()
@@ -47,6 +48,7 @@ export class MenuOptions {
         offset: 25, // The gap between the menu button and the menu item wings.
         showIcons: true, // A flag that determines whether to show icon.
         onlyIcons: false, // A flag that determines whether only show all icons and hide the wing title
+        spinable: false, // A flag that determines whether the menu could be spin.
         wingFontSize: 16,
         wingFontWeight: 600,
         wingFontColor: '#ffffff',
@@ -92,6 +94,20 @@ export class MenuOptions {
 
     get Button(): IMenuButton {
         return this.buttonConfig;
+    }
+
+    /* Property center */
+    private center: {x: number, y: number};
+
+    get Center(): {x: number, y: number} {
+        return this.center;
+    }
+
+    set Center( value: {x: number, y: number} ) {
+        this.center = {
+            x: value.x + this.buttonConfig.width / 2,
+            y: value.y + this.buttonConfig.width / 2
+        };
     }
 
     constructor() {

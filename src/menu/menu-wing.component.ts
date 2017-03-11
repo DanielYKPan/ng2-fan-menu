@@ -2,8 +2,9 @@
  * menu-wing.component
  */
 
-import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { IMenuWing, MenuOptions } from './menu-options.service';
+import { SpinService } from './menu-spin.service';
 
 // webpack1_
 declare let require: any;
@@ -25,6 +26,7 @@ export class MenuWingComponent implements OnInit, OnChanges, OnDestroy {
     @Input() position: string;
     @Input() textRotate: number;
     @Input() textAnchor: string;
+    @Output() wingClicked = new EventEmitter<IMenuWing>();
 
     private timeOutId: number = 0;
     private scaleSize: number;
@@ -33,7 +35,8 @@ export class MenuWingComponent implements OnInit, OnChanges, OnDestroy {
     private iconY: number;
     private iconSize: number;
 
-    constructor( private menuOptions: MenuOptions ) {
+    constructor( private menuOptions: MenuOptions,
+                 private spinService: SpinService ) {
     }
 
     public ngOnInit() {
@@ -89,11 +92,38 @@ export class MenuWingComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     public onMouseOver(): void {
-        this.scaleSize = 1.2;
+        if (this.menuState) {
+            this.scaleSize = 1.2;
+        }
     }
 
     public onMouseOut(): void {
-        this.scaleSize = 1;
+        if (this.menuState) {
+            this.scaleSize = 1;
+        }
+    }
+
+    public onClick(): void {
+        this.wingClicked.emit(this.wing);
+    }
+
+    public onPanStart( event: any ): void {
+        if (this.menuOptions.MenuConfig.spinable) {
+            this.scaleSize = 1;
+            this.spinService.setStartPosition(event.center);
+        }
+    }
+
+    public onRotate( event: any ): void {
+        if (this.menuOptions.MenuConfig.spinable) {
+            this.spinService.setSpinDegrees(event.center);
+        }
+    }
+
+    public onPanEnd( event: any ): void {
+        if (this.menuOptions.MenuConfig.spinable) {
+            this.spinService.setLastSpinDegrees(event.center);
+        }
     }
 
     private clearTimer(): void {

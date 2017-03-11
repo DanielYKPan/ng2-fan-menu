@@ -13,10 +13,9 @@ var menu_options_service_1 = require("./menu-options.service");
 var MenuContainerComponent = (function () {
     function MenuContainerComponent(menuOptions) {
         this.menuOptions = menuOptions;
+        this.onWingSelected = new core_1.EventEmitter();
         this.allowTransition = true;
         this.dragStart = false;
-        this.textRotate = 0;
-        this.textAnchor = 'start';
     }
     MenuContainerComponent.prototype.ngOnInit = function () {
         this.menuOptions.setMenuOptions(this.options, this.button, this.gutter, this.startAngles);
@@ -28,6 +27,9 @@ var MenuContainerComponent = (function () {
     };
     MenuContainerComponent.prototype.animationDone = function () {
         this.allowTransition = true;
+    };
+    MenuContainerComponent.prototype.clickWing = function (wing) {
+        this.onWingSelected.emit(wing);
     };
     MenuContainerComponent.prototype.toggleMenu = function () {
         if (this.allowTransition) {
@@ -56,13 +58,13 @@ var MenuContainerComponent = (function () {
             this.menuContainerStyle['left.px'] < centreX) {
             this.positionClass = 'bottomLeft';
             this.textRotate = 0;
-            this.textAnchor = 'start';
+            this.textAnchor = 'middle';
         }
         else if (this.menuContainerStyle['top.px'] < centreY &&
             this.menuContainerStyle['left.px'] < centreX) {
             this.positionClass = 'topLeft';
             this.textRotate = 0;
-            this.textAnchor = 'start';
+            this.textAnchor = 'middle';
         }
         else if (this.menuContainerStyle['top.px'] < centreY &&
             this.menuContainerStyle['left.px'] > centreX) {
@@ -88,24 +90,44 @@ var MenuContainerComponent = (function () {
     };
     MenuContainerComponent.prototype.calculateMenuContainerPosition = function () {
         if (this.positionClass === 'topLeft') {
-            this.menuContainerStyle['top.px'] = this.menuOptions.Gutter.top;
-            this.menuContainerStyle['left.px'] = this.menuOptions.Gutter.left;
+            var top_1 = this.menuOptions.Gutter.top;
+            var left = this.menuOptions.Gutter.left;
+            this.menuContainerStyle['top.px'] = top_1;
+            this.menuContainerStyle['left.px'] = left;
+            this.textAnchor = 'middle';
+            this.textRotate = 0;
+            this.menuOptions.Center = { x: left, y: top_1 };
         }
         else if (this.positionClass === 'topRight') {
-            this.menuContainerStyle['top.px'] = this.menuOptions.Gutter.top;
-            this.menuContainerStyle['left.px'] = window.innerWidth - this.menuOptions.Button.width -
+            var top_2 = this.menuOptions.Gutter.top;
+            var left = window.innerWidth - this.menuOptions.Button.width -
                 this.menuOptions.Gutter.right;
+            this.menuContainerStyle['top.px'] = top_2;
+            this.menuContainerStyle['left.px'] = left;
+            this.textAnchor = 'end';
+            this.textRotate = 180;
+            this.menuOptions.Center = { x: left, y: top_2 };
         }
         else if (this.positionClass === 'bottomLeft') {
-            this.menuContainerStyle['top.px'] = window.innerHeight - this.menuOptions.Button.width -
+            var top_3 = window.innerHeight - this.menuOptions.Button.width -
                 this.menuOptions.Gutter.bottom;
-            this.menuContainerStyle['left.px'] = this.menuOptions.Gutter.left;
+            var left = this.menuOptions.Gutter.left;
+            this.menuContainerStyle['top.px'] = top_3;
+            this.menuContainerStyle['left.px'] = left;
+            this.textAnchor = 'middle';
+            this.textRotate = 0;
+            this.menuOptions.Center = { x: left, y: top_3 };
         }
         else if (this.positionClass === 'bottomRight') {
-            this.menuContainerStyle['top.px'] = window.innerHeight - this.menuOptions.Button.width
+            var top_4 = window.innerHeight - this.menuOptions.Button.width
                 - this.menuOptions.Gutter.bottom;
-            this.menuContainerStyle['left.px'] = window.innerWidth - this.menuOptions.Button.width
+            var left = window.innerWidth - this.menuOptions.Button.width
                 - this.menuOptions.Gutter.right;
+            this.menuContainerStyle['top.px'] = top_4;
+            this.menuContainerStyle['left.px'] = left;
+            this.textAnchor = 'end';
+            this.textRotate = 180;
+            this.menuOptions.Center = { x: left, y: top_4 };
         }
     };
     MenuContainerComponent.prototype.setElementsStyle = function () {
@@ -177,6 +199,10 @@ __decorate([
     __metadata("design:type", Object)
 ], MenuContainerComponent.prototype, "startAngles", void 0);
 __decorate([
+    core_1.Output(),
+    __metadata("design:type", Object)
+], MenuContainerComponent.prototype, "onWingSelected", void 0);
+__decorate([
     core_1.HostListener('document:panmove', ['$event']),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -185,7 +211,7 @@ __decorate([
 MenuContainerComponent = __decorate([
     core_1.Component({
         selector: 'app-menu-container',
-        template: "<div class=\"menu-container\" [ngStyle]=\"menuContainerStyle\"><button class=\"menu-btn\" [ngStyle]=\"menuBtnStyle\" (tap)=\"toggleMenu()\" (panstart)=\"onPanStart()\" (panend)=\"onPanEnd()\"><span [@menuScaleInOut]=\"menuState.toString()\" (@menuScaleInOut.done)=\"animationDone($event)\">Menu </span><span class=\"btn-cross\" [@crossScaleInOut]=\"menuState.toString()\" (@crossScaleInOut.done)=\"animationDone($event)\"><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" id=\"cross\" class=\"img\" x=\"0px\" y=\"0px\" viewBox=\"0 0 212.982 212.982\" style=\"enable-background:new 0 0 212.982 212.982\" xml:space=\"preserve\" [attr.width]=\"menuOptions.Button.crossImgSize\" [attr.height]=\"menuOptions.Button.crossImgSize\"><g id=\"Close\"><path style=\"fill-rule:evenodd;clip-rule:evenodd\" [attr.fill]=\"menuOptions.Button.color\" d=\"M131.804,106.491l75.936-75.936c6.99-6.99,6.99-18.323,0-25.312   c-6.99-6.99-18.322-6.99-25.312,0l-75.937,75.937L30.554,5.242c-6.99-6.99-18.322-6.99-25.312,0c-6.989,6.99-6.989,18.323,0,25.312   l75.937,75.936L5.242,182.427c-6.989,6.99-6.989,18.323,0,25.312c6.99,6.99,18.322,6.99,25.312,0l75.937-75.937l75.937,75.937   c6.989,6.99,18.322,6.99,25.312,0c6.99-6.99,6.99-18.322,0-25.312L131.804,106.491z\"/></g></svg></span></button><div class=\"menu-list\" [ngStyle]=\"menuListStyle\"><app-menu-wing *ngFor=\"let wing of wings; let i = index\" [textAnchor]=\"textAnchor\" [textRotate]=\"textRotate\" [position]=\"positionClass\" [wing]=\"wing\" [svgPath]=\"svgPath\" [index]=\"i\" [menuState]=\"menuState\"></app-menu-wing></div></div>",
+        template: "<div class=\"menu-container\" [ngStyle]=\"menuContainerStyle\"><button class=\"menu-btn\" [ngStyle]=\"menuBtnStyle\" (tap)=\"toggleMenu()\" (panstart)=\"onPanStart()\" (panend)=\"onPanEnd()\"><span [@menuScaleInOut]=\"menuState.toString()\" (@menuScaleInOut.done)=\"animationDone($event)\">Menu </span><span class=\"btn-cross\" [@crossScaleInOut]=\"menuState.toString()\" (@crossScaleInOut.done)=\"animationDone($event)\"><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" id=\"cross\" class=\"img\" x=\"0px\" y=\"0px\" viewBox=\"0 0 212.982 212.982\" style=\"enable-background:new 0 0 212.982 212.982\" xml:space=\"preserve\" [attr.width]=\"menuOptions.Button.crossImgSize\" [attr.height]=\"menuOptions.Button.crossImgSize\"><g id=\"Close\"><path style=\"fill-rule:evenodd;clip-rule:evenodd\" [attr.fill]=\"menuOptions.Button.color\" d=\"M131.804,106.491l75.936-75.936c6.99-6.99,6.99-18.323,0-25.312   c-6.99-6.99-18.322-6.99-25.312,0l-75.937,75.937L30.554,5.242c-6.99-6.99-18.322-6.99-25.312,0c-6.989,6.99-6.989,18.323,0,25.312   l75.937,75.936L5.242,182.427c-6.989,6.99-6.989,18.323,0,25.312c6.99,6.99,18.322,6.99,25.312,0l75.937-75.937l75.937,75.937   c6.989,6.99,18.322,6.99,25.312,0c6.99-6.99,6.99-18.322,0-25.312L131.804,106.491z\"/></g></svg></span></button><div class=\"menu-list\" [ngStyle]=\"menuListStyle\"><app-menu-wing *ngFor=\"let wing of wings; let i = index\" [textAnchor]=\"textAnchor\" [textRotate]=\"textRotate\" [position]=\"positionClass\" [wing]=\"wing\" [svgPath]=\"svgPath\" [index]=\"i\" [menuState]=\"menuState\" (wingClicked)=\"clickWing($event)\"></app-menu-wing></div></div>",
         styles: [".menu-container{position:fixed;z-index:99999}.menu-btn{-moz-box-shadow:-2px 6px 12px #8e8e8e;box-shadow:-2px 6px 12px #8e8e8e;outline:0;position:absolute;border:none;z-index:1000;cursor:pointer;-moz-border-radius:100%;border-radius:100%;background-color:#ff7f7f;color:#fff;font-size:14px}.menu-btn .img{position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;pointer-events:none;vertical-align:middle;display:block}.menu-btn span{display:block;vertical-align:middle;pointer-events:none}.menu-btn .btn-cross{position:absolute;top:0;left:0;right:0;bottom:0;margin:auto}.menu-list{pointer-events:none;position:absolute}"],
         animations: [
             core_1.trigger('menuScaleInOut', [

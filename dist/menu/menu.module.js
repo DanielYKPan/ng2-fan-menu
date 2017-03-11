@@ -11,6 +11,7 @@ var core_1 = require("@angular/core");
 var menu_container_component_1 = require("./menu-container.component");
 var menu_options_service_1 = require("./menu-options.service");
 var menu_wing_component_1 = require("./menu-wing.component");
+var menu_spin_service_1 = require("./menu-spin.service");
 require("hammerjs");
 var FanMenuModule = (function () {
     function FanMenuModule() {
@@ -32,6 +33,7 @@ FanMenuModule = __decorate([
         ],
         providers: [
             menu_options_service_1.MenuOptions,
+            menu_spin_service_1.SpinService,
         ]
     })
 ], FanMenuModule);

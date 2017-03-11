@@ -1,5 +1,5 @@
 import { OnInit } from '@angular/core';
-import { MenuOptions } from './menu-options.service';
+import { MenuOptions, IMenuWing } from './menu-options.service';
 export declare class MenuContainerComponent implements OnInit {
     menuOptions: MenuOptions;
     private options;
@@ -7,6 +7,7 @@ export declare class MenuContainerComponent implements OnInit {
     private gutter;
     private wings;
     private startAngles;
+    private onWingSelected;
     private menuContainerStyle;
     private menuBtnStyle;
     private menuListStyle;
@@ -20,6 +21,7 @@ export declare class MenuContainerComponent implements OnInit {
     constructor(menuOptions: MenuOptions);
     ngOnInit(): void;
     animationDone(): void;
+    clickWing(wing: IMenuWing): void;
     toggleMenu(): void;
     onPanStart(): void;
     onPanEnd(): void;

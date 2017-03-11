@@ -2,7 +2,10 @@
  * menu-container.component
  */
 
-import { Component, OnInit, Input, trigger, state, style, transition, animate, HostListener } from '@angular/core';
+import {
+    Component, OnInit, Input, trigger, state, style, transition, animate, HostListener,
+    Output, EventEmitter
+} from '@angular/core';
 import { MenuOptions, IMenuConfig, IMenuWing, IMenuButton } from './menu-options.service';
 
 // webpack1_
@@ -53,6 +56,8 @@ export class MenuContainerComponent implements OnInit {
 
     @Input() private startAngles: Object; // the first wing starting angle
 
+    @Output() private onWingSelected = new EventEmitter<IMenuWing>();
+
     private menuContainerStyle: Object;
     private menuBtnStyle: Object;
     private menuListStyle: Object;
@@ -61,8 +66,8 @@ export class MenuContainerComponent implements OnInit {
     private svgPath: string;
     private menuState: boolean; // A flag to indicate if the menu is open
     private positionClass: string; // menu's position
-    private textRotate: number = 0;
-    private textAnchor: string = 'start';
+    private textRotate: number;
+    private textAnchor: string;
 
     constructor( public menuOptions: MenuOptions ) {
     }
@@ -78,6 +83,10 @@ export class MenuContainerComponent implements OnInit {
 
     public animationDone() {
         this.allowTransition = true;
+    }
+
+    public clickWing( wing: IMenuWing ): void {
+        this.onWingSelected.emit(wing);
     }
 
     public toggleMenu() {
@@ -111,12 +120,12 @@ export class MenuContainerComponent implements OnInit {
             this.menuContainerStyle['left.px'] < centreX) {
             this.positionClass = 'bottomLeft';
             this.textRotate = 0;
-            this.textAnchor = 'start';
+            this.textAnchor = 'middle';
         } else if (this.menuContainerStyle['top.px'] < centreY &&
             this.menuContainerStyle['left.px'] < centreX) {
             this.positionClass = 'topLeft';
             this.textRotate = 0;
-            this.textAnchor = 'start';
+            this.textAnchor = 'middle';
         } else if (this.menuContainerStyle['top.px'] < centreY &&
             this.menuContainerStyle['left.px'] > centreX) {
             this.positionClass = 'topRight';
@@ -143,29 +152,45 @@ export class MenuContainerComponent implements OnInit {
 
     private calculateMenuContainerPosition() {
         if (this.positionClass === 'topLeft') {
-
-            this.menuContainerStyle['top.px'] = this.menuOptions.Gutter.top;
-            this.menuContainerStyle['left.px'] = this.menuOptions.Gutter.left;
+            let top = this.menuOptions.Gutter.top;
+            let left = this.menuOptions.Gutter.left;
+            this.menuContainerStyle['top.px'] = top;
+            this.menuContainerStyle['left.px'] = left;
+            this.textAnchor = 'middle';
+            this.textRotate = 0;
+            this.menuOptions.Center = {x: left, y: top};
 
         } else if (this.positionClass === 'topRight') {
-
-            this.menuContainerStyle['top.px'] = this.menuOptions.Gutter.top;
-            this.menuContainerStyle['left.px'] = window.innerWidth - this.menuOptions.Button.width -
+            let top = this.menuOptions.Gutter.top;
+            let left = window.innerWidth - this.menuOptions.Button.width -
                 this.menuOptions.Gutter.right;
+            this.menuContainerStyle['top.px'] = top;
+            this.menuContainerStyle['left.px'] = left;
+            this.textAnchor = 'end';
+            this.textRotate = 180;
+            this.menuOptions.Center = {x: left, y: top};
 
         } else if (this.positionClass === 'bottomLeft') {
-
-            this.menuContainerStyle['top.px'] = window.innerHeight - this.menuOptions.Button.width -
+            let top = window.innerHeight - this.menuOptions.Button.width -
                 this.menuOptions.Gutter.bottom;
-            this.menuContainerStyle['left.px'] = this.menuOptions.Gutter.left;
+            let left = this.menuOptions.Gutter.left;
+            this.menuContainerStyle['top.px'] = top;
+            this.menuContainerStyle['left.px'] = left;
+            this.textAnchor = 'middle';
+            this.textRotate = 0;
+            this.menuOptions.Center = {x: left, y: top};
 
         } else if (this.positionClass === 'bottomRight') {
 
-            this.menuContainerStyle['top.px'] = window.innerHeight - this.menuOptions.Button.width
+            let top = window.innerHeight - this.menuOptions.Button.width
                 - this.menuOptions.Gutter.bottom;
-            this.menuContainerStyle['left.px'] = window.innerWidth - this.menuOptions.Button.width
+            let left = window.innerWidth - this.menuOptions.Button.width
                 - this.menuOptions.Gutter.right;
-
+            this.menuContainerStyle['top.px'] = top;
+            this.menuContainerStyle['left.px'] = left;
+            this.textAnchor = 'end';
+            this.textRotate = 180;
+            this.menuOptions.Center = {x: left, y: top};
         }
     }
 

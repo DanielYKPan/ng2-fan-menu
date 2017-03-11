@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { MenuContainerComponent } from './menu-container.component';
 import { MenuOptions } from './menu-options.service';
 import { MenuWingComponent } from './menu-wing.component';
+import { SpinService } from './menu-spin.service';
 
 /* HammerJS */
 import 'hammerjs';
@@ -27,6 +28,7 @@ import 'hammerjs';
     ],
     providers: [
         MenuOptions,
+        SpinService,
     ]
 })
 export class FanMenuModule {
