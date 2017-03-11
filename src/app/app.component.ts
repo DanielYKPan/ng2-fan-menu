@@ -36,6 +36,7 @@ export class AppComponent implements OnInit {
 
     private options: any = {
         font: 'Baloo Bhaina, cursive',
+        spinable: true,
     };
     private button: any;
     private gutter: any;
@@ -47,6 +48,7 @@ export class AppComponent implements OnInit {
         if(window.innerWidth < 450) {
             this.options = {
                 font: 'Baloo Bhaina, cursive',
+                spinable: true,
                 radius: 150,
                 offset: 15,
                 wingFontSize: 12,
