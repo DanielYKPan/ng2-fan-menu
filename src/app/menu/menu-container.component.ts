@@ -152,36 +152,45 @@ export class MenuContainerComponent implements OnInit {
 
     private calculateMenuContainerPosition() {
         if (this.positionClass === 'topLeft') {
-
-            this.menuContainerStyle['top.px'] = this.menuOptions.Gutter.top;
-            this.menuContainerStyle['left.px'] = this.menuOptions.Gutter.left;
+            let top = this.menuOptions.Gutter.top;
+            let left = this.menuOptions.Gutter.left;
+            this.menuContainerStyle['top.px'] = top;
+            this.menuContainerStyle['left.px'] = left;
             this.textAnchor = 'middle';
             this.textRotate = 0;
+            this.menuOptions.Center = {x: left, y: top};
 
         } else if (this.positionClass === 'topRight') {
-
-            this.menuContainerStyle['top.px'] = this.menuOptions.Gutter.top;
-            this.menuContainerStyle['left.px'] = window.innerWidth - this.menuOptions.Button.width -
+            let top = this.menuOptions.Gutter.top;
+            let left = window.innerWidth - this.menuOptions.Button.width -
                 this.menuOptions.Gutter.right;
+            this.menuContainerStyle['top.px'] = top;
+            this.menuContainerStyle['left.px'] = left;
             this.textAnchor = 'end';
             this.textRotate = 180;
+            this.menuOptions.Center = {x: left, y: top};
 
         } else if (this.positionClass === 'bottomLeft') {
-
-            this.menuContainerStyle['top.px'] = window.innerHeight - this.menuOptions.Button.width -
+            let top = window.innerHeight - this.menuOptions.Button.width -
                 this.menuOptions.Gutter.bottom;
-            this.menuContainerStyle['left.px'] = this.menuOptions.Gutter.left;
+            let left = this.menuOptions.Gutter.left;
+            this.menuContainerStyle['top.px'] = top;
+            this.menuContainerStyle['left.px'] = left;
             this.textAnchor = 'middle';
             this.textRotate = 0;
+            this.menuOptions.Center = {x: left, y: top};
 
         } else if (this.positionClass === 'bottomRight') {
 
-            this.menuContainerStyle['top.px'] = window.innerHeight - this.menuOptions.Button.width
+            let top = window.innerHeight - this.menuOptions.Button.width
                 - this.menuOptions.Gutter.bottom;
-            this.menuContainerStyle['left.px'] = window.innerWidth - this.menuOptions.Button.width
+            let left = window.innerWidth - this.menuOptions.Button.width
                 - this.menuOptions.Gutter.right;
+            this.menuContainerStyle['top.px'] = top;
+            this.menuContainerStyle['left.px'] = left;
             this.textAnchor = 'end';
             this.textRotate = 180;
+            this.menuOptions.Center = {x: left, y: top};
         }
     }
 
