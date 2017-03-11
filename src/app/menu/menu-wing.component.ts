@@ -90,11 +90,15 @@ export class MenuWingComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     public onMouseOver(): void {
-        this.scaleSize = 1.2;
+        if(this.menuState) {
+            this.scaleSize = 1.2;
+        }
     }
 
     public onMouseOut(): void {
-        this.scaleSize = 1;
+        if(this.menuState) {
+            this.scaleSize = 1;
+        }
     }
 
     public onClick(): void {

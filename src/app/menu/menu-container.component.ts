@@ -66,8 +66,8 @@ export class MenuContainerComponent implements OnInit {
     private svgPath: string;
     private menuState: boolean; // A flag to indicate if the menu is open
     private positionClass: string; // menu's position
-    private textRotate: number = 0;
-    private textAnchor: string = 'start';
+    private textRotate: number;
+    private textAnchor: string;
 
     constructor( public menuOptions: MenuOptions ) {
     }
@@ -120,12 +120,12 @@ export class MenuContainerComponent implements OnInit {
             this.menuContainerStyle['left.px'] < centreX) {
             this.positionClass = 'bottomLeft';
             this.textRotate = 0;
-            this.textAnchor = 'start';
+            this.textAnchor = 'middle';
         } else if (this.menuContainerStyle['top.px'] < centreY &&
             this.menuContainerStyle['left.px'] < centreX) {
             this.positionClass = 'topLeft';
             this.textRotate = 0;
-            this.textAnchor = 'start';
+            this.textAnchor = 'middle';
         } else if (this.menuContainerStyle['top.px'] < centreY &&
             this.menuContainerStyle['left.px'] > centreX) {
             this.positionClass = 'topRight';
@@ -155,18 +155,24 @@ export class MenuContainerComponent implements OnInit {
 
             this.menuContainerStyle['top.px'] = this.menuOptions.Gutter.top;
             this.menuContainerStyle['left.px'] = this.menuOptions.Gutter.left;
+            this.textAnchor = 'middle';
+            this.textRotate = 0;
 
         } else if (this.positionClass === 'topRight') {
 
             this.menuContainerStyle['top.px'] = this.menuOptions.Gutter.top;
             this.menuContainerStyle['left.px'] = window.innerWidth - this.menuOptions.Button.width -
                 this.menuOptions.Gutter.right;
+            this.textAnchor = 'end';
+            this.textRotate = 180;
 
         } else if (this.positionClass === 'bottomLeft') {
 
             this.menuContainerStyle['top.px'] = window.innerHeight - this.menuOptions.Button.width -
                 this.menuOptions.Gutter.bottom;
             this.menuContainerStyle['left.px'] = this.menuOptions.Gutter.left;
+            this.textAnchor = 'middle';
+            this.textRotate = 0;
 
         } else if (this.positionClass === 'bottomRight') {
 
@@ -174,7 +180,8 @@ export class MenuContainerComponent implements OnInit {
                 - this.menuOptions.Gutter.bottom;
             this.menuContainerStyle['left.px'] = window.innerWidth - this.menuOptions.Button.width
                 - this.menuOptions.Gutter.right;
-
+            this.textAnchor = 'end';
+            this.textRotate = 180;
         }
     }
 
