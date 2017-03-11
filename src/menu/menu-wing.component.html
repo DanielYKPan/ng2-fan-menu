@@ -10,12 +10,12 @@
         '-moz-transform': 'rotate(' + (rotateDeg + spinService.SpinDegrees) + 'deg) '+ 'scale(' + scaleSize +')',
         '-o-transform': 'rotate(' + (rotateDeg + spinService.SpinDegrees) + 'deg) '+ 'scale(' + scaleSize +')'
      }">
-    <svg class="wing-svg" width="100%" height="100%">
+    <svg class="wing-svg" width="100%" height="100%"
+         (panstart)="onPanStart($event)"
+         (panmove)="onRotate($event)"
+         (panend)="onPanEnd($event)">
         <path style="pointer-events:auto;"
               (tap)="onClick()"
-              (panstart)="onPanStart($event)"
-              (panmove)="onRotate($event)"
-              (panend)="onPanEnd($event)"
               (mouseover)="onMouseOver()"
               (mouseout)="onMouseOut()"
               [attr.fill]="wing.color"
