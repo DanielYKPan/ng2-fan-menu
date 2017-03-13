@@ -13,7 +13,7 @@ main {
 
 .header {
   width: 100%;
-  height: $base-line-height * 15;
+  height: $base-line-height * 8;
   background-color: $brand-color;
   color: $white;
   text-align: center;
@@ -21,7 +21,7 @@ main {
 
   h1 {
     @include type-setting(2);
-    margin: $base-line-height * 3 0 0;
+    margin: $base-line-height 0 0;
 
     @include respond-to('large') {
       @include type-setting(5);
