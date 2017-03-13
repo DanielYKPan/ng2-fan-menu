@@ -143,8 +143,8 @@ var MenuContainerComponent = (function () {
     MenuContainerComponent.prototype.setElementsStyle = function () {
         this.menuContainerStyle = {
             'font-family': this.menuOptions.MenuConfig.font,
-            'width.px': this.menuOptions.MenuConfig.buttonWidth,
-            'height.px': this.menuOptions.MenuConfig.buttonWidth,
+            'width.px': +this.menuOptions.MenuConfig.buttonWidth,
+            'height.px': +this.menuOptions.MenuConfig.buttonWidth,
             'top.px': 0,
             'left.px': 0,
             'transition': 'none',
@@ -153,8 +153,8 @@ var MenuContainerComponent = (function () {
             '-moz-transition': 'none',
         };
         this.menuBtnStyle = {
-            'width.px': this.menuOptions.MenuConfig.buttonWidth,
-            'height.px': this.menuOptions.MenuConfig.buttonWidth,
+            'width.px': +this.menuOptions.MenuConfig.buttonWidth,
+            'height.px': +this.menuOptions.MenuConfig.buttonWidth,
             'background': this.menuOptions.MenuConfig.buttonBackgroundColor,
             'color': this.menuOptions.MenuConfig.buttonFontColor,
             'font-size.px': this.menuOptions.MenuConfig.buttonFontSize,
@@ -165,16 +165,16 @@ var MenuContainerComponent = (function () {
         }
         this.menuListStyle = {
             'top.px': -(this.menuOptions.MenuConfig.radius - this.menuOptions.MenuConfig.buttonWidth) / 2,
-            'left.px': this.menuOptions.MenuConfig.buttonWidth / 2,
-            'width.px': this.menuOptions.MenuConfig.radius,
-            'height.px': this.menuOptions.MenuConfig.radius,
+            'left.px': +this.menuOptions.MenuConfig.buttonWidth / 2,
+            'width.px': +this.menuOptions.MenuConfig.radius,
+            'height.px': +this.menuOptions.MenuConfig.radius,
         };
     };
     MenuContainerComponent.prototype.calculateSvgPath = function () {
-        var buttonWidth = this.menuOptions.MenuConfig.buttonWidth;
-        var offset = this.menuOptions.MenuConfig.offset;
-        var angle = this.menuOptions.MenuConfig.angle;
-        var radius = this.menuOptions.MenuConfig.radius;
+        var buttonWidth = +this.menuOptions.MenuConfig.buttonWidth;
+        var offset = +this.menuOptions.MenuConfig.offset;
+        var angle = +this.menuOptions.MenuConfig.angle;
+        var radius = +this.menuOptions.MenuConfig.radius;
         var innerRadius = buttonWidth / 2 + offset;
         var x1 = Math.floor(radius * Math.cos(Math.PI * (360 - angle / 2) / 180));
         var y1 = Math.floor(radius / 2 + radius * Math.sin(Math.PI * (360 - angle / 2) / 180));
