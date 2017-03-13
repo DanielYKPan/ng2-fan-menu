@@ -61,7 +61,6 @@ export class AppComponent implements OnInit {
 
     private options: Object = {
         font: 'Baloo Bhaina, cursive',
-        spinable: true,
     };
 
     constructor( private cdRef: ChangeDetectorRef ) {
@@ -87,7 +86,7 @@ export class AppComponent implements OnInit {
     }
 
     public applyChanges( field: string, value: any ): any {
-        if (this.defaultOptions[field] != value) {
+        if (!this.options.hasOwnProperty(field) || this.options[field] != value) {
             this.render = false;
             this.options[field] = value;
             this.cdRef.detectChanges();

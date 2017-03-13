@@ -22,6 +22,100 @@
 
         <div class="demo">
 
+            <!-- Menu Font -->
+            <div class="row">
+                <hr>
+                <h2>Config Menu Font Family</h2>
+                <p class="description">The font family type of the menu.</p>
+                <p class="default">Default: {{defaultOptions.font}}</p>
+                <input class="config-input menu-font"
+                       [ngModel]="defaultOptions.font" #font>
+                <button class="btn btn-primary config-btn"
+                        (click)="applyChanges('font', font.value)">Apply the Change
+                </button>
+                <button class="btn btn-success config-btn" (click)="applyDefault('font')">Apply Default
+                </button>
+            </div>
+
+            <!-- Menu Default Open -->
+            <div class="row">
+                <hr>
+                <h2>Config Menu Default Open State</h2>
+                <p class="description">Config if open menu automatically on load.</p>
+                <p class="default">Default: {{defaultOptions.defaultOpen}}</p>
+                <div>
+                    <label>
+                        <input type="checkbox" name="isDefaultOpen"
+                               [ngModel]="defaultOptions.defaultOpen"
+                               (ngModelChange)="applyChanges('defaultOpen', $event)">
+                        Menu automatically open on load
+                    </label>
+                </div>
+            </div>
+
+            <!-- Menu Radius -->
+            <div class="row">
+                <hr>
+                <h2>Config Menu Radius</h2>
+                <p class="description">The radius of the menu wings from the center of the button. The radius unit is 'px'.</p>
+                <p class="default">Default: {{defaultOptions.radius}}px</p>
+                <input class="config-input menu-radius"
+                       [ngModel]="defaultOptions.radius" #radius>
+                <button class="btn btn-primary config-btn"
+                        (click)="applyChanges('radius', radius.value)">Apply the Change
+                </button>
+                <button class="btn btn-success config-btn" (click)="applyDefault('radius')">Apply Default
+                </button>
+            </div>
+
+            <!-- Menu Spinable -->
+            <div class="row">
+                <hr>
+                <h2>Config Menu Spin State</h2>
+                <p class="description">Config if the menu could be span</p>
+                <p class="default">Default: {{defaultOptions.spinable}}(could not be span)</p>
+                <div>
+                    <label>
+                        <input type="checkbox" name="isSpinable"
+                               [ngModel]="defaultOptions.spinable"
+                               (ngModelChange)="applyChanges('spinable', $event)">
+                        Menu Spinable
+                    </label>
+                </div>
+            </div>
+
+            <!-- Menu Show Icon -->
+            <div class="row">
+                <hr>
+                <h2>Config Menu Show Icon State</h2>
+                <p class="description">Config if the menu shows icons</p>
+                <p class="default">Default: {{defaultOptions.showIcons}}(show wing's icons)</p>
+                <div>
+                    <label>
+                        <input type="checkbox" name="isShowIcons"
+                               [ngModel]="defaultOptions.showIcons"
+                               (ngModelChange)="applyChanges('showIcons', $event)">
+                        Show Icon
+                    </label>
+                </div>
+            </div>
+
+            <!-- Menu Only Icon -->
+            <div class="row">
+                <hr>
+                <h2>Config Menu Only Icon State</h2>
+                <p class="description">Config if the menu shows only icons (Not shows wing title)</p>
+                <p class="default">Default: {{defaultOptions.onlyIcons}}(show only wing's icons, no title)</p>
+                <div>
+                    <label>
+                        <input type="checkbox" name="isOnlyIcons"
+                               [ngModel]="defaultOptions.onlyIcons"
+                               (ngModelChange)="applyChanges('onlyIcons', $event)">
+                        Show Only Icons
+                    </label>
+                </div>
+            </div>
+
             <!-- Button Offset -->
             <div class="row">
                 <hr>
@@ -144,6 +238,21 @@
                         (click)="applyChanges('buttonCrossImgSize', buttonCrossImgSize.value)">Apply the Change
                 </button>
                 <button class="btn btn-success config-btn" (click)="applyDefault('buttonCrossImgSize')">Apply Default
+                </button>
+            </div>
+
+            <!-- Menu wing angle -->
+            <div class="row">
+                <hr>
+                <h2>Config Wing Angle</h2>
+                <p class="description">Set the angle at which each wing will open.</p>
+                <p class="default">Default: {{defaultOptions.angle}} degrees</p>
+                <input class="config-input wing-angle"
+                       [ngModel]="defaultOptions.angle" #angle>
+                <button class="btn btn-primary config-btn"
+                        (click)="applyChanges('angle', angle.value)">Apply the Change
+                </button>
+                <button class="btn btn-success config-btn" (click)="applyDefault('angle')">Apply Default
                 </button>
             </div>
         </div>
