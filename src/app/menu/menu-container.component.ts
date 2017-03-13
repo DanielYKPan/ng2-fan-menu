@@ -207,8 +207,8 @@ export class MenuContainerComponent implements OnInit {
     private setElementsStyle(): void {
         this.menuContainerStyle = {
             'font-family': this.menuOptions.MenuConfig.font,
-            'width.px': this.menuOptions.MenuConfig.buttonWidth,
-            'height.px': this.menuOptions.MenuConfig.buttonWidth,
+            'width.px': +this.menuOptions.MenuConfig.buttonWidth,
+            'height.px': +this.menuOptions.MenuConfig.buttonWidth,
             'top.px': 0,
             'left.px': 0,
             'transition': 'none',
@@ -217,8 +217,8 @@ export class MenuContainerComponent implements OnInit {
             '-moz-transition': 'none',
         };
         this.menuBtnStyle = {
-            'width.px': this.menuOptions.MenuConfig.buttonWidth,
-            'height.px': this.menuOptions.MenuConfig.buttonWidth,
+            'width.px': +this.menuOptions.MenuConfig.buttonWidth,
+            'height.px': +this.menuOptions.MenuConfig.buttonWidth,
             'background': this.menuOptions.MenuConfig.buttonBackgroundColor,
             'color': this.menuOptions.MenuConfig.buttonFontColor,
             'font-size.px': this.menuOptions.MenuConfig.buttonFontSize,
@@ -229,17 +229,17 @@ export class MenuContainerComponent implements OnInit {
         }
         this.menuListStyle = {
             'top.px': -(this.menuOptions.MenuConfig.radius - this.menuOptions.MenuConfig.buttonWidth) / 2,
-            'left.px': this.menuOptions.MenuConfig.buttonWidth / 2,
-            'width.px': this.menuOptions.MenuConfig.radius,
-            'height.px': this.menuOptions.MenuConfig.radius,
+            'left.px': +this.menuOptions.MenuConfig.buttonWidth / 2,
+            'width.px': +this.menuOptions.MenuConfig.radius,
+            'height.px': +this.menuOptions.MenuConfig.radius,
         };
     }
 
     private calculateSvgPath() {
-        let buttonWidth = this.menuOptions.MenuConfig.buttonWidth;
-        let offset = this.menuOptions.MenuConfig.offset;
-        let angle = this.menuOptions.MenuConfig.angle;
-        let radius = this.menuOptions.MenuConfig.radius;
+        let buttonWidth = +this.menuOptions.MenuConfig.buttonWidth;
+        let offset = +this.menuOptions.MenuConfig.offset;
+        let angle = +this.menuOptions.MenuConfig.angle;
+        let radius = +this.menuOptions.MenuConfig.radius;
         let innerRadius = buttonWidth / 2 + offset;
         let x1 = Math.floor(radius * Math.cos(Math.PI * (360 - angle / 2) / 180));
         let y1 = Math.floor(radius / 2 + radius * Math.sin(Math.PI * (360 - angle / 2) / 180));
