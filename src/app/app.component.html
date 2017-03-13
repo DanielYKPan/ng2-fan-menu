@@ -21,13 +21,24 @@
         </div>
 
         <div class="demo">
+            <!-- Button Font Size -->
             <div class="row">
-                <input class="button-width">
-                <button>Apply the Change</button>
+                <hr>
+                <h2>Config Button Font Size</h2>
+                <p class="description">Set the button font size. The font size unit is 'px'.</p>
+                <p class="default">Default: 14px</p>
+                <input class="config-input button-font-size"
+                       [ngModel]="defaultOptions.buttonFontSize" #buttonFontSize>
+                <button class="btn btn-primary config-btn"
+                        (click)="applyChanges('buttonFontSize', +buttonFontSize.value)">Apply the Change
+                </button>
+                <button class="btn btn-success config-btn" (click)="applyDefault('buttonFontSize')">Apply Default
+                </button>
             </div>
         </div>
     </section>
-    <app-menu-container [options]="options"
-                        [wings]="wings"
-                        [gutter]="gutter"></app-menu-container>
+
+    <app-menu-container *ngIf="render"
+                        [options]="options"
+                        [wings]="wings"></app-menu-container>
 </main>

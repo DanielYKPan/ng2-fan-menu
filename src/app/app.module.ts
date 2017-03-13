@@ -15,9 +15,12 @@ import { FanMenuModule } from 'ng2-fan-menu';
         FanMenuModule,
     ],
     declarations: [
-        AppComponent
+        AppComponent,
     ],
-    bootstrap: [ AppComponent ]
+    bootstrap: [
+        AppComponent,
+    ]
 })
-export class AppModule { }
+export class AppModule {
+}
 
