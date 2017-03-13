@@ -2,7 +2,7 @@
  * app.component
  */
 
-import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from "@angular/core";
 
 import '../sass/main.scss';
 

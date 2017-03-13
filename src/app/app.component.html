@@ -21,6 +21,56 @@
         </div>
 
         <div class="demo">
+
+            <!-- Button Background Color -->
+            <div class="row">
+                <hr>
+                <h2>Config Button Background Color</h2>
+                <p class="description">Set the button background color.</p>
+                <p class="default">Default: {{defaultOptions.buttonBackgroundColor}}</p>
+                <input class="config-input button-cross-size"
+                       #buttonBackgroundColor
+                       [value]="options['buttonBackgroundColor'] || defaultOptions.buttonBackgroundColor"
+                       [style.background]="options['buttonBackgroundColor'] || defaultOptions.buttonBackgroundColor"
+                       [colorPicker]="options['buttonBackgroundColor'] || defaultOptions.buttonBackgroundColor"
+                       [cpPosition]="'bottom'"
+                       (colorPickerChange)="applyChanges('buttonBackgroundColor', $event)">
+                <button class="btn btn-success config-btn" (click)="applyDefault('buttonBackgroundColor')">Apply Default
+                </button>
+            </div>
+
+            <!-- Button Width -->
+            <div class="row">
+                <hr>
+                <h2>Config Button Width</h2>
+                <p class="description">Set the button width. The width unit is 'px'.</p>
+                <p class="default">Default: 60px</p>
+                <input class="config-input button-width"
+                       [ngModel]="defaultOptions.buttonWidth" #buttonWidth>
+                <button class="btn btn-primary config-btn"
+                        (click)="applyChanges('buttonWidth', +buttonWidth.value)">Apply the Change
+                </button>
+                <button class="btn btn-success config-btn" (click)="applyDefault('buttonWidth')">Apply Default
+                </button>
+            </div>
+
+            <!-- Button Font Color -->
+            <div class="row">
+                <hr>
+                <h2>Config Button Font and Cross Image Color</h2>
+                <p class="description">Set the button font color and the cross image color.</p>
+                <p class="default">Default: {{defaultOptions.buttonFontColor}}</p>
+                <input class="config-input button-cross-size"
+                       #buttonFontColor
+                       [value]="options['buttonFontColor'] || defaultOptions.buttonFontColor"
+                       [style.background]="options['buttonFontColor'] || defaultOptions.buttonFontColor"
+                       [colorPicker]="options['buttonFontColor'] || defaultOptions.buttonFontColor"
+                       [cpPosition]="'bottom'"
+                       (colorPickerChange)="applyChanges('buttonFontColor', $event)">
+                <button class="btn btn-success config-btn" (click)="applyDefault('buttonFontColor')">Apply Default
+                </button>
+            </div>
+
             <!-- Button Font Size -->
             <div class="row">
                 <hr>
@@ -33,6 +83,52 @@
                         (click)="applyChanges('buttonFontSize', +buttonFontSize.value)">Apply the Change
                 </button>
                 <button class="btn btn-success config-btn" (click)="applyDefault('buttonFontSize')">Apply Default
+                </button>
+            </div>
+
+            <!-- Button Font Weight -->
+            <div class="row">
+                <hr>
+                <h2>Config Button Font Weight</h2>
+                <p class="description">Set the button font wight.</p>
+                <p class="default">Default: 700</p>
+                <input class="config-input button-font-weight"
+                       [ngModel]="defaultOptions.buttonFontWeight" #buttonFontWeight>
+                <button class="btn btn-primary config-btn"
+                        (click)="applyChanges('buttonFontWeight', +buttonFontWeight.value)">Apply the Change
+                </button>
+                <button class="btn btn-success config-btn" (click)="applyDefault('buttonFontWeight')">Apply Default
+                </button>
+            </div>
+
+            <!-- Button opacity -->
+            <div class="row">
+                <hr>
+                <h2>Config Button Opacity</h2>
+                <p class="description">Set the button opacity value when the button is not focused or open. Value could be set between 0~1.</p>
+                <p class="default">Default: 0.7</p>
+                <input class="config-input button-opacity"
+                       [ngModel]="defaultOptions.buttonOpacity" #buttonOpacity>
+                <button class="btn btn-primary config-btn"
+                        (click)="applyChanges('buttonOpacity', +buttonOpacity.value)">Apply the Change
+                </button>
+                <button class="btn btn-success config-btn" (click)="applyDefault('buttonOpacity')">Apply Default
+                </button>
+            </div>
+
+            <!-- Button Cross Image Size -->
+            <div class="row">
+                <hr>
+                <h2>Config Button Cross Image Size</h2>
+                <p class="description">Set the button cross image size. The size could be percentage('50%') or px('30px') or other measure units.
+                    <strong>Warning: do not forget to provide the measure unit(px, em, rem, %)</strong></p>
+                <p class="default">Default: 50%</p>
+                <input class="config-input button-cross-size"
+                       [ngModel]="defaultOptions.buttonCrossImgSize" #buttonCrossImgSize>
+                <button class="btn btn-primary config-btn"
+                        (click)="applyChanges('buttonCrossImgSize', buttonCrossImgSize.value)">Apply the Change
+                </button>
+                <button class="btn btn-success config-btn" (click)="applyDefault('buttonCrossImgSize')">Apply Default
                 </button>
             </div>
         </div>
