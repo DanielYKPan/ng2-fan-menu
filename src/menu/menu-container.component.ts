@@ -221,7 +221,7 @@ export class MenuContainerComponent implements OnInit {
             'height.px': this.menuOptions.MenuConfig.buttonWidth,
             'background': this.menuOptions.MenuConfig.buttonBackgroundColor,
             'color': this.menuOptions.MenuConfig.buttonFontColor,
-            'font-size': this.menuOptions.MenuConfig.buttonFontSize,
+            'font-size.px': this.menuOptions.MenuConfig.buttonFontSize,
             'font-weight': this.menuOptions.MenuConfig.buttonFontWeight,
         };
         if(!this.menuState) {

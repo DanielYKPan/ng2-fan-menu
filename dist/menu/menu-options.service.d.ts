@@ -16,7 +16,7 @@ export interface IMenuConfig {
     buttonBackgroundColor?: string;
     buttonFontColor?: string;
     buttonFontWeight?: number;
-    buttonFontSize?: string;
+    buttonFontSize?: number;
     buttonCrossImgSize?: string;
     buttonOpacity?: number;
 }

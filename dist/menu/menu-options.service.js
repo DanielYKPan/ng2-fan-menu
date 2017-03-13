@@ -29,7 +29,7 @@ var MenuOptions = (function () {
             buttonBackgroundColor: '#ff7f7f',
             buttonFontColor: '#ffffff',
             buttonFontWeight: 700,
-            buttonFontSize: '14px',
+            buttonFontSize: 14,
             buttonCrossImgSize: '50%',
             buttonOpacity: 0.7,
         };

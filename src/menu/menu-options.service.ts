@@ -22,7 +22,7 @@ export interface IMenuConfig {
     buttonBackgroundColor?: string,
     buttonFontColor?: string,
     buttonFontWeight?: number,
-    buttonFontSize?: string,
+    buttonFontSize?: number,
     buttonCrossImgSize?: string,
     buttonOpacity?: number,
 }
@@ -55,7 +55,7 @@ export class MenuOptions {
         buttonBackgroundColor: '#ff7f7f',
         buttonFontColor: '#ffffff',
         buttonFontWeight: 700,
-        buttonFontSize: '14px',
+        buttonFontSize: 14,
         buttonCrossImgSize: '50%',
         buttonOpacity: 0.7,
     };
