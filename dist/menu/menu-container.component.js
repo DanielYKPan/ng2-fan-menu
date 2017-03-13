@@ -18,7 +18,7 @@ var MenuContainerComponent = (function () {
         this.dragStart = false;
     }
     MenuContainerComponent.prototype.ngOnInit = function () {
-        this.menuOptions.setMenuOptions(this.options, this.button, this.gutter, this.startAngles);
+        this.menuOptions.setMenuOptions(this.options, this.gutter, this.startAngles);
         this.menuState = this.menuOptions.MenuConfig.defaultOpen;
         this.positionClass = this.menuOptions.MenuConfig.defaultPosition;
         this.setElementsStyle();
@@ -51,9 +51,9 @@ var MenuContainerComponent = (function () {
         this.menuContainerStyle['-moz-transition'] = 'all 900ms cubic-bezier(0.680, -0.550, 0.265, 1.550)';
         this.menuContainerStyle['-ms-transition'] = 'all 900ms cubic-bezier(0.680, -0.550, 0.265, 1.550)';
         var centreX = window.innerWidth / 2 -
-            this.menuOptions.Button.width / 2;
+            this.menuOptions.MenuConfig.buttonWidth / 2;
         var centreY = window.innerHeight / 2 -
-            this.menuOptions.Button.width / 2;
+            this.menuOptions.MenuConfig.buttonWidth / 2;
         if (this.menuContainerStyle['top.px'] > centreY &&
             this.menuContainerStyle['left.px'] < centreX) {
             this.positionClass = 'bottomLeft';
@@ -84,8 +84,18 @@ var MenuContainerComponent = (function () {
         if (this.dragStart) {
             var y = event.center.y;
             var x = event.center.x;
-            this.menuContainerStyle['top.px'] = y - this.menuOptions.Button.width / 2;
-            this.menuContainerStyle['left.px'] = x - this.menuOptions.Button.width / 2;
+            this.menuContainerStyle['top.px'] = y - this.menuOptions.MenuConfig.buttonWidth / 2;
+            this.menuContainerStyle['left.px'] = x - this.menuOptions.MenuConfig.buttonWidth / 2;
+        }
+    };
+    MenuContainerComponent.prototype.onMouseOverMenu = function () {
+        if (this.menuBtnStyle['opacity'] < 1) {
+            this.menuBtnStyle['opacity'] = 1;
+        }
+    };
+    MenuContainerComponent.prototype.onMouseOutMenu = function () {
+        if (this.menuOptions.MenuConfig.buttonOpacity < 1 && !this.menuState) {
+            this.menuBtnStyle['opacity'] = this.menuOptions.MenuConfig.buttonOpacity;
         }
     };
     MenuContainerComponent.prototype.calculateMenuContainerPosition = function () {
@@ -100,7 +110,7 @@ var MenuContainerComponent = (function () {
         }
         else if (this.positionClass === 'topRight') {
             var top_2 = this.menuOptions.Gutter.top;
-            var left = window.innerWidth - this.menuOptions.Button.width -
+            var left = window.innerWidth - this.menuOptions.MenuConfig.buttonWidth -
                 this.menuOptions.Gutter.right;
             this.menuContainerStyle['top.px'] = top_2;
             this.menuContainerStyle['left.px'] = left;
@@ -109,7 +119,7 @@ var MenuContainerComponent = (function () {
             this.menuOptions.Center = { x: left, y: top_2 };
         }
         else if (this.positionClass === 'bottomLeft') {
-            var top_3 = window.innerHeight - this.menuOptions.Button.width -
+            var top_3 = window.innerHeight - this.menuOptions.MenuConfig.buttonWidth -
                 this.menuOptions.Gutter.bottom;
             var left = this.menuOptions.Gutter.left;
             this.menuContainerStyle['top.px'] = top_3;
@@ -119,9 +129,9 @@ var MenuContainerComponent = (function () {
             this.menuOptions.Center = { x: left, y: top_3 };
         }
         else if (this.positionClass === 'bottomRight') {
-            var top_4 = window.innerHeight - this.menuOptions.Button.width
+            var top_4 = window.innerHeight - this.menuOptions.MenuConfig.buttonWidth
                 - this.menuOptions.Gutter.bottom;
-            var left = window.innerWidth - this.menuOptions.Button.width
+            var left = window.innerWidth - this.menuOptions.MenuConfig.buttonWidth
                 - this.menuOptions.Gutter.right;
             this.menuContainerStyle['top.px'] = top_4;
             this.menuContainerStyle['left.px'] = left;
@@ -133,8 +143,8 @@ var MenuContainerComponent = (function () {
     MenuContainerComponent.prototype.setElementsStyle = function () {
         this.menuContainerStyle = {
             'font-family': this.menuOptions.MenuConfig.font,
-            'width.px': this.menuOptions.Button.width,
-            'height.px': this.menuOptions.Button.width,
+            'width.px': this.menuOptions.MenuConfig.buttonWidth,
+            'height.px': this.menuOptions.MenuConfig.buttonWidth,
             'top.px': 0,
             'left.px': 0,
             'transition': 'none',
@@ -143,22 +153,25 @@ var MenuContainerComponent = (function () {
             '-moz-transition': 'none',
         };
         this.menuBtnStyle = {
-            'width.px': this.menuOptions.Button.width,
-            'height.px': this.menuOptions.Button.width,
-            'background': this.menuOptions.Button.backgroundColor,
-            'color': this.menuOptions.Button.color,
-            'font-size': this.menuOptions.Button.fontSize,
-            'font-weight': this.menuOptions.Button.fontWeight,
+            'width.px': this.menuOptions.MenuConfig.buttonWidth,
+            'height.px': this.menuOptions.MenuConfig.buttonWidth,
+            'background': this.menuOptions.MenuConfig.buttonBackgroundColor,
+            'color': this.menuOptions.MenuConfig.buttonFontColor,
+            'font-size': this.menuOptions.MenuConfig.buttonFontSize,
+            'font-weight': this.menuOptions.MenuConfig.buttonFontWeight,
         };
+        if (!this.menuState) {
+            this.menuBtnStyle['opacity'] = this.menuOptions.MenuConfig.buttonOpacity;
+        }
         this.menuListStyle = {
-            'top.px': -(this.menuOptions.MenuConfig.radius - this.menuOptions.Button.width) / 2,
-            'left.px': this.menuOptions.Button.width / 2,
+            'top.px': -(this.menuOptions.MenuConfig.radius - this.menuOptions.MenuConfig.buttonWidth) / 2,
+            'left.px': this.menuOptions.MenuConfig.buttonWidth / 2,
             'width.px': this.menuOptions.MenuConfig.radius,
             'height.px': this.menuOptions.MenuConfig.radius,
         };
     };
     MenuContainerComponent.prototype.calculateSvgPath = function () {
-        var buttonWidth = this.menuOptions.Button.width;
+        var buttonWidth = this.menuOptions.MenuConfig.buttonWidth;
         var offset = this.menuOptions.MenuConfig.offset;
         var angle = this.menuOptions.MenuConfig.angle;
         var radius = this.menuOptions.MenuConfig.radius;
@@ -185,10 +198,6 @@ __decorate([
 __decorate([
     core_1.Input(),
     __metadata("design:type", Object)
-], MenuContainerComponent.prototype, "button", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
 ], MenuContainerComponent.prototype, "gutter", void 0);
 __decorate([
     core_1.Input(),
@@ -211,8 +220,8 @@ __decorate([
 MenuContainerComponent = __decorate([
     core_1.Component({
         selector: 'app-menu-container',
-        template: "<div class=\"menu-container\" [ngStyle]=\"menuContainerStyle\"><button class=\"menu-btn\" [ngStyle]=\"menuBtnStyle\" (tap)=\"toggleMenu()\" (panstart)=\"onPanStart()\" (panend)=\"onPanEnd()\"><span [@menuScaleInOut]=\"menuState.toString()\" (@menuScaleInOut.done)=\"animationDone($event)\">Menu </span><span class=\"btn-cross\" [@crossScaleInOut]=\"menuState.toString()\" (@crossScaleInOut.done)=\"animationDone($event)\"><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" id=\"cross\" class=\"img\" x=\"0px\" y=\"0px\" viewBox=\"0 0 212.982 212.982\" style=\"enable-background:new 0 0 212.982 212.982\" xml:space=\"preserve\" [attr.width]=\"menuOptions.Button.crossImgSize\" [attr.height]=\"menuOptions.Button.crossImgSize\"><g id=\"Close\"><path style=\"fill-rule:evenodd;clip-rule:evenodd\" [attr.fill]=\"menuOptions.Button.color\" d=\"M131.804,106.491l75.936-75.936c6.99-6.99,6.99-18.323,0-25.312   c-6.99-6.99-18.322-6.99-25.312,0l-75.937,75.937L30.554,5.242c-6.99-6.99-18.322-6.99-25.312,0c-6.989,6.99-6.989,18.323,0,25.312   l75.937,75.936L5.242,182.427c-6.989,6.99-6.989,18.323,0,25.312c6.99,6.99,18.322,6.99,25.312,0l75.937-75.937l75.937,75.937   c6.989,6.99,18.322,6.99,25.312,0c6.99-6.99,6.99-18.322,0-25.312L131.804,106.491z\"/></g></svg></span></button><div class=\"menu-list\" [ngStyle]=\"menuListStyle\"><app-menu-wing *ngFor=\"let wing of wings; let i = index\" [textAnchor]=\"textAnchor\" [textRotate]=\"textRotate\" [position]=\"positionClass\" [wing]=\"wing\" [svgPath]=\"svgPath\" [index]=\"i\" [menuState]=\"menuState\" (wingClicked)=\"clickWing($event)\"></app-menu-wing></div></div>",
-        styles: [".menu-container{position:fixed;z-index:99999}.menu-btn{-moz-box-shadow:-2px 6px 12px #8e8e8e;box-shadow:-2px 6px 12px #8e8e8e;outline:0;position:absolute;border:none;z-index:1000;cursor:pointer;-moz-border-radius:100%;border-radius:100%;background-color:#ff7f7f;color:#fff;font-size:14px}.menu-btn .img{position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;pointer-events:none;vertical-align:middle;display:block}.menu-btn span{display:block;vertical-align:middle;pointer-events:none}.menu-btn .btn-cross{position:absolute;top:0;left:0;right:0;bottom:0;margin:auto}.menu-list{pointer-events:none;position:absolute}"],
+        template: "<div class=\"menu-container\" [ngStyle]=\"menuContainerStyle\"><button class=\"menu-btn\" [ngStyle]=\"menuBtnStyle\" (mouseenter)=\"onMouseOverMenu()\" (mouseleave)=\"onMouseOutMenu()\" (tap)=\"toggleMenu()\" (panstart)=\"onPanStart()\" (panend)=\"onPanEnd()\"><span [@menuScaleInOut]=\"menuState.toString()\" (@menuScaleInOut.done)=\"animationDone($event)\">Menu </span><span class=\"btn-cross\" [@crossScaleInOut]=\"menuState.toString()\" (@crossScaleInOut.done)=\"animationDone($event)\"><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" id=\"cross\" class=\"img\" x=\"0px\" y=\"0px\" viewBox=\"0 0 212.982 212.982\" style=\"enable-background:new 0 0 212.982 212.982\" xml:space=\"preserve\" [attr.width]=\"menuOptions.MenuConfig.buttonCrossImgSize\" [attr.height]=\"menuOptions.MenuConfig.buttonCrossImgSize\"><g id=\"Close\"><path style=\"fill-rule:evenodd;clip-rule:evenodd\" [attr.fill]=\"menuOptions.MenuConfig.buttonFontColor\" d=\"M131.804,106.491l75.936-75.936c6.99-6.99,6.99-18.323,0-25.312   c-6.99-6.99-18.322-6.99-25.312,0l-75.937,75.937L30.554,5.242c-6.99-6.99-18.322-6.99-25.312,0c-6.989,6.99-6.989,18.323,0,25.312   l75.937,75.936L5.242,182.427c-6.989,6.99-6.989,18.323,0,25.312c6.99,6.99,18.322,6.99,25.312,0l75.937-75.937l75.937,75.937   c6.989,6.99,18.322,6.99,25.312,0c6.99-6.99,6.99-18.322,0-25.312L131.804,106.491z\"/></g></svg></span></button><div class=\"menu-list\" [ngStyle]=\"menuListStyle\"><app-menu-wing *ngFor=\"let wing of wings; let i = index\" [textAnchor]=\"textAnchor\" [textRotate]=\"textRotate\" [position]=\"positionClass\" [wing]=\"wing\" [svgPath]=\"svgPath\" [index]=\"i\" [menuState]=\"menuState\" (wingClicked)=\"clickWing($event)\"></app-menu-wing></div></div>",
+        styles: [".menu-container{position:fixed;z-index:99999}.menu-btn{-moz-box-shadow:-2px 6px 12px #8e8e8e;box-shadow:-2px 6px 12px #8e8e8e;outline:0;position:absolute;border:none;z-index:1000;cursor:pointer;-moz-border-radius:100%;border-radius:100%;background-color:#ff7f7f;color:#fff;font-size:14px;-webkit-transition:opacity .2s ease-in;-moz-transition:opacity .2s ease-in;transition:opacity .2s ease-in}.menu-btn .img{position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;pointer-events:none;vertical-align:middle;display:block}.menu-btn span{display:block;vertical-align:middle;pointer-events:none}.menu-btn .btn-cross{position:absolute;top:0;left:0;right:0;bottom:0;margin:auto}.menu-list{pointer-events:none;position:absolute}"],
         animations: [
             core_1.trigger('menuScaleInOut', [
                 core_1.state('false', core_1.style({

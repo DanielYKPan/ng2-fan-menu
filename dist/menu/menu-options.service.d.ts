@@ -12,14 +12,13 @@ export interface IMenuConfig {
     wingFontWeight?: number;
     wingFontColor?: string;
     wingIconSize?: number;
-}
-export interface IMenuButton {
-    width?: number;
-    color?: string;
-    backgroundColor?: string;
-    fontWeight?: number;
-    fontSize?: string;
-    crossImgSize?: string;
+    buttonWidth?: number;
+    buttonBackgroundColor?: string;
+    buttonFontColor?: string;
+    buttonFontWeight?: number;
+    buttonFontSize?: string;
+    buttonCrossImgSize?: string;
+    buttonOpacity?: number;
 }
 export interface IMenuWing {
     title: string;
@@ -48,13 +47,11 @@ export declare class MenuOptions {
         bottomRight?: number;
         bottomLeft?: number;
     };
-    private buttonConfig;
-    readonly Button: IMenuButton;
     private center;
     Center: {
         x: number;
         y: number;
     };
     constructor();
-    setMenuOptions(menuConfig: IMenuConfig, buttonConfig: IMenuButton, gutter: Object, startAngles: Object): void;
+    setMenuOptions(menuConfig: IMenuConfig, gutter: Object, startAngles: Object): void;
 }

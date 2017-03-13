@@ -3,7 +3,6 @@ import { MenuOptions, IMenuWing } from './menu-options.service';
 export declare class MenuContainerComponent implements OnInit {
     menuOptions: MenuOptions;
     private options;
-    private button;
     private gutter;
     private wings;
     private startAngles;
@@ -26,6 +25,8 @@ export declare class MenuContainerComponent implements OnInit {
     onPanStart(): void;
     onPanEnd(): void;
     onMenuMove(event: any): void;
+    onMouseOverMenu(): void;
+    onMouseOutMenu(): void;
     private calculateMenuContainerPosition();
     private setElementsStyle();
     private calculateSvgPath();

@@ -25,6 +25,13 @@ var MenuOptions = (function () {
             wingFontWeight: 600,
             wingFontColor: '#ffffff',
             wingIconSize: 35,
+            buttonWidth: 60,
+            buttonBackgroundColor: '#ff7f7f',
+            buttonFontColor: '#ffffff',
+            buttonFontWeight: 700,
+            buttonFontSize: '14px',
+            buttonCrossImgSize: '50%',
+            buttonOpacity: 0.7,
         };
         this.gutter = {
             top: 130,
@@ -37,14 +44,6 @@ var MenuOptions = (function () {
             topRight: 90,
             bottomRight: 180,
             bottomLeft: 270
-        };
-        this.buttonConfig = {
-            width: 60,
-            color: '#ffffff',
-            backgroundColor: '#ff7f7f',
-            fontWeight: 700,
-            fontSize: '14px',
-            crossImgSize: '50%'
         };
     }
     Object.defineProperty(MenuOptions.prototype, "MenuConfig", {
@@ -68,29 +67,21 @@ var MenuOptions = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MenuOptions.prototype, "Button", {
-        get: function () {
-            return this.buttonConfig;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MenuOptions.prototype, "Center", {
         get: function () {
             return this.center;
         },
         set: function (value) {
             this.center = {
-                x: value.x + this.buttonConfig.width / 2,
-                y: value.y + this.buttonConfig.width / 2
+                x: value.x + this.menuConfig.buttonWidth / 2,
+                y: value.y + this.menuConfig.buttonWidth / 2
             };
         },
         enumerable: true,
         configurable: true
     });
-    MenuOptions.prototype.setMenuOptions = function (menuConfig, buttonConfig, gutter, startAngles) {
+    MenuOptions.prototype.setMenuOptions = function (menuConfig, gutter, startAngles) {
         this.menuConfig = Object.assign(this.menuConfig, menuConfig);
-        this.buttonConfig = Object.assign(this.buttonConfig, buttonConfig);
         this.gutter = Object.assign(this.gutter, gutter);
         this.startAngles = Object.assign(this.startAngles, startAngles);
     };
