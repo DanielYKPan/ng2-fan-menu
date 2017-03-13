@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
         font: 'Baloo Bhaina, cursive',
         spinable: true,
     };
-    private button: any;
+
     private gutter: any;
 
     constructor() {
@@ -53,11 +53,8 @@ export class AppComponent implements OnInit {
                 offset: 15,
                 wingFontSize: 12,
                 wingIconSize: 25,
-            };
-
-            this.button = {
-                width: 40,
-                fontSize: '10px'
+                buttonWidth: 40,
+                buttonFontSize: '10px',
             };
 
             this.gutter = {
