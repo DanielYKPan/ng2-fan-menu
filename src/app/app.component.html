@@ -22,6 +22,21 @@
 
         <div class="demo">
 
+            <!-- Button Offset -->
+            <div class="row">
+                <hr>
+                <h2>Config Button offset</h2>
+                <p class="description">The gap between the menu button and the menu item wings. The width unit is 'px'.</p>
+                <p class="default">Default: {{defaultOptions.offset}}</p>
+                <input class="config-input button-offset"
+                       [ngModel]="defaultOptions.offset" #offset>
+                <button class="btn btn-primary config-btn"
+                        (click)="applyChanges('offset', +offset.value)">Apply the Change
+                </button>
+                <button class="btn btn-success config-btn" (click)="applyDefault('offset')">Apply Default
+                </button>
+            </div>
+
             <!-- Button Background Color -->
             <div class="row">
                 <hr>
