@@ -22,6 +22,25 @@
 
         <div class="demo">
 
+            <!-- Menu Default Position -->
+            <div class="row">
+                <hr>
+                <h2>Config Menu Position</h2>
+                <p class="description">Set the menu position when the page first loaded. <strong>Tips: you could drag the menu to different position</strong></p>
+                <p class="default">Default: {{defaultOptions.defaultPosition}}</p>
+                <div>
+                    <label>Position:</label>
+                    <div *ngFor="let position of positions">
+                        <label>
+                            <input type="radio" name="gender" [ngModel]="defaultOptions.defaultPosition"
+                                   (ngModelChange)="applyChanges('defaultPosition', $event)"
+                                   [value]="position.value">
+                            {{position.display}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             <!-- Menu Font -->
             <div class="row">
                 <hr>

@@ -37,6 +37,13 @@ export class AppComponent implements OnInit {
         buttonOpacity: 0.7,
     };
 
+    public positions = [
+        { value: 'topLeft', display: 'Top Left' },
+        { value: 'topRight', display: 'Top Right' },
+        { value: 'bottomLeft', display: 'Bottom Left' },
+        { value: 'bottomRight', display: 'Bottom Right' },
+    ];
+
     private wings = [
         {
             'title': 'iPad',
