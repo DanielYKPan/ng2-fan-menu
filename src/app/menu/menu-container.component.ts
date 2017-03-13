@@ -6,7 +6,7 @@ import {
     Component, OnInit, Input, trigger, state, style, transition, animate, HostListener,
     Output, EventEmitter
 } from '@angular/core';
-import { MenuOptions, IMenuConfig, IMenuWing, IMenuButton } from './menu-options.service';
+import { MenuOptions, IMenuConfig, IMenuWing } from './menu-options.service';
 
 // webpack1_
 declare let require: any;
@@ -47,8 +47,6 @@ export class MenuContainerComponent implements OnInit {
 
     @Input() private options: IMenuConfig;
 
-    @Input() private button: IMenuButton;
-
     // The space between the menu and the boundaries of the page window
     @Input() private gutter: Object;
 
@@ -73,7 +71,7 @@ export class MenuContainerComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.menuOptions.setMenuOptions(this.options, this.button, this.gutter, this.startAngles);
+        this.menuOptions.setMenuOptions(this.options, this.gutter, this.startAngles);
         this.menuState = this.menuOptions.MenuConfig.defaultOpen;
         this.positionClass = this.menuOptions.MenuConfig.defaultPosition;
         this.setElementsStyle();
@@ -112,9 +110,9 @@ export class MenuContainerComponent implements OnInit {
         this.menuContainerStyle['-ms-transition'] = 'all 900ms cubic-bezier(0.680, -0.550, 0.265, 1.550)';
 
         let centreX = window.innerWidth / 2 -
-            this.menuOptions.Button.width / 2;
+            this.menuOptions.MenuConfig.buttonWidth / 2;
         let centreY = window.innerHeight / 2 -
-            this.menuOptions.Button.width / 2;
+            this.menuOptions.MenuConfig.buttonWidth / 2;
 
         if (this.menuContainerStyle['top.px'] > centreY &&
             this.menuContainerStyle['left.px'] < centreX) {
@@ -145,8 +143,20 @@ export class MenuContainerComponent implements OnInit {
         if (this.dragStart) {
             let y = event.center.y;
             let x = event.center.x;
-            this.menuContainerStyle['top.px'] = y - this.menuOptions.Button.width / 2;
-            this.menuContainerStyle['left.px'] = x - this.menuOptions.Button.width / 2;
+            this.menuContainerStyle['top.px'] = y - this.menuOptions.MenuConfig.buttonWidth / 2;
+            this.menuContainerStyle['left.px'] = x - this.menuOptions.MenuConfig.buttonWidth / 2;
+        }
+    }
+
+    public onMouseOverMenu(): void {
+        if (this.menuBtnStyle['opacity'] < 1) {
+            this.menuBtnStyle['opacity'] = 1;
+        }
+    }
+
+    public onMouseOutMenu(): void {
+        if (this.menuOptions.MenuConfig.buttonOpacity < 1 && !this.menuState) {
+            this.menuBtnStyle['opacity'] = this.menuOptions.MenuConfig.buttonOpacity;
         }
     }
 
@@ -162,7 +172,7 @@ export class MenuContainerComponent implements OnInit {
 
         } else if (this.positionClass === 'topRight') {
             let top = this.menuOptions.Gutter.top;
-            let left = window.innerWidth - this.menuOptions.Button.width -
+            let left = window.innerWidth - this.menuOptions.MenuConfig.buttonWidth -
                 this.menuOptions.Gutter.right;
             this.menuContainerStyle['top.px'] = top;
             this.menuContainerStyle['left.px'] = left;
@@ -171,7 +181,7 @@ export class MenuContainerComponent implements OnInit {
             this.menuOptions.Center = {x: left, y: top};
 
         } else if (this.positionClass === 'bottomLeft') {
-            let top = window.innerHeight - this.menuOptions.Button.width -
+            let top = window.innerHeight - this.menuOptions.MenuConfig.buttonWidth -
                 this.menuOptions.Gutter.bottom;
             let left = this.menuOptions.Gutter.left;
             this.menuContainerStyle['top.px'] = top;
@@ -182,9 +192,9 @@ export class MenuContainerComponent implements OnInit {
 
         } else if (this.positionClass === 'bottomRight') {
 
-            let top = window.innerHeight - this.menuOptions.Button.width
+            let top = window.innerHeight - this.menuOptions.MenuConfig.buttonWidth
                 - this.menuOptions.Gutter.bottom;
-            let left = window.innerWidth - this.menuOptions.Button.width
+            let left = window.innerWidth - this.menuOptions.MenuConfig.buttonWidth
                 - this.menuOptions.Gutter.right;
             this.menuContainerStyle['top.px'] = top;
             this.menuContainerStyle['left.px'] = left;
@@ -197,8 +207,8 @@ export class MenuContainerComponent implements OnInit {
     private setElementsStyle(): void {
         this.menuContainerStyle = {
             'font-family': this.menuOptions.MenuConfig.font,
-            'width.px': this.menuOptions.Button.width,
-            'height.px': this.menuOptions.Button.width,
+            'width.px': this.menuOptions.MenuConfig.buttonWidth,
+            'height.px': this.menuOptions.MenuConfig.buttonWidth,
             'top.px': 0,
             'left.px': 0,
             'transition': 'none',
@@ -207,23 +217,26 @@ export class MenuContainerComponent implements OnInit {
             '-moz-transition': 'none',
         };
         this.menuBtnStyle = {
-            'width.px': this.menuOptions.Button.width,
-            'height.px': this.menuOptions.Button.width,
-            'background': this.menuOptions.Button.backgroundColor,
-            'color': this.menuOptions.Button.color,
-            'font-size': this.menuOptions.Button.fontSize,
-            'font-weight': this.menuOptions.Button.fontWeight,
+            'width.px': this.menuOptions.MenuConfig.buttonWidth,
+            'height.px': this.menuOptions.MenuConfig.buttonWidth,
+            'background': this.menuOptions.MenuConfig.buttonBackgroundColor,
+            'color': this.menuOptions.MenuConfig.buttonFontColor,
+            'font-size': this.menuOptions.MenuConfig.buttonFontSize,
+            'font-weight': this.menuOptions.MenuConfig.buttonFontWeight,
         };
+        if(!this.menuState) {
+            this.menuBtnStyle['opacity']= this.menuOptions.MenuConfig.buttonOpacity;
+        }
         this.menuListStyle = {
-            'top.px': -(this.menuOptions.MenuConfig.radius - this.menuOptions.Button.width) / 2,
-            'left.px': this.menuOptions.Button.width / 2,
+            'top.px': -(this.menuOptions.MenuConfig.radius - this.menuOptions.MenuConfig.buttonWidth) / 2,
+            'left.px': this.menuOptions.MenuConfig.buttonWidth / 2,
             'width.px': this.menuOptions.MenuConfig.radius,
             'height.px': this.menuOptions.MenuConfig.radius,
         };
     }
 
     private calculateSvgPath() {
-        let buttonWidth = this.menuOptions.Button.width;
+        let buttonWidth = this.menuOptions.MenuConfig.buttonWidth;
         let offset = this.menuOptions.MenuConfig.offset;
         let angle = this.menuOptions.MenuConfig.angle;
         let radius = this.menuOptions.MenuConfig.radius;

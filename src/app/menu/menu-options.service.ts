@@ -18,15 +18,13 @@ export interface IMenuConfig {
     wingFontWeight?: number,
     wingFontColor?: string,
     wingIconSize?: number,
-}
-
-export interface IMenuButton {
-    width?: number,
-    color?: string,
-    backgroundColor?: string,
-    fontWeight?: number,
-    fontSize?: string,
-    crossImgSize?: string,
+    buttonWidth?: number,
+    buttonBackgroundColor?: string,
+    buttonFontColor?: string,
+    buttonFontWeight?: number,
+    buttonFontSize?: string,
+    buttonCrossImgSize?: string,
+    buttonOpacity?: number,
 }
 
 export interface IMenuWing {
@@ -53,6 +51,13 @@ export class MenuOptions {
         wingFontWeight: 600,
         wingFontColor: '#ffffff',
         wingIconSize: 35,
+        buttonWidth: 60,
+        buttonBackgroundColor: '#ff7f7f',
+        buttonFontColor: '#ffffff',
+        buttonFontWeight: 700,
+        buttonFontSize: '14px',
+        buttonCrossImgSize: '50%',
+        buttonOpacity: 0.7,
     };
 
     get MenuConfig(): IMenuConfig {
@@ -82,20 +87,6 @@ export class MenuOptions {
         return this.startAngles;
     }
 
-    /* Property buttonConfig */
-    private buttonConfig: IMenuButton = {
-        width: 60,
-        color: '#ffffff',
-        backgroundColor: '#ff7f7f',
-        fontWeight: 700,
-        fontSize: '14px',
-        crossImgSize: '50%'
-    };
-
-    get Button(): IMenuButton {
-        return this.buttonConfig;
-    }
-
     /* Property center */
     private center: {x: number, y: number};
 
@@ -105,17 +96,16 @@ export class MenuOptions {
 
     set Center( value: {x: number, y: number} ) {
         this.center = {
-            x: value.x + this.buttonConfig.width / 2,
-            y: value.y + this.buttonConfig.width / 2
+            x: value.x + this.menuConfig.buttonWidth / 2,
+            y: value.y + this.menuConfig.buttonWidth / 2
         };
     }
 
     constructor() {
     }
 
-    public setMenuOptions( menuConfig: IMenuConfig, buttonConfig: IMenuButton, gutter: Object, startAngles: Object ): void {
+    public setMenuOptions( menuConfig: IMenuConfig, gutter: Object, startAngles: Object ): void {
         this.menuConfig = Object.assign(this.menuConfig, menuConfig);
-        this.buttonConfig = Object.assign(this.buttonConfig, buttonConfig);
         this.gutter = Object.assign(this.gutter, gutter);
         this.startAngles = Object.assign(this.startAngles, startAngles);
     }
