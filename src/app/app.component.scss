@@ -47,6 +47,8 @@ main {
 }
 
 .config-title {
+  @include type-setting(3);
+  margin: 0;
   color: #2e6da4;
 }
 
@@ -147,5 +149,14 @@ main {
   &:hover {
     color: #007B73;
     text-decoration: none;
+  }
+}
+
+.menu-option {
+  width: 100%;
+  margin: $base-line-height 0;
+
+  pre {
+    margin: 0 0 1rem;
   }
 }

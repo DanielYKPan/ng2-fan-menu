@@ -11,9 +11,10 @@
     </header>
     <section class="container">
         <div class="description">
-            <p>AngularJS 2 Fan Menu - AngularJS 2 reusable UI Component</p>
+            <h1 class="config-title">Description</h1>
             <ul>
                 <li>This Fan Menu is responsive and works on all device</li>
+                <li>The Fan Menu could be customised to suit your situation</li>
                 <li>The source code of the module is here</li>
                 <li>The sample code is here</li>
                 <li>See more on the documentation</li>
@@ -26,7 +27,6 @@
 
             <!-- Menu Gutter -->
             <div class="row">
-                <hr>
                 <h2>Config Menu Gutter</h2>
                 <p class="description">The space between the menu and the boundaries of the page window.
                     The object can have four properties left, right, top, bottom with values to be defined in Number.
@@ -422,12 +422,15 @@
                 'wing icon name'(optional), 'wing icon color'(optional), 'wing icon size'(optional).</p>
             <p>'wing icon name' is the name of font icon. You could use
                 <a class="external-link" href="http://fontawesome.io/" target="_blank">Fontawesome Icons</a> or
-                <a class="external-link" href="http://getbootstrap.com/components/" target="_blank">TwitterBootstrap Icons</a> or other icons.
+                <a class="external-link" href="http://getbootstrap.com/components/" target="_blank">TwitterBootstrap
+                    Icons</a> or other icons.
                 Remember to add those icons style links to your project, otherwise you won't see any icons.
             </p>
 
-            <p>All icons' color or size are the same value as what you config at the menu options 'Wing Icon Size' and 'Wing Font Color'.
-            And if you want to override those value, you could config them in 'Icon Color' and 'Icon Size'. 'Icon Size' measure unit is 'px'</p>
+            <p>All icons' color or size are the same value as what you config at the menu options 'Wing Icon Size' and
+                'Wing Font Color'.
+                And if you want to override those value, you could config them in 'Icon Color' and 'Icon Size'. 'Icon
+                Size' measure unit is 'px'</p>
             <div class="wing" *ngFor="let wing of wings; let i = index">
                 <div class="close-btn" (click)="deleteWing(i)"><i class="fa fa-times" aria-hidden="true"></i></div>
                 <div class="input-group title-group">
@@ -473,6 +476,28 @@
                     (click)="addWing()">Add A New Wing
             </button>
         </div>
+
+        <h1 class="config-title">Fan Menu Config Objects</h1>
+        <div *ngIf="render" class="menu-option">
+            <div><strong>Menu Options:</strong></div>
+            <pre class="prettyprint">{{options | json}}</pre>
+        </div>
+
+        <div *ngIf="render" class="menu-option">
+            <div><strong>Menu Gutter:</strong></div>
+            <pre class="prettyprint">{{gutter | json}}</pre>
+        </div>
+
+        <div *ngIf="render" class="menu-option">
+            <div><strong>Menu Start Angles:</strong></div>
+            <pre class="prettyprint">{{startAngles | json}}</pre>
+        </div>
+
+        <div *ngIf="render" class="menu-option">
+            <div><strong>Wings:</strong></div>
+            <pre class="prettyprint">{{wings | json}}</pre>
+        </div>
+
     </section>
 
     <app-menu-container *ngIf="render"
