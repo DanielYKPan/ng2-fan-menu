@@ -11,7 +11,6 @@
     </header>
     <section class="container">
         <div class="description">
-            <h1 class="config-title">Description</h1>
             <ul>
                 <li>This Fan Menu is responsive and works on all device</li>
                 <li>The Fan Menu could be customised to suit your situation</li>
@@ -21,10 +20,8 @@
             </ul>
         </div>
 
-        <div class="demo">
-
+        <div class="config-panel">
             <h1 class="config-title">Menu Options Config</h1>
-
             <!-- Menu Gutter -->
             <div class="row">
                 <h2>Config Menu Gutter</h2>
@@ -477,27 +474,28 @@
             </button>
         </div>
 
-        <h1 class="config-title">Fan Menu Config Objects</h1>
-        <div *ngIf="render" class="menu-option">
-            <div><strong>Menu Options:</strong></div>
-            <pre class="prettyprint">{{options | json}}</pre>
-        </div>
+        <div class="config-result">
+            <h1 class="config-title">Fan Menu Config Objects</h1>
+            <div *ngIf="render" class="menu-option">
+                <div><strong>Menu Options:</strong></div>
+                <pre class="prettyprint">{{options | json}}</pre>
+            </div>
 
-        <div *ngIf="render" class="menu-option">
-            <div><strong>Menu Gutter:</strong></div>
-            <pre class="prettyprint">{{gutter | json}}</pre>
-        </div>
+            <div *ngIf="render" class="menu-option">
+                <div><strong>Menu Gutter:</strong></div>
+                <pre class="prettyprint">{{gutter | json}}</pre>
+            </div>
 
-        <div *ngIf="render" class="menu-option">
-            <div><strong>Menu Start Angles:</strong></div>
-            <pre class="prettyprint">{{startAngles | json}}</pre>
-        </div>
+            <div *ngIf="render" class="menu-option">
+                <div><strong>Menu Start Angles:</strong></div>
+                <pre class="prettyprint">{{startAngles | json}}</pre>
+            </div>
 
-        <div *ngIf="render" class="menu-option">
-            <div><strong>Wings:</strong></div>
-            <pre class="prettyprint">{{wings | json}}</pre>
+            <div *ngIf="render" class="menu-option">
+                <div><strong>Wings:</strong></div>
+                <pre class="prettyprint">{{wings | json}}</pre>
+            </div>
         </div>
-
     </section>
 
     <app-menu-container *ngIf="render"

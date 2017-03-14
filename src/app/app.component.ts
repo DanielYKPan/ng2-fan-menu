@@ -81,8 +81,7 @@ export class AppComponent implements OnInit {
 
     private render: boolean = true;
 
-    private options: Object = {
-    };
+    private options: Object = {};
 
     private gutter: {top?: number, left?: number, right?: number, bottom?: number} = {};
 
@@ -95,11 +94,14 @@ export class AppComponent implements OnInit {
     }
 
     public applyChanges( field: string, value: any ): any {
-        if (!this.options.hasOwnProperty(field) || this.options[field] != value) {
+        if (this.options[field] != value) {
             this.render = false;
             this.options[field] = value;
             this.cdRef.detectChanges();
             this.render = true;
+            if(this.defaultOptions[field] == value) {
+                this.applyDefault(field);
+            }
         }
     }
 
@@ -149,6 +151,8 @@ export class AppComponent implements OnInit {
         this.gutter = this.defaultGutter;
         this.cdRef.detectChanges();
         this.render = true;
+        this.cdRef.detectChanges();
+        this.gutter = {};
     }
 
     public applyStartAngles( angles: {topLeft: number, topRight: number, bottomRight: number, bottomLeft: number} ): void {
@@ -186,6 +190,8 @@ export class AppComponent implements OnInit {
         this.startAngles = this.defaultStartAngles;
         this.cdRef.detectChanges();
         this.render = true;
+        this.cdRef.detectChanges();
+        this.startAngles = {};
     }
 
     public addWing(): void {
