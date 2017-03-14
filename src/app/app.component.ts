@@ -44,6 +44,14 @@ export class AppComponent implements OnInit {
         bottom: 30,
     };
 
+    // the first wing starting angle
+    private defaultStartAngles = {
+        topLeft: 0,
+        topRight: 90,
+        bottomRight: 180,
+        bottomLeft: 270
+    };
+
     public positions = [
         {value: 'topLeft', display: 'Top Left'},
         {value: 'topRight', display: 'Top Right'},
@@ -78,6 +86,8 @@ export class AppComponent implements OnInit {
     };
 
     private gutter: {top?: number, left?: number, right?: number, bottom?: number} = {};
+
+    private startAngles: any = {};
 
     constructor( private cdRef: ChangeDetectorRef ) {
     }
@@ -154,6 +164,43 @@ export class AppComponent implements OnInit {
     public applyGutterDefault(): void {
         this.render = false;
         this.gutter = this.defaultGutter;
+        this.cdRef.detectChanges();
+        this.render = true;
+    }
+
+    public applyStartAngles( angles: {topLeft: number, topRight: number, bottomRight: number, bottomLeft: number} ): void {
+        this.render = false;
+        if (+angles['topLeft'] === this.defaultGutter['topLeft']) {
+            delete angles['topLeft'];
+        } else {
+            this.startAngles['topLeft'] = +angles['topLeft'];
+        }
+
+        if (+angles['topRight'] === this.defaultGutter['topRight']) {
+            delete angles['topRight'];
+        } else {
+            this.startAngles['topRight'] = +angles['topRight'];
+        }
+
+        if (+angles['bottomRight'] === this.defaultGutter['bottomRight']) {
+            delete angles['bottomRight'];
+        } else {
+            this.startAngles['bottomRight'] = +angles['bottomRight'];
+        }
+
+        if (+angles['bottomLeft'] === this.defaultGutter['bottomLeft']) {
+            delete angles['bottomLeft'];
+        } else {
+            this.startAngles['bottomLeft'] = +angles['bottomLeft'];
+        }
+
+        this.cdRef.detectChanges();
+        this.render = true;
+    }
+
+    public applyStartAnglesDefault(): void {
+        this.render = false;
+        this.startAngles = this.defaultStartAngles;
         this.cdRef.detectChanges();
         this.render = true;
     }

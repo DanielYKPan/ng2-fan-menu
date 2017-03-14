@@ -29,7 +29,8 @@
                 <p class="description">The space between the menu and the boundaries of the page window.
                     The object can have four properties left, right, top, bottom with values to be defined in Number.
                     The measure unit is 'px'.</p>
-                <p class="default">Default Value: top:{{defaultGutter.top}}px, right:{{defaultGutter.right}}px, bottom:{{defaultGutter.bottom}}px, left:{{defaultGutter.left}}px</p>
+                <p class="default">Default Value: top:{{defaultGutter.top}}px, right:{{defaultGutter.right}}px,
+                    bottom:{{defaultGutter.bottom}}px, left:{{defaultGutter.left}}px</p>
                 <div>
                     <label>Top: </label>
                     <input class="config-input gutter-input" [ngModel]="defaultGutter.top" #top>
@@ -48,7 +49,8 @@
                 </div>
 
                 <button class="btn btn-primary config-btn"
-                        (click)="applyGutter({top: top.value, left: left.value, bottom: bottom.value, right: right.value})">Apply the Change
+                        (click)="applyGutter({top: top.value, left: left.value, bottom: bottom.value, right: right.value})">
+                    Apply the Change
                 </button>
                 <button class="btn btn-success config-btn" (click)="applyGutterDefault()">Apply Default
                 </button>
@@ -312,11 +314,47 @@
                 </button>
             </div>
 
+            <!-- Menu Wing Start Angles -->
+            <div class="row">
+                <hr>
+                <h2>Config Menu Start Angles</h2>
+                <p class="description">The angle at which the menu wings open when clicked. The measure unit is 'deg'. The value could be minus(like: -30).
+                    For example, when you set the topLeft position start angle as '0'(default),
+                    the menu wings will open at "3 o'clock" degree before the menu expands.(Try it at the example
+                    menu.)</p>
+                <p class="default">Default Value: Top Left: 0degree(3 o'clock), Top Right: 90degree(6 o'clock), Bottom
+                    Right: 180degree (9 o'clock), Bottom Left: 270degree (12 o'clock)</p>
+                <div>
+                    <label>Top Left: </label>
+                    <input class="config-input angles-input" [ngModel]="defaultStartAngles.topLeft" #topLeft>
+                </div>
+                <div>
+                    <label>Top Right: </label>
+                    <input class="config-input angles-input" [ngModel]="defaultStartAngles.topRight" #topRight>
+                </div>
+                <div>
+                    <label>Bottom Right: </label>
+                    <input class="config-input angles-input" [ngModel]="defaultStartAngles.bottomRight" #bottomRight>
+                </div>
+                <div>
+                    <label>Bottom Left: </label>
+                    <input class="config-input angles-input" [ngModel]="defaultStartAngles.bottomLeft" #bottomLeft>
+                </div>
+
+                <button class="btn btn-primary config-btn"
+                        (click)="applyStartAngles({topLeft: topLeft.value, topRight: topRight.value, bottomRight: bottomRight.value, bottomLeft: bottomLeft.value})">
+                    Apply the Change
+                </button>
+                <button class="btn btn-success config-btn" (click)="applyStartAnglesDefault()">Apply Default
+                </button>
+            </div>
+
             <!-- Menu wing font size -->
             <div class="row">
                 <hr>
                 <h2>Config Wing General Font Size</h2>
-                <p class="description">Set the general font wing size. It controls all the wings' font size. The measure unit is 'px'</p>
+                <p class="description">Set the general font wing size. It controls all the wings' font size. The measure
+                    unit is 'px'</p>
                 <p class="default">Default: {{defaultOptions.wingFontSize}}px</p>
                 <input class="config-input wing-font-size"
                        [ngModel]="defaultOptions.wingFontSize" #wingFontSize>
@@ -346,7 +384,8 @@
             <div class="row">
                 <hr>
                 <h2>Config Wing General Font and Icon Color</h2>
-                <p class="description">Set the general wing's font color and the icon color.(They can be overrode when you config every single wing)</p>
+                <p class="description">Set the general wing's font color and the icon color.(They can be overrode when
+                    you config every single wing)</p>
                 <p class="default">Default: {{defaultOptions.wingFontColor}}</p>
                 <input class="config-input wing-font-color"
                        #wingFontColor
@@ -380,5 +419,6 @@
     <app-menu-container *ngIf="render"
                         [options]="options"
                         [gutter]="gutter"
+                        [startAngles]="startAngles"
                         [wings]="wings"></app-menu-container>
 </main>

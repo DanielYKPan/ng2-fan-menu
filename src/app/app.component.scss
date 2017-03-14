@@ -1,7 +1,6 @@
 @import '../sass/utils/variables';
 @import '../sass/utils/functions';
 @import '../sass/utils/mixins';
-
 @import url('https://fonts.googleapis.com/css?family=Baloo+Bhaina');
 
 main {
@@ -70,7 +69,8 @@ main {
   }
 }
 
-.gutter-input {
+.gutter-input,
+.angles-input {
   display: inline-block;
 }
 
@@ -86,7 +86,7 @@ main {
   background-color: #337ab7;
   border-color: #2e6da4;
 
-  &:hover{
+  &:hover {
     background-color: #286090;
     border-color: #204d74;
   }
