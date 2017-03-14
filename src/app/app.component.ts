@@ -14,7 +14,7 @@ import '../sass/main.scss';
 
 export class AppComponent implements OnInit {
 
-    private defaultOptions: Object = {
+    private defaultOptions: any = {
         font: 'sans-serif',
         defaultOpen: true, // Open menu automatically on load.
         defaultPosition: 'topLeft', // The menu default position
@@ -26,11 +26,11 @@ export class AppComponent implements OnInit {
         spinable: false, // A flag that determines whether the menu could be spin.
         wingFontSize: 16,
         wingFontWeight: 600,
-        wingFontColor: '#ffffff',
+        wingFontColor: '#fff',
         wingIconSize: 35,
         buttonWidth: 60,
         buttonBackgroundColor: '#ff7f7f',
-        buttonFontColor: '#ffffff',
+        buttonFontColor: '#fff',
         buttonFontWeight: 700,
         buttonFontSize: 14,
         buttonCrossImgSize: '50%',
@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
         {value: 'bottomRight', display: 'Bottom Right'},
     ];
 
-    private wings = [
+    public wings = [
         {
             'title': 'iPad',
             'color': '#ea2a29',
@@ -82,7 +82,6 @@ export class AppComponent implements OnInit {
     private render: boolean = true;
 
     private options: Object = {
-        font: 'Baloo Bhaina, cursive',
     };
 
     private gutter: {top?: number, left?: number, right?: number, bottom?: number} = {};
@@ -93,22 +92,6 @@ export class AppComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        /*if (window.innerWidth < 450) {
-         this.options = {
-         font: 'Baloo Bhaina, cursive',
-         spinable: true,
-         radius: 150,
-         offset: 15,
-         wingFontSize: 12,
-         wingIconSize: 25,
-         buttonWidth: 40,
-         buttonFontSize: '10px',
-         };
-
-         this.gutter = {
-         top: 30
-         }
-         }*/
     }
 
     public applyChanges( field: string, value: any ): any {
@@ -203,5 +186,34 @@ export class AppComponent implements OnInit {
         this.startAngles = this.defaultStartAngles;
         this.cdRef.detectChanges();
         this.render = true;
+    }
+
+    public addWing(): void {
+        this.wings.push({
+            title: null,
+            color: '#ffffff',
+            icon: {
+                name: null
+            }
+        });
+    }
+
+    public deleteWing( index: number ): void {
+        this.wings.splice(index, 1);
+    }
+
+    public setWingIconColor( index: number, color: string ) {
+        if (color != this.defaultOptions.wingFontColor) {
+            this.wings[index].icon['color'] = color;
+        }
+    }
+
+    public setWingIconSize( index: number, size: number ) {
+        if (size != this.defaultOptions.wingIconSize) {
+            this.render = false;
+            this.wings[index].icon['size'] = +size;
+            this.cdRef.detectChanges();
+            this.render = true;
+        }
     }
 }

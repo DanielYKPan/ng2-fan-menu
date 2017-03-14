@@ -22,6 +22,8 @@
 
         <div class="demo">
 
+            <h1 class="config-title">Menu Options Config</h1>
+
             <!-- Menu Gutter -->
             <div class="row">
                 <hr>
@@ -318,7 +320,8 @@
             <div class="row">
                 <hr>
                 <h2>Config Menu Start Angles</h2>
-                <p class="description">The angle at which the menu wings open when clicked. The measure unit is 'deg'. The value could be minus(like: -30).
+                <p class="description">The angle at which the menu wings open when clicked. The measure unit is 'deg'.
+                    The value could be minus(like: -30).
                     For example, when you set the topLeft position start angle as '0'(default),
                     the menu wings will open at "3 o'clock" degree before the menu expands.(Try it at the example
                     menu.)</p>
@@ -413,6 +416,62 @@
                 <button class="btn btn-success config-btn" (click)="applyDefault('wingIconSize')">Apply Default
                 </button>
             </div>
+
+            <h1 class="config-title">Menu Wings Config</h1>
+            <p>Config menu wing properties. Properties include 'wing title'(required), 'wing color'(required),
+                'wing icon name'(optional), 'wing icon color'(optional), 'wing icon size'(optional).</p>
+            <p>'wing icon name' is the name of font icon. You could use
+                <a class="external-link" href="http://fontawesome.io/" target="_blank">Fontawesome Icons</a> or
+                <a class="external-link" href="http://getbootstrap.com/components/" target="_blank">TwitterBootstrap Icons</a> or other icons.
+                Remember to add those icons style links to your project, otherwise you won't see any icons.
+            </p>
+
+            <p>All icons' color or size are the same value as what you config at the menu options 'Wing Icon Size' and 'Wing Font Color'.
+            And if you want to override those value, you could config them in 'Icon Color' and 'Icon Size'. 'Icon Size' measure unit is 'px'</p>
+            <div class="wing" *ngFor="let wing of wings; let i = index">
+                <div class="close-btn" (click)="deleteWing(i)"><i class="fa fa-times" aria-hidden="true"></i></div>
+                <div class="input-group title-group">
+                    <label>Title: </label>
+                    <input class="config-input wing-title" [(ngModel)]="wing.title">
+                </div>
+
+                <div class="input-group color-group">
+                    <label>Background Color: </label>
+                    <input class="config-input wing-color"
+                           [value]="wing.color"
+                           [style.background]="wing.color"
+                           [colorPicker]="wing.color"
+                           [cpPosition]="'bottom'"
+                           (colorPickerChange)="wing.color = $event">
+                </div>
+
+                <div class="input-group icon-group">
+                    <label>Icon Name: </label>
+                    <input class="config-input icon-name" [(ngModel)]="wing.icon.name">
+                    <i class="{{wing.icon.name}}"></i>
+                </div>
+
+                <div class="input-group icon-group">
+                    <label>Icon Color: </label>
+                    <input class="config-input icon-color"
+                           [value]="wing.icon.color || defaultOptions.wingFontColor"
+                           [style.background]="wing.icon.color || defaultOptions.wingFontColor"
+                           [colorPicker]="wing.icon.color || defaultOptions.wingFontColor"
+                           [cpPosition]="'bottom'"
+                           (colorPickerChange)="setWingIconColor(i, $event)">
+                </div>
+
+                <div class="input-group icon-group">
+                    <label>Icon Size: </label>
+                    <input class="config-input icon-size"
+                           [ngModel]="wing.icon.size"
+                           (ngModelChange)="setWingIconSize(i, $event)">
+                </div>
+            </div>
+
+            <button class="btn btn-primary config-btn"
+                    (click)="addWing()">Add A New Wing
+            </button>
         </div>
     </section>
 

@@ -46,6 +46,10 @@ main {
   width: 100%;
 }
 
+.config-title {
+  color: #2e6da4;
+}
+
 .row {
   margin-bottom: $base-line-height * 2;
 }
@@ -99,5 +103,49 @@ main {
   &:hover {
     background-color: #449d44;
     border-color: #398439;
+  }
+}
+
+.wing {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  width: 100%;
+  border-top: 1px solid grey;
+  padding: $base-line-height/2 5px;
+
+  .input-group {
+    padding: 0 5px;
+  }
+
+  .title-group, .color-group {
+    width: 50%;
+  }
+
+  .icon-group {
+    width: 33%;
+  }
+
+  .icon-name {
+    display: inline;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #DB2828;
+    cursor: pointer;
+    font-size: 24px;
+  }
+}
+
+.external-link {
+  color: #00B5AD;
+  text-decoration: underline;
+
+  &:hover {
+    color: #007B73;
+    text-decoration: none;
   }
 }
