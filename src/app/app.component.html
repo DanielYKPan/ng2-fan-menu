@@ -2,7 +2,7 @@
     <header class="header">
         <h1>Ng2 Fan Menu</h1>
         <p>A fancy menu built by AngularJS 2</p>
-        <a>
+        <a href="https://github.com/DanielYKPan/ng2-fan-menu" target="_blank">
             <img class="github-banner"
                  src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67"
                  alt="Fork me on GitHub"
@@ -10,13 +10,47 @@
         </a>
     </header>
     <section class="container">
-        <div class="description">
+        <div class="config-description">
             <ul>
                 <li>This Fan Menu is responsive and works on all device</li>
                 <li>The Fan Menu could be customised to suit your situation</li>
-                <li>The source code of the module is here</li>
-                <li>The sample code is here</li>
-                <li>See more on the documentation</li>
+                <li>The sample code is <a href="https://github.com/DanielYKPan/ng2-fan-menu" target="_blank">here</a></li>
+                <li>See more on the <a href="https://github.com/DanielYKPan/ng2-fan-menu" target="_blank">Documentation</a></li>
+            </ul>
+        </div>
+
+        <div class="config-properties">
+            <h1 class="config-title">Customise your menu properties</h1>
+            <p>
+                These are the properties could be customised and you could see more details
+                about these properties in the <a href="https://github.com/DanielYKPan/ng2-fan-menu" target="_blank">Documentation</a>.
+                You could see the effect when you click the 'Apply the Changes' button or you could reset it to the default when you click 'Apply default' buttons.
+                At the end of this page, you would get the customised objects. Enjoy!!!
+            </p>
+            <ul>
+                <li><a href="#menu-gutter">Menu Gutter</a></li>
+                <li><a href="#menu-position">Menu Default Position</a></li>
+                <li><a href="#menu-font-family">Menu Font Family</a></li>
+                <li><a href="#menu-default-open">Menu Default Open State</a></li>
+                <li><a href="#menu-radius">Menu Radius</a></li>
+                <li><a href="#menu-spinable">Menu Spinable State</a></li>
+                <li><a href="#menu-show-icon">Menu Show Icon State</a></li>
+                <li><a href="#menu-only-icon">Menu Only Icon State</a></li>
+                <li><a href="#button-offset">Menu Button Offset</a></li>
+                <li><a href="#button-bg-color">Menu Button Background Color</a></li>
+                <li><a href="#button-width">Menu Button Width</a></li>
+                <li><a href="#button-font-color">Menu Button Font Color</a></li>
+                <li><a href="#button-font-size">Menu Button Font Size</a></li>
+                <li><a href="#button-font-weight">Menu Button Font Weight</a></li>
+                <li><a href="#button-opacity">Menu Button Opacity</a></li>
+                <li><a href="#button-image-size">Menu Button Cross Image Size</a></li>
+                <li><a href="#wing-angle">Menu Wing Angle</a></li>
+                <li><a href="#menu-start-angles">Menu Start Angles</a></li>
+                <li><a href="#wing-font-size">Menu Wing General Font Size</a></li>
+                <li><a href="#wing-font-weight">Menu Wing General Font Weight</a></li>
+                <li><a href="#wing-font-color">Menu Wing General Font Color</a></li>
+                <li><a href="#wing-icon-size">Menu Wing General Icon Size</a></li>
+                <li><a href="#menu-wings">Menu Wings Configuration</a></li>
             </ul>
         </div>
 
@@ -24,7 +58,7 @@
             <h1 class="config-title">Menu Options Config</h1>
             <!-- Menu Gutter -->
             <div class="row">
-                <h2>Config Menu Gutter</h2>
+                <h2 id="menu-gutter">Config Menu Gutter</h2>
                 <p class="description">The space between the menu and the boundaries of the page window.
                     The object can have four properties left, right, top, bottom with values to be defined in Number.
                     The measure unit is 'px'.</p>
@@ -58,7 +92,7 @@
             <!-- Menu Default Position -->
             <div class="row">
                 <hr>
-                <h2>Config Menu Position</h2>
+                <h2 id="menu-position">Config Menu Position</h2>
                 <p class="description">Set the menu position when the page first loaded. <strong>Tips: you could drag
                     the menu to different position</strong></p>
                 <p class="default">Default: {{defaultOptions.defaultPosition}}</p>
@@ -78,7 +112,7 @@
             <!-- Menu Font -->
             <div class="row">
                 <hr>
-                <h2>Config Menu Font Family</h2>
+                <h2 id="menu-font-family">Config Menu Font Family</h2>
                 <p class="description">The font family type of the menu.</p>
                 <p class="default">Default: {{defaultOptions.font}}</p>
                 <input class="config-input menu-font"
@@ -93,7 +127,7 @@
             <!-- Menu Default Open -->
             <div class="row">
                 <hr>
-                <h2>Config Menu Default Open State</h2>
+                <h2 id="menu-default-open">Config Menu Default Open State</h2>
                 <p class="description">Config if open menu automatically on load.</p>
                 <p class="default">Default: {{defaultOptions.defaultOpen}}</p>
                 <div>
@@ -109,7 +143,7 @@
             <!-- Menu Radius -->
             <div class="row">
                 <hr>
-                <h2>Config Menu Radius</h2>
+                <h2 id="menu-radius">Config Menu Radius</h2>
                 <p class="description">The radius of the menu wings from the center of the button. The radius unit is
                     'px'.</p>
                 <p class="default">Default: {{defaultOptions.radius}}px</p>
@@ -125,7 +159,7 @@
             <!-- Menu Spinable -->
             <div class="row">
                 <hr>
-                <h2>Config Menu Spin State</h2>
+                <h2 id="menu-spinable">Config Menu Spin State</h2>
                 <p class="description">Config if the menu could be span</p>
                 <p class="default">Default: {{defaultOptions.spinable}}(could not be span)</p>
                 <div>
@@ -141,7 +175,7 @@
             <!-- Menu Show Icon -->
             <div class="row">
                 <hr>
-                <h2>Config Menu Show Icon State</h2>
+                <h2 id="menu-show-icon">Config Menu Show Icon State</h2>
                 <p class="description">Config if the menu shows icons</p>
                 <p class="default">Default: {{defaultOptions.showIcons}}(show wing's icons)</p>
                 <div>
@@ -157,7 +191,7 @@
             <!-- Menu Only Icon -->
             <div class="row">
                 <hr>
-                <h2>Config Menu Only Icon State</h2>
+                <h2 id="menu-only-icon">Config Menu Only Icon State</h2>
                 <p class="description">Config if the menu shows only icons (Not shows wing title)</p>
                 <p class="default">Default: {{defaultOptions.onlyIcons}}(show only wing's icons, no title)</p>
                 <div>
@@ -173,7 +207,7 @@
             <!-- Button Offset -->
             <div class="row">
                 <hr>
-                <h2>Config Button offset</h2>
+                <h2 id="button-offset">Config Button offset</h2>
                 <p class="description">The gap between the menu button and the menu item wings. The width unit is
                     'px'.</p>
                 <p class="default">Default: {{defaultOptions.offset}}</p>
@@ -189,7 +223,7 @@
             <!-- Button Background Color -->
             <div class="row">
                 <hr>
-                <h2>Config Button Background Color</h2>
+                <h2 id="button-bg-color">Config Button Background Color</h2>
                 <p class="description">Set the button background color.</p>
                 <p class="default">Default: {{defaultOptions.buttonBackgroundColor}}</p>
                 <input class="config-input button-cross-size"
@@ -206,7 +240,7 @@
             <!-- Button Width -->
             <div class="row">
                 <hr>
-                <h2>Config Button Width</h2>
+                <h2 id="button-width">Config Button Width</h2>
                 <p class="description">Set the button width. The width unit is 'px'.</p>
                 <p class="default">Default: 60px</p>
                 <input class="config-input button-width"
@@ -221,7 +255,7 @@
             <!-- Button Font Color -->
             <div class="row">
                 <hr>
-                <h2>Config Button Font and Cross Image Color</h2>
+                <h2 id="button-font-color">Config Button Font and Cross Image Color</h2>
                 <p class="description">Set the button font color and the cross image color.</p>
                 <p class="default">Default: {{defaultOptions.buttonFontColor}}</p>
                 <input class="config-input button-cross-size"
@@ -238,7 +272,7 @@
             <!-- Button Font Size -->
             <div class="row">
                 <hr>
-                <h2>Config Button Font Size</h2>
+                <h2 id="button-font-size">Config Button Font Size</h2>
                 <p class="description">Set the button font size. The font size unit is 'px'.</p>
                 <p class="default">Default: 14px</p>
                 <input class="config-input button-font-size"
@@ -253,7 +287,7 @@
             <!-- Button Font Weight -->
             <div class="row">
                 <hr>
-                <h2>Config Button Font Weight</h2>
+                <h2 id="button-font-weight">Config Button Font Weight</h2>
                 <p class="description">Set the button font wight.</p>
                 <p class="default">Default: 700</p>
                 <input class="config-input button-font-weight"
@@ -268,7 +302,7 @@
             <!-- Button opacity -->
             <div class="row">
                 <hr>
-                <h2>Config Button Opacity</h2>
+                <h2 id="button-opacity">Config Button Opacity</h2>
                 <p class="description">Set the button opacity value when the button is not focused or open. Value could
                     be set between 0~1.</p>
                 <p class="default">Default: 0.7</p>
@@ -284,7 +318,7 @@
             <!-- Button Cross Image Size -->
             <div class="row">
                 <hr>
-                <h2>Config Button Cross Image Size</h2>
+                <h2 id="button-image-size">Config Button Cross Image Size</h2>
                 <p class="description">Set the button cross image size. The size could be percentage('50%') or
                     px('30px') or other measure units.
                     <strong>Warning: do not forget to provide the measure unit(px, em, rem, %)</strong></p>
@@ -301,7 +335,7 @@
             <!-- Menu wing angle -->
             <div class="row">
                 <hr>
-                <h2>Config Wing Angle</h2>
+                <h2 id="wing-angle">Config Wing Angle</h2>
                 <p class="description">Set the angle at which each wing will open.</p>
                 <p class="default">Default: {{defaultOptions.angle}} degrees</p>
                 <input class="config-input wing-angle"
@@ -316,7 +350,7 @@
             <!-- Menu Wing Start Angles -->
             <div class="row">
                 <hr>
-                <h2>Config Menu Start Angles</h2>
+                <h2 id="menu-start-angles">Config Menu Start Angles</h2>
                 <p class="description">The angle at which the menu wings open when clicked. The measure unit is 'deg'.
                     The value could be minus(like: -30).
                     For example, when you set the topLeft position start angle as '0'(default),
@@ -352,7 +386,7 @@
             <!-- Menu wing font size -->
             <div class="row">
                 <hr>
-                <h2>Config Wing General Font Size</h2>
+                <h2 id="wing-font-size">Config Wing General Font Size</h2>
                 <p class="description">Set the general font wing size. It controls all the wings' font size. The measure
                     unit is 'px'</p>
                 <p class="default">Default: {{defaultOptions.wingFontSize}}px</p>
@@ -368,7 +402,7 @@
             <!-- Menu wing Font Weight -->
             <div class="row">
                 <hr>
-                <h2>Config Menu General Font Weight</h2>
+                <h2 id="wing-font-weight">Config Menu General Font Weight</h2>
                 <p class="description">Set the general menu font wight.</p>
                 <p class="default">Default: {{defaultOptions.wingFontWeight}}</p>
                 <input class="config-input wing-font-weight"
@@ -383,7 +417,7 @@
             <!-- Menu Wing Font Color -->
             <div class="row">
                 <hr>
-                <h2>Config Wing General Font and Icon Color</h2>
+                <h2 id="wing-font-color">Config Wing General Font and Icon Color</h2>
                 <p class="description">Set the general wing's font color and the icon color.(They can be overrode when
                     you config every single wing)</p>
                 <p class="default">Default: {{defaultOptions.wingFontColor}}</p>
@@ -401,7 +435,7 @@
             <!-- Menu Wing Icon Size -->
             <div class="row">
                 <hr>
-                <h2>Config Menu Wing General Icon Size</h2>
+                <h2 id="wing-icon-size">Config Menu Wing General Icon Size</h2>
                 <p class="description">Set the wing icon size. The measure unit is 'px'.
                     (It can be overrode when you config every single wing)</p>
                 <p class="default">Default: {{defaultOptions.wingIconSize}}px</p>
@@ -414,7 +448,7 @@
                 </button>
             </div>
 
-            <h1 class="config-title">Menu Wings Config</h1>
+            <h1 class="config-title" id="menu-wings">Menu Wings Config</h1>
             <p>Config menu wing properties. Properties include 'wing title'(required), 'wing color'(required),
                 'wing icon name'(optional), 'wing icon color'(optional), 'wing icon size'(optional).</p>
             <p>'wing icon name' is the name of font icon. You could use
@@ -474,8 +508,8 @@
             </button>
         </div>
 
-        <div class="config-result">
-            <h1 class="config-title">Fan Menu Config Objects</h1>
+        <div class="config-result" id="config-result">
+            <h1 class="config-title">Fan Menu Customised Config Objects</h1>
             <div *ngIf="render" class="menu-option">
                 <div><strong>Menu Options:</strong></div>
                 <pre class="prettyprint">{{options | json}}</pre>

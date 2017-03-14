@@ -43,6 +43,40 @@ main {
   background-color: $white;
 }
 
+.config-description {
+  @include type-setting(1);
+
+  a {
+    color: #3055b6;
+    text-decoration: underline;
+
+    &:hover {
+      color: #204d74;
+      text-decoration: none;
+    }
+  }
+}
+
+.config-properties {
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  li {
+    width: 50%;
+    min-width: 200px;
+    a {
+      color: #204d74;
+
+      &:hover {
+        color: #3055b6;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
 .config-title {
   @include type-setting(3);
   position: relative;
