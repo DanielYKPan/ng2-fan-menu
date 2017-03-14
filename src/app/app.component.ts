@@ -37,11 +37,18 @@ export class AppComponent implements OnInit {
         buttonOpacity: 0.7,
     };
 
+    private defaultGutter: {top?: number, left?: number, right?: number, bottom?: number} = {
+        top: 130,
+        left: 30,
+        right: 30,
+        bottom: 30,
+    };
+
     public positions = [
-        { value: 'topLeft', display: 'Top Left' },
-        { value: 'topRight', display: 'Top Right' },
-        { value: 'bottomLeft', display: 'Bottom Left' },
-        { value: 'bottomRight', display: 'Bottom Right' },
+        {value: 'topLeft', display: 'Top Left'},
+        {value: 'topRight', display: 'Top Right'},
+        {value: 'bottomLeft', display: 'Bottom Left'},
+        {value: 'bottomRight', display: 'Bottom Right'},
     ];
 
     private wings = [
@@ -69,6 +76,8 @@ export class AppComponent implements OnInit {
     private options: Object = {
         font: 'Baloo Bhaina, cursive',
     };
+
+    private gutter: {top?: number, left?: number, right?: number, bottom?: number} = {};
 
     constructor( private cdRef: ChangeDetectorRef ) {
     }
@@ -110,5 +119,42 @@ export class AppComponent implements OnInit {
             this.cdRef.detectChanges();
             delete this.options[field];
         }
+    }
+
+    public applyGutter( gutter: {top: number, left: number, right: number, bottom: number} ): void {
+        this.render = false;
+        if (+gutter['top'] === this.defaultGutter['top']) {
+            delete gutter['top'];
+        } else {
+            this.gutter['top'] = +gutter['top'];
+        }
+
+        if (+gutter['left'] === this.defaultGutter['left']) {
+            delete gutter['left'];
+        } else {
+            this.gutter['left'] = +gutter['left'];
+        }
+
+        if (+gutter['bottom'] === this.defaultGutter['bottom']) {
+            delete gutter['bottom'];
+        } else {
+            this.gutter['bottom'] = +gutter['bottom'];
+        }
+
+        if (+gutter['right'] === this.defaultGutter['right']) {
+            delete gutter['right'];
+        } else {
+            this.gutter['right'] = +gutter['right'];
+        }
+
+        this.cdRef.detectChanges();
+        this.render = true;
+    }
+
+    public applyGutterDefault(): void {
+        this.render = false;
+        this.gutter = this.defaultGutter;
+        this.cdRef.detectChanges();
+        this.render = true;
     }
 }

@@ -22,17 +22,50 @@
 
         <div class="demo">
 
+            <!-- Menu Gutter -->
+            <div class="row">
+                <hr>
+                <h2>Config Menu Gutter</h2>
+                <p class="description">The space between the menu and the boundaries of the page window.
+                    The object can have four properties left, right, top, bottom with values to be defined in Number.
+                    The measure unit is 'px'.</p>
+                <p class="default">Default Value: top:{{defaultGutter.top}}px, right:{{defaultGutter.right}}px, bottom:{{defaultGutter.bottom}}px, left:{{defaultGutter.left}}px</p>
+                <div>
+                    <label>Top: </label>
+                    <input class="config-input gutter-input" [ngModel]="defaultGutter.top" #top>
+                </div>
+                <div>
+                    <label>Left: </label>
+                    <input class="config-input gutter-input" [ngModel]="defaultGutter.left" #left>
+                </div>
+                <div>
+                    <label>Bottom: </label>
+                    <input class="config-input gutter-input" [ngModel]="defaultGutter.bottom" #bottom>
+                </div>
+                <div>
+                    <label>Right: </label>
+                    <input class="config-input gutter-input" [ngModel]="defaultGutter.right" #right>
+                </div>
+
+                <button class="btn btn-primary config-btn"
+                        (click)="applyGutter({top: top.value, left: left.value, bottom: bottom.value, right: right.value})">Apply the Change
+                </button>
+                <button class="btn btn-success config-btn" (click)="applyGutterDefault()">Apply Default
+                </button>
+            </div>
+
             <!-- Menu Default Position -->
             <div class="row">
                 <hr>
                 <h2>Config Menu Position</h2>
-                <p class="description">Set the menu position when the page first loaded. <strong>Tips: you could drag the menu to different position</strong></p>
+                <p class="description">Set the menu position when the page first loaded. <strong>Tips: you could drag
+                    the menu to different position</strong></p>
                 <p class="default">Default: {{defaultOptions.defaultPosition}}</p>
                 <div>
                     <label>Position:</label>
                     <div *ngFor="let position of positions">
                         <label>
-                            <input type="radio" name="gender" [ngModel]="defaultOptions.defaultPosition"
+                            <input type="radio" name="position" [ngModel]="defaultOptions.defaultPosition"
                                    (ngModelChange)="applyChanges('defaultPosition', $event)"
                                    [value]="position.value">
                             {{position.display}}
@@ -76,7 +109,8 @@
             <div class="row">
                 <hr>
                 <h2>Config Menu Radius</h2>
-                <p class="description">The radius of the menu wings from the center of the button. The radius unit is 'px'.</p>
+                <p class="description">The radius of the menu wings from the center of the button. The radius unit is
+                    'px'.</p>
                 <p class="default">Default: {{defaultOptions.radius}}px</p>
                 <input class="config-input menu-radius"
                        [ngModel]="defaultOptions.radius" #radius>
@@ -139,7 +173,8 @@
             <div class="row">
                 <hr>
                 <h2>Config Button offset</h2>
-                <p class="description">The gap between the menu button and the menu item wings. The width unit is 'px'.</p>
+                <p class="description">The gap between the menu button and the menu item wings. The width unit is
+                    'px'.</p>
                 <p class="default">Default: {{defaultOptions.offset}}</p>
                 <input class="config-input button-offset"
                        [ngModel]="defaultOptions.offset" #offset>
@@ -233,7 +268,8 @@
             <div class="row">
                 <hr>
                 <h2>Config Button Opacity</h2>
-                <p class="description">Set the button opacity value when the button is not focused or open. Value could be set between 0~1.</p>
+                <p class="description">Set the button opacity value when the button is not focused or open. Value could
+                    be set between 0~1.</p>
                 <p class="default">Default: 0.7</p>
                 <input class="config-input button-opacity"
                        [ngModel]="defaultOptions.buttonOpacity" #buttonOpacity>
@@ -248,7 +284,8 @@
             <div class="row">
                 <hr>
                 <h2>Config Button Cross Image Size</h2>
-                <p class="description">Set the button cross image size. The size could be percentage('50%') or px('30px') or other measure units.
+                <p class="description">Set the button cross image size. The size could be percentage('50%') or
+                    px('30px') or other measure units.
                     <strong>Warning: do not forget to provide the measure unit(px, em, rem, %)</strong></p>
                 <p class="default">Default: 50%</p>
                 <input class="config-input button-cross-size"
@@ -274,10 +311,74 @@
                 <button class="btn btn-success config-btn" (click)="applyDefault('angle')">Apply Default
                 </button>
             </div>
+
+            <!-- Menu wing font size -->
+            <div class="row">
+                <hr>
+                <h2>Config Wing General Font Size</h2>
+                <p class="description">Set the general font wing size. It controls all the wings' font size. The measure unit is 'px'</p>
+                <p class="default">Default: {{defaultOptions.wingFontSize}}px</p>
+                <input class="config-input wing-font-size"
+                       [ngModel]="defaultOptions.wingFontSize" #wingFontSize>
+                <button class="btn btn-primary config-btn"
+                        (click)="applyChanges('wingFontSize', wingFontSize.value)">Apply the Change
+                </button>
+                <button class="btn btn-success config-btn" (click)="applyDefault('wingFontSize')">Apply Default
+                </button>
+            </div>
+
+            <!-- Menu wing Font Weight -->
+            <div class="row">
+                <hr>
+                <h2>Config Menu General Font Weight</h2>
+                <p class="description">Set the general menu font wight.</p>
+                <p class="default">Default: {{defaultOptions.wingFontWeight}}</p>
+                <input class="config-input wing-font-weight"
+                       [ngModel]="defaultOptions.wingFontWeight" #wingFontWeight>
+                <button class="btn btn-primary config-btn"
+                        (click)="applyChanges('wingFontWeight', +wingFontWeight.value)">Apply the Change
+                </button>
+                <button class="btn btn-success config-btn" (click)="applyDefault('wingFontWeight')">Apply Default
+                </button>
+            </div>
+
+            <!-- Menu Wing Font Color -->
+            <div class="row">
+                <hr>
+                <h2>Config Wing General Font and Icon Color</h2>
+                <p class="description">Set the general wing's font color and the icon color.(They can be overrode when you config every single wing)</p>
+                <p class="default">Default: {{defaultOptions.wingFontColor}}</p>
+                <input class="config-input wing-font-color"
+                       #wingFontColor
+                       [value]="options['wingFontColor'] || defaultOptions.wingFontColor"
+                       [style.background]="options['wingFontColor'] || defaultOptions.wingFontColor"
+                       [colorPicker]="options['wingFontColor'] || defaultOptions.wingFontColor"
+                       [cpPosition]="'bottom'"
+                       (colorPickerChange)="applyChanges('wingFontColor', $event)">
+                <button class="btn btn-success config-btn" (click)="applyDefault('wingFontColor')">Apply Default
+                </button>
+            </div>
+
+            <!-- Menu Wing Icon Size -->
+            <div class="row">
+                <hr>
+                <h2>Config Menu Wing General Icon Size</h2>
+                <p class="description">Set the wing icon size. The measure unit is 'px'.
+                    (It can be overrode when you config every single wing)</p>
+                <p class="default">Default: {{defaultOptions.wingIconSize}}px</p>
+                <input class="config-input wing-icon-size"
+                       [ngModel]="defaultOptions.wingIconSize" #wingIconSize>
+                <button class="btn btn-primary config-btn"
+                        (click)="applyChanges('wingIconSize', wingIconSize.value)">Apply the Change
+                </button>
+                <button class="btn btn-success config-btn" (click)="applyDefault('wingIconSize')">Apply Default
+                </button>
+            </div>
         </div>
     </section>
 
     <app-menu-container *ngIf="render"
                         [options]="options"
+                        [gutter]="gutter"
                         [wings]="wings"></app-menu-container>
 </main>
