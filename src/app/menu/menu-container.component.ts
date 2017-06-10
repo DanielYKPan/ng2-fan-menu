@@ -3,9 +3,10 @@
  */
 
 import {
-    Component, OnInit, Input, trigger, state, style, transition, animate, HostListener,
+    Component, OnInit, Input, HostListener,
     Output, EventEmitter
 } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MenuOptions, IMenuConfig, IMenuWing } from './menu-options.service';
 
 @Component({
@@ -14,26 +15,26 @@ import { MenuOptions, IMenuConfig, IMenuWing } from './menu-options.service';
     styleUrls: ['./menu-container.component.scss'],
     animations: [
         trigger('menuScaleInOut', [
-            state('false', style({
+            state('0', style({
                 opacity: 1,
                 transform: 'scale(1)'
             })),
-            state('true', style({
+            state('1', style({
                 opacity: 0,
                 transform: 'scale(0)'
             })),
-            transition('false <=> true', animate('300ms linear'))
+            transition('0 <=> 1', animate('300ms linear'))
         ]),
         trigger('crossScaleInOut', [
-            state('true', style({
-                opacity: 1,
-                transform: 'scale(1)'
-            })),
-            state('false', style({
+            state('0', style({
                 opacity: 0,
                 transform: 'scale(0)'
             })),
-            transition('false <=> true', animate('300ms linear'))
+            state('1', style({
+                opacity: 1,
+                transform: 'scale(1)'
+            })),
+            transition('0 <=> 1', animate('300ms linear'))
         ])
     ],
 })
