@@ -8,16 +8,10 @@ import {
 } from '@angular/core';
 import { MenuOptions, IMenuConfig, IMenuWing } from './menu-options.service';
 
-// webpack1_
-declare let require: any;
-const myDpStyles: string = require("./menu-container.component.scss");
-const myDpTpl: string = require("./menu-container.component.html");
-// webpack2_
-
 @Component({
     selector: 'app-menu-container',
-    template: myDpTpl,
-    styles: [myDpStyles],
+    templateUrl: './menu-container.component.html',
+    styleUrls: ['./menu-container.component.scss'],
     animations: [
         trigger('menuScaleInOut', [
             state('false', style({
