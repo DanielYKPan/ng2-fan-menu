@@ -7,12 +7,12 @@
             (tap)="toggleMenu()"
             (panstart)="onPanStart()"
             (panend)="onPanEnd()">
-        <span [@menuScaleInOut]="menuState.toString()"
+        <span [@menuScaleInOut]="menuState"
               (@menuScaleInOut.done)="animationDone($event)">
             Menu
         </span>
         <span class="btn-cross"
-              [@crossScaleInOut]="menuState.toString()"
+              [@crossScaleInOut]="menuState"
               (@crossScaleInOut.done)="animationDone($event)">
             <svg xmlns="http://www.w3.org/2000/svg"
                  xmlns:xlink="http://www.w3.org/1999/xlink"

@@ -1,14 +1,7 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var animations_1 = require("@angular/animations");
 var menu_options_service_1 = require("./menu-options.service");
 var MenuContainerComponent = (function () {
     function MenuContainerComponent(menuOptions) {
@@ -191,64 +184,47 @@ var MenuContainerComponent = (function () {
     };
     return MenuContainerComponent;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], MenuContainerComponent.prototype, "options", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], MenuContainerComponent.prototype, "gutter", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Array)
-], MenuContainerComponent.prototype, "wings", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], MenuContainerComponent.prototype, "startAngles", void 0);
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", Object)
-], MenuContainerComponent.prototype, "onWingSelected", void 0);
-__decorate([
-    core_1.HostListener('document:panmove', ['$event']),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], MenuContainerComponent.prototype, "onMenuMove", null);
-MenuContainerComponent = __decorate([
-    core_1.Component({
-        selector: 'app-menu-container',
-        template: "<div class=\"menu-container\" [ngStyle]=\"menuContainerStyle\"><button class=\"menu-btn\" [ngStyle]=\"menuBtnStyle\" (mouseenter)=\"onMouseOverMenu()\" (mouseleave)=\"onMouseOutMenu()\" (tap)=\"toggleMenu()\" (panstart)=\"onPanStart()\" (panend)=\"onPanEnd()\"><span [@menuScaleInOut]=\"menuState.toString()\" (@menuScaleInOut.done)=\"animationDone($event)\">Menu </span><span class=\"btn-cross\" [@crossScaleInOut]=\"menuState.toString()\" (@crossScaleInOut.done)=\"animationDone($event)\"><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" id=\"cross\" class=\"img\" x=\"0px\" y=\"0px\" viewBox=\"0 0 212.982 212.982\" style=\"enable-background:new 0 0 212.982 212.982\" xml:space=\"preserve\" [attr.width]=\"menuOptions.MenuConfig.buttonCrossImgSize\" [attr.height]=\"menuOptions.MenuConfig.buttonCrossImgSize\"><g id=\"Close\"><path style=\"fill-rule:evenodd;clip-rule:evenodd\" [attr.fill]=\"menuOptions.MenuConfig.buttonFontColor\" d=\"M131.804,106.491l75.936-75.936c6.99-6.99,6.99-18.323,0-25.312   c-6.99-6.99-18.322-6.99-25.312,0l-75.937,75.937L30.554,5.242c-6.99-6.99-18.322-6.99-25.312,0c-6.989,6.99-6.989,18.323,0,25.312   l75.937,75.936L5.242,182.427c-6.989,6.99-6.989,18.323,0,25.312c6.99,6.99,18.322,6.99,25.312,0l75.937-75.937l75.937,75.937   c6.989,6.99,18.322,6.99,25.312,0c6.99-6.99,6.99-18.322,0-25.312L131.804,106.491z\"/></g></svg></span></button><div class=\"menu-list\" [ngStyle]=\"menuListStyle\"><app-menu-wing *ngFor=\"let wing of wings; let i = index\" [textAnchor]=\"textAnchor\" [textRotate]=\"textRotate\" [position]=\"positionClass\" [wing]=\"wing\" [svgPath]=\"svgPath\" [index]=\"i\" [menuState]=\"menuState\" (wingClicked)=\"clickWing($event)\"></app-menu-wing></div></div>",
-        styles: [".menu-container{position:fixed;z-index:99999}.menu-btn{-moz-box-shadow:-2px 6px 12px #8e8e8e;box-shadow:-2px 6px 12px #8e8e8e;outline:0;position:absolute;border:none;z-index:1000;cursor:pointer;-moz-border-radius:100%;border-radius:100%;background-color:#ff7f7f;color:#fff;font-size:14px;-webkit-transition:opacity .2s ease-in;-moz-transition:opacity .2s ease-in;transition:opacity .2s ease-in}.menu-btn .img{position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;pointer-events:none;vertical-align:middle;display:block}.menu-btn span{display:block;vertical-align:middle;pointer-events:none}.menu-btn .btn-cross{position:absolute;top:0;left:0;right:0;bottom:0;margin:auto}.menu-list{pointer-events:none;position:absolute}"],
-        animations: [
-            core_1.trigger('menuScaleInOut', [
-                core_1.state('false', core_1.style({
-                    opacity: 1,
-                    transform: 'scale(1)'
-                })),
-                core_1.state('true', core_1.style({
-                    opacity: 0,
-                    transform: 'scale(0)'
-                })),
-                core_1.transition('false <=> true', core_1.animate('300ms linear'))
-            ]),
-            core_1.trigger('crossScaleInOut', [
-                core_1.state('true', core_1.style({
-                    opacity: 1,
-                    transform: 'scale(1)'
-                })),
-                core_1.state('false', core_1.style({
-                    opacity: 0,
-                    transform: 'scale(0)'
-                })),
-                core_1.transition('false <=> true', core_1.animate('300ms linear'))
-            ])
-        ],
-    }),
-    __metadata("design:paramtypes", [menu_options_service_1.MenuOptions])
-], MenuContainerComponent);
+MenuContainerComponent.decorators = [
+    { type: core_1.Component, args: [{
+                selector: 'app-menu-container',
+                template: "<div class=\"menu-container\" [ngStyle]=\"menuContainerStyle\"><button class=\"menu-btn\" [ngStyle]=\"menuBtnStyle\" (mouseenter)=\"onMouseOverMenu()\" (mouseleave)=\"onMouseOutMenu()\" (tap)=\"toggleMenu()\" (panstart)=\"onPanStart()\" (panend)=\"onPanEnd()\"><span [@menuScaleInOut]=\"menuState\" (@menuScaleInOut.done)=\"animationDone($event)\">Menu </span><span class=\"btn-cross\" [@crossScaleInOut]=\"menuState\" (@crossScaleInOut.done)=\"animationDone($event)\"><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" id=\"cross\" class=\"img\" x=\"0px\" y=\"0px\" viewBox=\"0 0 212.982 212.982\" style=\"enable-background:new 0 0 212.982 212.982\" xml:space=\"preserve\" [attr.width]=\"menuOptions.MenuConfig.buttonCrossImgSize\" [attr.height]=\"menuOptions.MenuConfig.buttonCrossImgSize\"><g id=\"Close\"><path style=\"fill-rule:evenodd;clip-rule:evenodd\" [attr.fill]=\"menuOptions.MenuConfig.buttonFontColor\" d=\"M131.804,106.491l75.936-75.936c6.99-6.99,6.99-18.323,0-25.312   c-6.99-6.99-18.322-6.99-25.312,0l-75.937,75.937L30.554,5.242c-6.99-6.99-18.322-6.99-25.312,0c-6.989,6.99-6.989,18.323,0,25.312   l75.937,75.936L5.242,182.427c-6.989,6.99-6.989,18.323,0,25.312c6.99,6.99,18.322,6.99,25.312,0l75.937-75.937l75.937,75.937   c6.989,6.99,18.322,6.99,25.312,0c6.99-6.99,6.99-18.322,0-25.312L131.804,106.491z\"/></g></svg></span></button><div class=\"menu-list\" [ngStyle]=\"menuListStyle\"><app-menu-wing *ngFor=\"let wing of wings; let i = index\" [textAnchor]=\"textAnchor\" [textRotate]=\"textRotate\" [position]=\"positionClass\" [wing]=\"wing\" [svgPath]=\"svgPath\" [index]=\"i\" [menuState]=\"menuState\" (wingClicked)=\"clickWing($event)\"></app-menu-wing></div></div>",
+                styles: [".menu-container{position:fixed;z-index:99999}.menu-btn{-moz-box-shadow:-2px 6px 12px #8e8e8e;box-shadow:-2px 6px 12px #8e8e8e;outline:0;position:absolute;border:none;z-index:1000;cursor:pointer;-moz-border-radius:100%;border-radius:100%;background-color:#ff7f7f;color:#fff;font-size:14px;-webkit-transition:opacity .2s ease-in;-moz-transition:opacity .2s ease-in;transition:opacity .2s ease-in}.menu-btn .img{position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;pointer-events:none;vertical-align:middle;display:block}.menu-btn span{display:block;vertical-align:middle;pointer-events:none}.menu-btn .btn-cross{position:absolute;top:0;left:0;right:0;bottom:0;margin:auto}.menu-list{pointer-events:none;position:absolute}"],
+                animations: [
+                    animations_1.trigger('menuScaleInOut', [
+                        animations_1.state('0', animations_1.style({
+                            opacity: 1,
+                            transform: 'scale(1)'
+                        })),
+                        animations_1.state('1', animations_1.style({
+                            opacity: 0,
+                            transform: 'scale(0)'
+                        })),
+                        animations_1.transition('0 <=> 1', animations_1.animate('300ms linear'))
+                    ]),
+                    animations_1.trigger('crossScaleInOut', [
+                        animations_1.state('0', animations_1.style({
+                            opacity: 0,
+                            transform: 'scale(0)'
+                        })),
+                        animations_1.state('1', animations_1.style({
+                            opacity: 1,
+                            transform: 'scale(1)'
+                        })),
+                        animations_1.transition('0 <=> 1', animations_1.animate('300ms linear'))
+                    ])
+                ],
+            },] },
+];
+MenuContainerComponent.ctorParameters = function () { return [
+    { type: menu_options_service_1.MenuOptions, },
+]; };
+MenuContainerComponent.propDecorators = {
+    'options': [{ type: core_1.Input },],
+    'gutter': [{ type: core_1.Input },],
+    'wings': [{ type: core_1.Input },],
+    'startAngles': [{ type: core_1.Input },],
+    'onWingSelected': [{ type: core_1.Output },],
+    'onMenuMove': [{ type: core_1.HostListener, args: ['document:panmove', ['$event'],] },],
+};
 exports.MenuContainerComponent = MenuContainerComponent;
-
 //# sourceMappingURL=menu-container.component.js.map

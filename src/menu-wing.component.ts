@@ -6,16 +6,10 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy, Output, 
 import { IMenuWing, MenuOptions } from './menu-options.service';
 import { SpinService } from './menu-spin.service';
 
-// webpack1_
-declare let require: any;
-const myDpStyles: string = require("./menu-wing.component.scss");
-const myDpTpl: string = require("./menu-wing.component.html");
-// webpack2_
-
 @Component({
     selector: 'app-menu-wing',
-    template: myDpTpl,
-    styles: [myDpStyles],
+    templateUrl: './menu-wing.component.html',
+    styleUrls: ['./menu-wing.component.scss'],
 })
 export class MenuWingComponent implements OnInit, OnChanges, OnDestroy {
 

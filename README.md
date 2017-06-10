@@ -1,6 +1,6 @@
 # Angular Fan Menu for web and mobile
 
-Angular Fan Menu is an `angular 2 component` for cool menu component for web and mobile, developed using `angularJS 2`, `CSS3`, `HTML5`.
+Angular Fan Menu is an `angular component` for cool menu component for web and mobile, developed using `angularJS 4`, `CSS3`, `HTML5`.
 
 ### Features
 - Highly Configurable component properties and methods
@@ -170,7 +170,7 @@ This project is licensed under the MIT license. See the [LICENSE](LICENSE) file 
 --
 
 The MIT License (MIT)
-Copyright (c) 2016 Cuppa Labs
+Copyright (c) 2016 Daniel Yaokun Pan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -189,9 +189,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
-## Credits
-Thanks to Font Awesome the library and Pradeep Kumar Terli.
 
 ## Author
 Daniel YK Pan
