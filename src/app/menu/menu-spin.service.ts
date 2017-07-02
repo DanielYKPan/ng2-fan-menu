@@ -4,49 +4,39 @@
 
 import { Injectable } from '@angular/core';
 import { MenuOptions } from './menu-options.service';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class SpinService {
 
     private lastSpinDegree: number = 0;
 
-    /* Property spinDegrees */
-    private spinDegrees: number = 0;
-
-    get SpinDegrees(): number {
-        return this.spinDegrees;
-    }
-
-    /* Property transitionStyle */
-    private transitionStyle: string = 'all .3s cubic-bezier(0.680, -0.550, 0.265, 1.550)';
-
-    get TransitionStyle(): string {
-        return this.transitionStyle;
-    }
-
     /* Property startPosition */
     private startPositionDegrees: number;
+
+    private wingSpunSource = new Subject<number>();
+
+    public wingSpun = this.wingSpunSource.asObservable();
 
     constructor( private menuOptions: MenuOptions ) {
     }
 
     public setStartPosition( position: {x: number, y: number} ): void {
-        this.transitionStyle = 'none';
         this.startPositionDegrees = this.radToDeg(
             Math.atan2(position.y - this.menuOptions.Center.y, position.x - this.menuOptions.Center.x)
         );
     }
 
-    public setSpinDegrees( position: {x: number, y: number} ): void {
+    public calculateSpinDegrees( position: {x: number, y: number} ): void {
         let degrees = this.radToDeg(
                 Math.atan2(position.y - this.menuOptions.Center.y, position.x - this.menuOptions.Center.x)
             ) - this.startPositionDegrees;
 
-        this.spinDegrees = this.lastSpinDegree + degrees;
+        let deg = this.lastSpinDegree + degrees;
+        this.wingSpunSource.next(deg);
     }
 
     public setLastSpinDegrees( position: {x: number, y: number} ): void {
-        this.transitionStyle = 'all .3s cubic-bezier(0.680, -0.550, 0.265, 1.550)';
         this.lastSpinDegree += this.radToDeg(
                 Math.atan2(position.y - this.menuOptions.Center.y, position.x - this.menuOptions.Center.x)
             ) - this.startPositionDegrees;

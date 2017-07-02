@@ -6,14 +6,9 @@
             (mouseleave)="onMouseOutMenu()"
             (tap)="toggleMenu()"
             (panstart)="onPanStart()"
-            (panend)="onPanEnd()">
-        <span [@menuScaleInOut]="menuState"
-              (@menuScaleInOut.done)="animationDone($event)">
-            Menu
-        </span>
+            (panend)="onPanEnd()" [@menu]="menuState" (@menu.done)="animationDone($event)">
         <span class="btn-cross"
-              [@crossScaleInOut]="menuState"
-              (@crossScaleInOut.done)="animationDone($event)">
+              *ngIf="menuState;else elseBlock">
             <svg xmlns="http://www.w3.org/2000/svg"
                  xmlns:xlink="http://www.w3.org/1999/xlink"
                  version="1.1" id="cross" class="img" x="0px" y="0px"
@@ -27,16 +22,22 @@
                 </g>
             </svg>
         </span>
+        <ng-template #elseBlock>
+            <span class="btn-text">Menu</span>
+        </ng-template>
     </button>
     <div class="menu-list"
-         [ngStyle]="menuListStyle">
-        <app-menu-wing *ngFor="let wing of wings; let i = index"
-                       [textAnchor]="textAnchor"
-                       [textRotate]="textRotate"
-                       [position]="positionClass"
-                       [wing]="wing"
-                       [svgPath]="svgPath"
-                       [index]="i"
-                       [menuState]="menuState" (wingClicked)="clickWing($event)"></app-menu-wing>
+         [ngStyle]="menuListStyle" #menuList>
+        <div class="wing-wrapper" *ngFor="let wing of wings; let i = index">
+            <app-menu-wing *ngIf="menuState" [textAnchor]="textAnchor"
+                           [textRotate]="textRotate"
+                           [position]="positionClass"
+                           [wing]="wing"
+                           [svgPath]="svgPath"
+                           [index]="i"
+                           [menuState]="menuState"
+                           (wingSpinning)="toggleSpinningState($event)"
+                           (wingClicked)="clickWing($event)" (wingHovered)="hoverWing($event)"></app-menu-wing>
+        </div>
     </div>
 </div>

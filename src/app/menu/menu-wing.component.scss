@@ -1,12 +1,19 @@
-.wing {
-  user-select: none;
-  pointer-events: none;
+:host {
+  display: block;
   width: 100%;
   height: 100%;
   position: absolute;
-  cursor: pointer;
   transform-origin: 0px 50%;
   transition: all .3s cubic-bezier(0.680, -0.550, 0.265, 1.550);
+  cursor: pointer;
+  user-select: none;
+  pointer-events: none;
+}
+
+.wing {
+  width: inherit;
+  height: inherit;
+  transform-origin: inherit;
 
   i {
     text-align: center;

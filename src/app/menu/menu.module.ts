@@ -5,7 +5,6 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuContainerComponent } from './menu-container.component';
 import { MenuOptions } from './menu-options.service';
 import { MenuWingComponent } from './menu-wing.component';
@@ -23,7 +22,6 @@ import 'hammerjs';
     imports: [
         CommonModule,
         FormsModule,
-        BrowserAnimationsModule,
     ],
     exports: [
         MenuContainerComponent,

@@ -27,4 +27,4 @@
 </main>
 
 <app-menu-container [options]="{font: 'Baloo Bhaina, cursive'}"
-                    [wings]="wings" (onWingSelected)="selectWing($event)"></app-menu-container>
+                    [wings]="wings" (onMenuBtnClicked)="consoleLogging($event)" (onWingSelected)="consoleLogging($event)" (onWingHovered)="consoleLogging($event)"></app-menu-container>
