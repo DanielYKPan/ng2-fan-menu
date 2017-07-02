@@ -1,18 +1,7 @@
-<div class="wing wing-{{index}}"
-     [ngStyle]="{
-        'transition': spinService.TransitionStyle,
-        '-webkit-transition': spinService.TransitionStyle,
-        '-moz-transition': spinService.TransitionStyle,
-        '-ms-transition': spinService.TransitionStyle,
-        'transform': 'rotate(' + (rotateDeg + spinService.SpinDegrees) + 'deg) '+ 'scale(' + scaleSize +')',
-        '-webkit-transform': 'rotate(' + (rotateDeg + spinService.SpinDegrees) + 'deg) '+ 'scale(' + scaleSize +')',
-        '-ms-transform': 'rotate(' + (rotateDeg + spinService.SpinDegrees) + 'deg) '+ 'scale(' + scaleSize +')',
-        '-moz-transform': 'rotate(' + (rotateDeg + spinService.SpinDegrees) + 'deg) '+ 'scale(' + scaleSize +')',
-        '-o-transform': 'rotate(' + (rotateDeg + spinService.SpinDegrees) + 'deg) '+ 'scale(' + scaleSize +')'
-     }">
+<div class="wing wing-{{index}}" [@scaleWing]="scaleWingState">
     <svg class="wing-svg" width="100%" height="100%"
          (panstart)="onPanStart($event)"
-         (panmove)="onRotate($event)"
+         (panmove)="spinMenu($event)"
          (panend)="onPanEnd($event)">
         <path style="pointer-events:auto;"
               (tap)="onClick()"
@@ -21,28 +10,24 @@
               [attr.fill]="wing.color"
               [attr.d]="svgPath"></path>
         <text class="wing-text"
-              *ngIf="!menuOptions.MenuConfig.onlyIcons"
+              *ngIf="!menuConfig.onlyIcons"
               x="50%"
               y="50%"
               dominant-baseline="central"
               style="text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);"
-              [ngStyle]="{'font-size': menuOptions.MenuConfig.wingFontSize + 'px'}"
+              [ngStyle]="{'font-size': menuConfig.wingFontSize + 'px'}"
               [attr.text-anchor]="textAnchor"
-              [attr.transform]="'rotate('+ textRotate + ', ' + menuOptions.MenuConfig.radius/2  + ', ' + menuOptions.MenuConfig.radius/2 + ')'"
-              [attr.fill]="wing.titleColor || menuOptions.MenuConfig.wingFontColor">{{wing.title}}
+              [attr.transform]="'rotate('+ textRotate + ', ' + menuConfig.radius/2  + ', ' + menuConfig.radius/2 + ')'"
+              [attr.fill]="wing.titleColor || menuConfig.wingFontColor">{{wing.title}}
         </text>
     </svg>
     <i class="{{wing.icon.name}}"
-       *ngIf="menuOptions.MenuConfig.showIcons || menuOptions.MenuConfig.onlyIcons"
+       #wingIconElm
+       *ngIf="menuConfig.showIcons || menuConfig.onlyIcons"
        [ngStyle]="{
-            'color': wing.icon.color || menuOptions.MenuConfig.wingFontColor,
+            'color': wing.icon.color || menuConfig.wingFontColor,
             'font-size': iconSize + 'px',
             'width': iconSize + 'px',
-            'height': iconSize + 'px',
-            'transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ (rotateDeg + spinService.SpinDegrees) * -1 + 'deg)',
-            '-webkit-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ (rotateDeg + spinService.SpinDegrees) * -1 + 'deg)',
-            '-ms-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ (rotateDeg + spinService.SpinDegrees) * -1 + 'deg)',
-            '-moz-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ (rotateDeg + spinService.SpinDegrees) * -1 + 'deg)',
-            '-o-transform': 'translate(' + iconX + 'px, ' + iconY + 'px) rotate('+ (rotateDeg + spinService.SpinDegrees) * -1 + 'deg)'
+            'height': iconSize + 'px'
        }"></i>
 </div>

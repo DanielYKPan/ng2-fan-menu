@@ -163,6 +163,13 @@ Once the component is added to the element, it can be configured with the follow
 - the wing icon is font icon image. You can use [Fontawesome](http://fontawesome.io/), [Bootstrap](http://getbootstrap.com/components/) or any other font icon libraries. 
 Remember to include all those font files and style files into your project.
 
+### Emit Events
+ * **(onWingSelected)** --- it would emit the wing that is being clicked or selected.
+ * **(onWingHovered)** --- it would emit the wing that is being mouse over(hover).
+ * **(onMenuBtnClicked)** --- it would emit boolean value if the menu button is being clicked. 
+    It emits **true** if the menu button is clicked to open the menu list, false if the button is clicked to close the menu list.
+ * **(onMenuListSpinning)** --- it would emit **true** if the menu list is being spun.
+
 ## Licence
 
 This project is licensed under the MIT license. See the [LICENSE](LICENSE) file for more info.
