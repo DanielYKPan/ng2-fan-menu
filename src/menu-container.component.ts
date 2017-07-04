@@ -4,9 +4,9 @@
 
 import {
     Component, OnInit, Input, HostListener,
-    Output, EventEmitter, ViewChild, ElementRef, Renderer2, OnDestroy, ChangeDetectionStrategy
+    Output, EventEmitter, ViewChild, ElementRef, Renderer2, OnDestroy, ChangeDetectionStrategy, HostBinding
 } from '@angular/core';
-import { animate, group, query, style, transition, trigger } from '@angular/animations';
+import { animate, animateChild, group, query, style, transition, trigger } from '@angular/animations';
 import { MenuOptions, IMenuConfig, IMenuWing } from './menu-options.service';
 import { Subscription } from 'rxjs/Subscription';
 import { SpinService } from './menu-spin.service';
@@ -17,7 +17,7 @@ import { SpinService } from './menu-spin.service';
     styleUrls: ['./menu-container.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [
-        trigger('menu', [
+        trigger('btnText', [
             transition('0 <=> 1', [
                 query(':leave', style({opacity: 1, transform: 'scale(1)'})),
                 query(':enter', style({opacity: 0, transform: 'scale(0)'})),
@@ -32,12 +32,28 @@ import { SpinService } from './menu-spin.service';
                     })))
                 ])
             ])
+        ]),
+        trigger('draggingMenu', [
+            transition('1 => 0', [
+                style({top: '{{top}}px', left: '{{left}}px'}),
+                animate('900ms cubic-bezier(0.680, -0.550, 0.265, 1.550)', style('*'))
+            ])
+        ]),
+        trigger('menuState', [
+            transition(':enter', [
+                style({transform: 'scale(0)'}),
+                animate('500ms cubic-bezier(0.680, -0.550, 0.265, 1.550)', style({transform: 'scale(1)'})),
+                query('@rotateWing', animateChild())
+            ]),
+            transition(':leave', [
+                animate('500ms cubic-bezier(0.680, -0.550, 0.265, 1.550)', style({transform: 'scale(0)'}))
+            ]),
         ])
     ],
 })
 export class MenuContainerComponent implements OnInit, OnDestroy {
 
-    @ViewChild('menuList') public menuListElm: ElementRef;
+    @ViewChild('menuWings') public menuWingsElm: ElementRef;
 
     @Input() public options: IMenuConfig;
 
@@ -61,34 +77,46 @@ export class MenuContainerComponent implements OnInit, OnDestroy {
     // Emit true if the whole menu list is being spun
     @Output() public onMenuListSpinning = new EventEmitter<boolean>();
 
-    public menuContainerStyle: Object;
     public menuBtnStyle: Object;
-    public menuListStyle: Object;
+    public menuWingsStyle: Object;
     public svgPath: string;
-    public menuState: boolean; // A flag to indicate if the menu is open
+    public wingsState: boolean; // A flag to indicate if the wings are open
     public positionClass: string; // menu's position
-    public textRotate: number;
-    public textAnchor: string;
     public menuConfig: any;
+    public top: number; // for draggingMenu animation
+    public left: number; // for draggingMenu animation
 
     private allowTransition: boolean = true; // a flag to indicate if button text animation finished
     private isDragging: boolean = false; // A flag to indicate the drag move begins
     private isSpinning: boolean = false; // A flag to indicate if the menuList is spinning
     private menuSpunSubscriptionId: Subscription;
 
-    constructor( public menuOptions: MenuOptions,
+    /**
+     * Binding host element to @menuState animation
+     * */
+    @HostBinding('@menuState')
+    public menuState = true;
+
+    /**
+     * Binding host element to @draggingMenu animation
+     * */
+    @HostBinding('@draggingMenu')
+    public draggingState = {value: false, params: {top: this.top, left: this.left}};
+
+    constructor( private menuOptions: MenuOptions,
                  private spinService: SpinService,
-                 private renderer: Renderer2 ) {
+                 private renderer: Renderer2,
+                 private elm: ElementRef) {
     }
 
     public ngOnInit() {
         this.menuOptions.setMenuOptions(this.options, this.gutter, this.startAngles);
         this.menuConfig = this.menuOptions.MenuConfig;
-        this.menuState = this.menuConfig.defaultOpen;
+        this.wingsState = this.menuConfig.defaultOpen;
         this.positionClass = this.menuConfig.defaultPosition;
         this.setElementsStyle();
         this.calculateSvgPath();
-        this.calculateMenuContainerPosition();
+        this.setHostElementPosition(this.positionClass);
 
         this.menuSpunSubscriptionId =
             this.spinService.wingSpun.subscribe(( data: number ) => this.spinMenu(data));
@@ -126,9 +154,9 @@ export class MenuContainerComponent implements OnInit, OnDestroy {
      * */
     public toggleMenu() {
         if (this.allowTransition) {
-            this.menuState = !this.menuState;
+            this.wingsState = !this.wingsState;
             this.allowTransition = false;
-            this.onMenuBtnClicked.emit(this.menuState);
+            this.onMenuBtnClicked.emit(this.wingsState);
         }
     }
 
@@ -137,49 +165,38 @@ export class MenuContainerComponent implements OnInit, OnDestroy {
      * */
     public onPanStart(): void {
         this.isDragging = true;
-        this.menuContainerStyle['transition'] = 'none';
-        this.menuContainerStyle['-webkit-transition'] = 'none';
-        this.menuContainerStyle['-moz-transition'] = 'none';
-        this.menuContainerStyle['-ms-transition'] = 'none';
+        this.draggingState = {value: true, params: {top: this.top, left: this.left}};
     }
 
     /**
      * menuBtn pan move end
      * */
     public onPanEnd(): void {
-        this.isDragging = false;
-        this.menuContainerStyle['transition'] = 'all 900ms cubic-bezier(0.680, -0.550, 0.265, 1.550)';
-        this.menuContainerStyle['-webkit-transition'] = 'all 900ms cubic-bezier(0.680, -0.550, 0.265, 1.550)';
-        this.menuContainerStyle['-moz-transition'] = 'all 900ms cubic-bezier(0.680, -0.550, 0.265, 1.550)';
-        this.menuContainerStyle['-ms-transition'] = 'all 900ms cubic-bezier(0.680, -0.550, 0.265, 1.550)';
+
+        // For animation purpose
+        this.draggingState = {value: false, params: {top: this.top, left: this.left}};
 
         let centreX = window.innerWidth / 2 -
             this.menuConfig.buttonWidth / 2;
         let centreY = window.innerHeight / 2 -
             this.menuConfig.buttonWidth / 2;
 
-        if (this.menuContainerStyle['top.px'] > centreY &&
-            this.menuContainerStyle['left.px'] < centreX) {
+        // set host element's position class based on its position when the panMove ends
+        if (this.top > centreY && this.left < centreX) {
             this.positionClass = 'bottomLeft';
-            this.textRotate = 0;
-            this.textAnchor = 'middle';
-        } else if (this.menuContainerStyle['top.px'] < centreY &&
-            this.menuContainerStyle['left.px'] < centreX) {
+        } else if (this.top < centreY && this.left < centreX) {
             this.positionClass = 'topLeft';
-            this.textRotate = 0;
-            this.textAnchor = 'middle';
-        } else if (this.menuContainerStyle['top.px'] < centreY &&
-            this.menuContainerStyle['left.px'] > centreX) {
+        } else if (this.top < centreY && this.left > centreX) {
             this.positionClass = 'topRight';
-            this.textRotate = 180;
-            this.textAnchor = 'end';
-        } else if (this.menuContainerStyle['top.px'] > centreY &&
-            this.menuContainerStyle['left.px'] > centreX) {
+        } else if (this.top > centreY && this.left > centreX) {
             this.positionClass = 'bottomRight';
-            this.textRotate = 180;
-            this.textAnchor = 'end';
         }
-        this.calculateMenuContainerPosition();
+
+        // reset host's position
+        this.setHostElementPosition(this.positionClass);
+
+        // reset the panMove flag and start the @draggingMenu animation
+        this.isDragging = false;
     }
 
     /**
@@ -190,8 +207,10 @@ export class MenuContainerComponent implements OnInit, OnDestroy {
         if (this.isDragging) {
             let y = event.center.y;
             let x = event.center.x;
-            this.menuContainerStyle['top.px'] = y - this.menuConfig.buttonWidth / 2;
-            this.menuContainerStyle['left.px'] = x - this.menuConfig.buttonWidth / 2;
+            this.top = y - this.menuConfig.buttonWidth / 2;
+            this.left = x - this.menuConfig.buttonWidth / 2;
+            this.renderer.setStyle(this.elm.nativeElement, 'top', this.top + 'px');
+            this.renderer.setStyle(this.elm.nativeElement, 'left', this.left + 'px');
         }
     }
 
@@ -208,7 +227,7 @@ export class MenuContainerComponent implements OnInit, OnDestroy {
      * Set menuBtn opacity when it has been mouse out
      * */
     public onMouseOutMenu(): void {
-        if (this.menuConfig.buttonOpacity < 1 && !this.menuState) {
+        if (this.menuConfig.buttonOpacity < 1 && !this.wingsState) {
             this.menuBtnStyle['opacity'] = this.menuConfig.buttonOpacity;
         }
     }
@@ -218,7 +237,7 @@ export class MenuContainerComponent implements OnInit, OnDestroy {
      * set the menuList transform style
      * */
     public spinMenu( deg: number ): void {
-        this.renderer.setStyle(this.menuListElm.nativeElement, 'transform', 'rotate(' + deg + 'deg)');
+        this.renderer.setStyle(this.menuWingsElm.nativeElement, 'transform', 'rotate(' + deg + 'deg)');
     }
 
     /**
@@ -233,89 +252,51 @@ export class MenuContainerComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Calculate menuContainer position style
-     *
-     * styles (top, left, textAnchor, textRotate) would
-     * depend on the current positionClass value
-     * */
-    private calculateMenuContainerPosition() {
-        if (this.positionClass === 'topLeft') {
-            let top = this.menuOptions.Gutter.top;
-            let left = this.menuOptions.Gutter.left;
-            this.menuContainerStyle['top.px'] = top;
-            this.menuContainerStyle['left.px'] = left;
-            this.textAnchor = 'middle';
-            this.textRotate = 0;
-            this.menuOptions.Center = {x: left, y: top};
-
-        } else if (this.positionClass === 'topRight') {
-            let top = this.menuOptions.Gutter.top;
-            let left = window.innerWidth - this.menuConfig.buttonWidth -
-                this.menuOptions.Gutter.right;
-            this.menuContainerStyle['top.px'] = top;
-            this.menuContainerStyle['left.px'] = left;
-            this.textAnchor = 'end';
-            this.textRotate = 180;
-            this.menuOptions.Center = {x: left, y: top};
-
-        } else if (this.positionClass === 'bottomLeft') {
-            let top = window.innerHeight - this.menuConfig.buttonWidth -
-                this.menuOptions.Gutter.bottom;
-            let left = this.menuOptions.Gutter.left;
-            this.menuContainerStyle['top.px'] = top;
-            this.menuContainerStyle['left.px'] = left;
-            this.textAnchor = 'middle';
-            this.textRotate = 0;
-            this.menuOptions.Center = {x: left, y: top};
-
-        } else if (this.positionClass === 'bottomRight') {
-
-            let top = window.innerHeight - this.menuConfig.buttonWidth
-                - this.menuOptions.Gutter.bottom;
-            let left = window.innerWidth - this.menuConfig.buttonWidth
-                - this.menuOptions.Gutter.right;
-            this.menuContainerStyle['top.px'] = top;
-            this.menuContainerStyle['left.px'] = left;
-            this.textAnchor = 'end';
-            this.textRotate = 180;
-            this.menuOptions.Center = {x: left, y: top};
-        }
-    }
-
-    /**
      * Set elements styles
-     * elements include menuContainer, menuBtn and menuList
+     * elements include the host element itself, menuBtn and menuWings
      * */
     private setElementsStyle(): void {
-        this.menuContainerStyle = {
-            'font-family': this.menuConfig.font,
-            'width.px': +this.menuConfig.buttonWidth,
-            'height.px': +this.menuConfig.buttonWidth,
-            'top.px': 0,
-            'left.px': 0,
-            'transition': 'none',
-            '-webkit-transition': 'none',
-            '-ms-transition': 'none',
-            '-moz-transition': 'none',
-        };
+
+        // Setting host element style
+        this.renderer.setStyle(this.elm.nativeElement, 'width', this.menuConfig.buttonWidth + 'px');
+        this.renderer.setStyle(this.elm.nativeElement, 'height', this.menuConfig.buttonWidth + 'px');
+        this.renderer.setStyle(this.elm.nativeElement, 'font-family', this.menuConfig.font);
+
+        // Setting menuBtn style
         this.menuBtnStyle = {
-            'width.px': +this.menuConfig.buttonWidth,
-            'height.px': +this.menuConfig.buttonWidth,
             'background': this.menuConfig.buttonBackgroundColor,
             'color': this.menuConfig.buttonFontColor,
             'font-size.px': this.menuConfig.buttonFontSize,
             'font-weight': this.menuConfig.buttonFontWeight,
         };
-        if (!this.menuState) {
+        if (!this.wingsState) {
             this.menuBtnStyle['opacity'] = this.menuConfig.buttonOpacity;
         }
-        this.menuListStyle = {
+
+        // Setting menuWings style
+        this.menuWingsStyle = {
             'top.px': -(this.menuConfig.radius - this.menuConfig.buttonWidth) / 2,
             'left.px': +this.menuConfig.buttonWidth / 2,
             'width.px': +this.menuConfig.radius,
             'height.px': +this.menuConfig.radius,
         };
 
+        return;
+    }
+
+    /**
+     * Set host element's top and left position
+     * @param positionName {string}
+     * @returns {void}
+     * */
+    private setHostElementPosition(positionName: string): void {
+        this.top = this.menuOptions.MenuPositions[positionName].top;
+        this.left = this.menuOptions.MenuPositions[positionName].left;
+        this.renderer.setStyle(this.elm.nativeElement, 'top', this.top + 'px');
+        this.renderer.setStyle(this.elm.nativeElement, 'left', this.left + 'px');
+
+        // For menu spin purpose
+        this.menuOptions.Center = {x: this.left, y: this.top};
         return;
     }
 

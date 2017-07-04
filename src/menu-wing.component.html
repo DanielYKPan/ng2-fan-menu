@@ -16,8 +16,8 @@
               dominant-baseline="central"
               style="text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);"
               [ngStyle]="{'font-size': menuConfig.wingFontSize + 'px'}"
-              [attr.text-anchor]="textAnchor"
-              [attr.transform]="'rotate('+ textRotate + ', ' + menuConfig.radius/2  + ', ' + menuConfig.radius/2 + ')'"
+              [attr.text-anchor]="wingTextStyle.textAnchor"
+              [attr.transform]="'rotate('+ wingTextStyle.textRotate + ', ' + menuConfig.radius/2  + ', ' + menuConfig.radius/2 + ')'"
               [attr.fill]="wing.titleColor || menuConfig.wingFontColor">{{wing.title}}
         </text>
     </svg>

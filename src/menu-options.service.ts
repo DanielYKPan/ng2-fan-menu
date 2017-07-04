@@ -90,6 +90,7 @@ export class MenuOptions {
     /* Property center */
     private center: {x: number, y: number};
 
+    // For setting the menu spin start position
     get Center(): {x: number, y: number} {
         return this.center;
     }
@@ -101,6 +102,13 @@ export class MenuOptions {
         };
     }
 
+    /* Property menuPositions */
+    private menuPositions: any;
+
+    get MenuPositions(): any {
+        return this.menuPositions;
+    }
+
     constructor() {
     }
 
@@ -108,6 +116,33 @@ export class MenuOptions {
         this.menuConfig = Object.assign(this.menuConfig, menuConfig);
         this.gutter = Object.assign(this.gutter, gutter);
         this.startAngles = Object.assign(this.startAngles, startAngles);
+
+        this.menuPositions = {
+            'topLeft': {
+                'top': this.gutter.top,
+                'left': this.gutter.left,
+                'textAnchor': 'middle',
+                'textRotate': 0,
+            },
+            'topRight': {
+                'top': this.gutter.top,
+                'left': window.innerWidth - this.menuConfig.buttonWidth - this.gutter.right,
+                'textAnchor': 'end',
+                'textRotate': 180,
+            },
+            'bottomRight': {
+                'top': window.innerHeight - this.menuConfig.buttonWidth - this.gutter.bottom,
+                'left': window.innerWidth - this.menuConfig.buttonWidth - this.gutter.right,
+                'textAnchor': 'end',
+                'textRotate': 180,
+            },
+            'bottomLeft': {
+                'top': window.innerHeight - this.menuConfig.buttonWidth - this.gutter.bottom,
+                'left': this.gutter.left,
+                'textAnchor': 'middle',
+                'textRotate': 0,
+            }
+        };
     }
 
 }

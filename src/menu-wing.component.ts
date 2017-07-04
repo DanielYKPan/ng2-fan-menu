@@ -43,10 +43,7 @@ export class MenuWingComponent implements OnChanges, OnInit, AfterViewInit, OnDe
     @Input() public wing: IMenuWing;
     @Input() public index: number;
     @Input() public svgPath: string;
-    @Input() public menuState: boolean;
     @Input() public position: string;
-    @Input() public textRotate: number;
-    @Input() public textAnchor: string;
     @Output() public wingClicked = new EventEmitter<IMenuWing>();
     @Output() public wingHovered = new EventEmitter<IMenuWing>();
     @Output() public wingSpinning = new EventEmitter<boolean>();
@@ -58,6 +55,7 @@ export class MenuWingComponent implements OnChanges, OnInit, AfterViewInit, OnDe
     public iconX: number;
     public iconY: number;
     public iconSize: number;
+    public wingTextStyle: any;
 
     private wingSpunDegs: number = 0;
     private wingSpunSubscriptionId: Subscription;
@@ -94,6 +92,7 @@ export class MenuWingComponent implements OnChanges, OnInit, AfterViewInit, OnDe
             this.rotateDeg = this.startAngles +
                 (this.index * this.menuConfig.angle);
             this.setWingTransformStyle();
+            this.wingTextStyle = this.menuOptions.MenuPositions[this.position];
         }
 
         if (changes['position'] && !changes['position'].isFirstChange()) {
