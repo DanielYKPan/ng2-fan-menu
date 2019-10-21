@@ -43,7 +43,7 @@ import { SpinService } from './menu-spin.service';
             transition(':enter', [
                 style({transform: 'scale(0)'}),
                 animate('500ms cubic-bezier(0.680, -0.550, 0.265, 1.550)', style({transform: 'scale(1)'})),
-                query('@rotateWing', animateChild())
+                query('@rotateWing', animateChild(), {optional: true})
             ]),
             transition(':leave', [
                 animate('500ms cubic-bezier(0.680, -0.550, 0.265, 1.550)', style({transform: 'scale(0)'}))
