@@ -1,6 +1,6 @@
 # Angular Fan Menu for web and mobile
 
-Angular Fan Menu is an `angular component` for cool menu component for web and mobile, developed using `angularJS 4`, `CSS3`, `HTML5`.
+Angular Fan Menu is an `angular component` for cool menu component for web and mobile, developed using `angular 8`, `CSS3`, `HTML5`.
 
 ### Features
 - Highly Configurable component properties and methods
@@ -15,7 +15,7 @@ View the [Demo here](https://danielykpan.github.io/ng2-fan-menu/).
 ## Getting Started
 
 ### Source Code 
-- Install with [npm](https://www.npmjs.com): `npm install ng2-fan-menu --save`
+- Install with [npm](https://www.npmjs.com): `npm install fan-menu --save`
 
 - Setup with the below instructions.
 
@@ -28,7 +28,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { BrowserModule }  from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { FanMenuModule } from 'ng2-fan-menu';
+import { FanMenuModule } from 'fan-menu';
 
 @NgModule({
     imports: [
