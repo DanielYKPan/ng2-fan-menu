@@ -4,7 +4,7 @@
 
 import { Injectable } from '@angular/core';
 import { MenuOptions } from './menu-options.service';
-import { Subject, Observable } from 'rxjs/Rx';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable()
 export class SpinService {

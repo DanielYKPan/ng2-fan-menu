@@ -1,0 +1,20 @@
+{
+  "name": "fan-menu",
+  "version": "0.0.2",
+  "description": "Angular 8 Fan Menu Component",
+  "keywords": [
+    "Angular8",
+    "rxjs",
+    "Menu"
+  ],
+  "author": "daniel pan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dragosch/fan-menu.git"
+  },
+  "peerDependencies": {
+    "@angular/common": "^8.2.11",
+    "@angular/core": "^8.2.11"
+  }
+}

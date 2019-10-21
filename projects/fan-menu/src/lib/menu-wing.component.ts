@@ -9,7 +9,7 @@ import {
 import { IMenuWing, MenuOptions } from './menu-options.service';
 import { SpinService } from './menu-spin.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-menu-wing',
@@ -39,7 +39,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class MenuWingComponent implements OnChanges, OnInit, AfterViewInit, OnDestroy {
 
-    @ViewChild('wingIconElm') public wingIconElm: ElementRef;
+    @ViewChild('wingIconElm', {static: false}) public wingIconElm: ElementRef;
     @Input() public wing: IMenuWing;
     @Input() public index: number;
     @Input() public svgPath: string;

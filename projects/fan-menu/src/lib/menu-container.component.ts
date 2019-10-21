@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { animate, animateChild, group, query, style, transition, trigger } from '@angular/animations';
 import { MenuOptions, IMenuConfig, IMenuWing } from './menu-options.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { SpinService } from './menu-spin.service';
 
 @Component({
@@ -53,7 +53,7 @@ import { SpinService } from './menu-spin.service';
 })
 export class MenuContainerComponent implements OnInit, OnDestroy {
 
-    @ViewChild('menuWings') public menuWingsElm: ElementRef;
+    @ViewChild('menuWings', {static: false}) public menuWingsElm: ElementRef;
 
     @Input() public options: IMenuConfig;
 
@@ -77,6 +77,7 @@ export class MenuContainerComponent implements OnInit, OnDestroy {
     // Emit true if the whole menu list is being spun
     @Output() public onMenuListSpinning = new EventEmitter<boolean>();
 
+    public buttonText: string;
     public menuBtnStyle: Object;
     public menuWingsStyle: Object;
     public svgPath: string;
@@ -113,6 +114,7 @@ export class MenuContainerComponent implements OnInit, OnDestroy {
         this.menuOptions.setMenuOptions(this.options, this.gutter, this.startAngles);
         this.menuConfig = this.menuOptions.MenuConfig;
         this.wingsState = this.menuConfig.defaultOpen;
+        this.buttonText = this.menuConfig.buttonText;
         this.positionClass = this.menuConfig.defaultPosition;
         this.setElementsStyle();
         this.calculateSvgPath();
@@ -280,14 +282,11 @@ export class MenuContainerComponent implements OnInit, OnDestroy {
             'width.px': +this.menuConfig.radius,
             'height.px': +this.menuConfig.radius,
         };
-
-        return;
     }
 
     /**
      * Set host element's top and left position
      * @param positionName {string}
-     * @returns {void}
      * */
     private setHostElementPosition(positionName: string): void {
         this.top = this.menuOptions.MenuPositions[positionName].top;
@@ -297,7 +296,6 @@ export class MenuContainerComponent implements OnInit, OnDestroy {
 
         // For menu spin purpose
         this.menuOptions.Center = {x: this.left, y: this.top};
-        return;
     }
 
     /**
@@ -322,7 +320,5 @@ export class MenuContainerComponent implements OnInit, OnDestroy {
             radius + ',' + radius + ' 0 0, 1' + ' ' + x2 + ',' + y2 +
             ' L' + a2 + ',' + b2 + '  A' + innerRadius + ',' + innerRadius +
             ' 1 0, 0' + ' ' + a1 + ',' + b1 + ' z';
-
-        return;
     }
 }
