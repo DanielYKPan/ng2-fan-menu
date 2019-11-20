@@ -5,7 +5,7 @@
             (mouseleave)="onMouseOutMenu()"
             (tap)="toggleMenu()"
             (panstart)="onPanStart()"
-            (panend)="onPanEnd()" [@btnText]="wingsState" (@btnText.done)="animationDone($event)">
+            (panend)="onPanEnd()" [@btnText]="wingsState" (@btnText.done)="animationDone()">
         <span class="btn-cross"
               *ngIf="wingsState;else elseBlock">
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +22,7 @@
             </svg>
         </span>
         <ng-template #elseBlock>
-            <span class="btn-text">Menu</span>
+            <span class="btn-text">{{buttonText}}</span>
         </ng-template>
     </button>
     <div class="menu-wings"
